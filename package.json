@@ -1,0 +1,7 @@
+{
+	"name": "climbing_memo",
+	"description": "Front-end application to visualize rock climbing data",
+	"devDependencies": {
+		"bower": "~1.3.12"
+	}
+}

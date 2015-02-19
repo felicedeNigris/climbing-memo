@@ -7,11 +7,11 @@
 		<title>Rock Climbing memo</title>
 
 		<!-- CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.1/css/jquery.dataTables.css">
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css">
 		<link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.css">
-		<link rel="stylesheet" href="resources/css/custom.css">
+		<link rel="stylesheet" href="css/custom.css">
 
 	</head>
 	<body>
@@ -63,14 +63,15 @@
 		</div>
 
 		<!-- JS -->
-		<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		<script defer src="https://cdn.datatables.net/1.10.1/js/jquery.dataTables.js"></script>
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
 		<script defer src="https://cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-		<script defer src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script defer src="bower_components/d3/d3.js" charset="utf-8"></script>
+		<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+		<script src="bower_components/gmaps/gmaps.js"></script>
 
-		<script src="resources/js/climbing_utils.js"></script>
+		<script src="js/climbing_utils.js"></script>
 		<script>
 			var dropZone = document.getElementById("drop-zone");
 			dropZone.addEventListener('dragover', handleDragOver, false);
