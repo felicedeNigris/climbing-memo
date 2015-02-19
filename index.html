@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Rock Climbing memo</title>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.1/css/jquery.dataTables.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.css">
+		<link rel="stylesheet" href="resources/css/custom.css">
+
+	</head>
+	<body>
+
+		<div class="container">
+
+			<div class="page-header">
+				<h1>Data Analyzer <small> Rock climbing sites</small></h1>
+			</div>
+
+			<!-- Panel Data -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> Data</h3>
+				</div>
+				<div class="panel-body" id="panel-data">
+					<div id="drop-zone">Drag &amp; Drop file here.</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+
+					<!-- Panel Map -->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span> Map</h3>
+						</div>
+						<div class="panel-body" id="panel-map">
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-md-6">
+
+					<!-- Panel Chart -->
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title"><span class="glyphicon glyphicon-stats"></span> Chart</h3>
+						</div>
+						<div class="panel-body" id="panel-chart">
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<!-- JS -->
+		<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script defer src="https://cdn.datatables.net/1.10.1/js/jquery.dataTables.js"></script>
+		<script defer src="https://cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+		<script defer src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+		<script src="resources/js/climbing_utils.js"></script>
+		<script>
+			var dropZone = document.getElementById("drop-zone");
+			dropZone.addEventListener('dragover', handleDragOver, false);
+			dropZone.addEventListener('drop', handleFileSelect, false);
+		</script>
+	</body>
+</html>
