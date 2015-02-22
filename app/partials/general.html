@@ -11,13 +11,38 @@
 	<div class="panel-body">
 		<table ng-table class="table table-condensed">
 			<tr ng-repeat="route in routes">
-				<td data-title="'Name'">{{route.name}}</td>
-				<td data-title="'Grade'">{{route.grade}}</td>
-				<td data-title="'Rating'">{{route.rating}}</td>
-				<td data-title="'Setter'">{{route.setter}}</td>
-				<td data-title="'Status'">{{route.status}}</td>
-				<td data-title="'Rock'">{{route.rock}}</td>
-				<td data-title="'Location'">{{route.location}}</td>
+				<td data-title="'Name'">
+					<span ng-if="!route.$edit">{{route.name}}</span>
+					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.name" /></div>
+				</td>
+				<td data-title="'Grade'">
+					<span ng-if="!route.$edit">{{route.grade}}</span>
+					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.grade" /></div>
+				</td>
+				<td data-title="'Rating'">
+					<span ng-if="!route.$edit">{{route.rating}}</span>
+					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.rating" /></div>
+				</td>
+				<td data-title="'Setter'">
+					<span ng-if="!route.$edit">{{route.setter}}</span>
+					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.setter" /></div>
+				</td>
+				<td data-title="'Status'">
+					<span ng-if="!route.$edit">{{route.status}}</span>
+					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.status" /></div>
+				</td>
+				<td data-title="'Rock'">
+					<span ng-if="!route.$edit">{{route.rock}}</span>
+					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.rock" /></div>
+				</td>
+				<td data-title="'Location'">
+					<span ng-if="!route.$edit">{{route.location}}</span>
+					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.location" /></div>
+				</td>
+				<td data-title="'Actions'">
+					<a ng-if="!route.$edit" href="" class="btn btn-default btn-xs" ng-click="route.$edit = true">Edit</a>
+					<a ng-if="route.$edit" href="" class="btn btn-default active btn-xs" ng-click="route.$edit = false">Edit</a>
+				</td>
 			</tr>
 		</table>
 	</div>

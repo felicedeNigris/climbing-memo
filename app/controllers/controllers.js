@@ -5,5 +5,6 @@ app.controller ('GeneralController', function ($scope,routeService) {
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
 
-	$scope.routes = routeService.getRoutes();
+	routeService.getRoutes().$bindTo($scope,"routes");
+
 });

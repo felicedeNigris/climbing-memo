@@ -9,3 +9,5 @@ app.config (function ($routeProvider) {
 			templateUrl: 'app/partials/general.html'
 		});
 });
+
+app.constant('FIREBASE_URL', 'https://<YOUR_FIREBASE_URL>.firebaseio.com');
