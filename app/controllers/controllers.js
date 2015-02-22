@@ -7,4 +7,16 @@ app.controller ('GeneralController', function ($scope,routeService) {
 
 	routeService.getRoutes().$bindTo($scope,"routes");
 
+	$scope.addRoute = function () {
+		var id = Date.now();
+		$scope.routes[id] = {
+			'$edit':true,
+			'id': id
+		};
+	};
+	
+	$scope.deleteRoute = function (route) {
+		if ($scope.routes[route.id] != undefined)
+			delete $scope.routes[route.id];
+	};
 });
