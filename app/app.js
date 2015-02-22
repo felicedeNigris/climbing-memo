@@ -1,5 +1,5 @@
 
-var app = angular.module('climbingMemo', ['ngRoute']);
+var app = angular.module('climbingMemo', ['ngRoute','ngTable']);
 
 app.config (function ($routeProvider) {
 	$routeProvider
