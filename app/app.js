@@ -1,5 +1,5 @@
 
-var app = angular.module('climbingMemo', ['ngRoute','ngTable']);
+var app = angular.module('climbingMemo', ['ngRoute','ngTable','firebase']);
 
 app.config (function ($routeProvider) {
 	$routeProvider
@@ -9,4 +9,3 @@ app.config (function ($routeProvider) {
 			templateUrl: 'app/partials/general.html'
 		});
 });
-
