@@ -15,4 +15,4 @@ $ npm install
 $ node_modules/bower/bin/bower install
 $ node server.js
 ```
-
+Create a [firebase account](https://www.firebase.com/) and configure your app URL in [app/app.js](app/app.js)
