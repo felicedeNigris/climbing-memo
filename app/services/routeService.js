@@ -1,4 +1,4 @@
-app.factory('routeService', function routeService($firebase,FIREBASE_URL) {
+app.factory('routeService', function routeService($firebase,FIREBASE_URL,$http) {
 
 	var _ref = new Firebase(FIREBASE_URL);
 	var routeService = {};
@@ -6,6 +6,7 @@ app.factory('routeService', function routeService($firebase,FIREBASE_URL) {
 	routeService.getRoutes = function () {
 		return $firebase(_ref.child('routes')).$asObject();
 	};
+
 
 	return routeService;
 

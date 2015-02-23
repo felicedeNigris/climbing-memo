@@ -93,13 +93,21 @@ function drawGoogleMap (data) {
 	var map = new google.maps.Map(document.getElementById('panel-map'),{} );
 	var bounds = new google.maps.LatLngBounds();
 
+	console.log(data);
 	for (var key in data)
 	{
 		var site = data[key];
 
+		console.log(site);
+		// Test valid site to display
+		if (typeof site !== 'object' ||	!site ||
+			!site.hasOwnProperty('name') ||
+			!site.hasOwnProperty('latitude') ||
+			!site.hasOwnProperty('longitude'))
+			continue;
+
 		var contentString = '<div style="white-space:nowrap">'+
-			'<b>'+site.name+'</b><br>'+
-			'<span class="muted">'+site.type+'</span></div>';
+			'<b>'+site.location+'</b></div>';
 
 		marker = new google.maps.Marker({
 			position: new google.maps.LatLng(site.latitude,site.longitude),

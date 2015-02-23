@@ -9,7 +9,7 @@
 		<button class="pull-right btn btn-success btn-xs" ng-click="addRoute()">Add</button>
 		<h2><i class="glyphicon glyphicon-grain"></i> Climbing routes</h2>
 
-		<table ng-table class="table table-condensed">
+		<table ng-table="tableParams" class="table table-condensed">
 			<tr ng-repeat="route in routes">
 				<td data-title="'Name'">
 					<span ng-if="!route.$edit">{{route.name}}</span>
@@ -29,7 +29,14 @@
 				</td>
 				<td data-title="'Status'">
 					<span ng-if="!route.$edit">{{route.status}}</span>
-					<div ng-if="route.$edit"><input placeholder="Status" class="form-control" type="text" ng-model="route.status" ></div>
+					<div ng-if="route.$edit">
+						<select class="form-control" ng-model="route.status" style="width:80px">
+							<option>Project</option>
+							<option>Redpoint</option>
+							<option>Flash</option>
+							<option>Onsight</option>
+						</select>
+					</div>
 				</td>
 				<td data-title="'Rock'">
 					<span ng-if="!route.$edit">{{route.rock}}</span>
@@ -41,7 +48,7 @@
 				</td>
 				<td data-title="'Actions'" width="90">
 					<span ng-if="!route.$edit" class="label label-info" ng-click="route.$edit = true">Edit</span>
-					<span ng-if="route.$edit" class="label label-primary" ng-click="route.$edit = false">Done</span>
+					<span ng-if="route.$edit" class="label label-primary" ng-click="updatedRoute(route)">Done</span>
 					<span ng-if="!route.$edit" class="label label-danger" ng-click="deleteRoute(route)">Delete</span>
 				</td>
 			</tr>
