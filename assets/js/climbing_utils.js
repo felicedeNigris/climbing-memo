@@ -1,92 +1,3 @@
-/******************
- * Handle Data File
- ******************/
-function handleFileSelect (evt) {
-	evt.stopPropagation();
-	evt.preventDefault();
-
-	var file = evt.dataTransfer.files[0];
-
-	if (file)
-	{
-		var reader = new FileReader();
-		reader.onload = function(e) { 
-			var csv = e.target.result;
-			var data = processData(csv);
-			initAnalyzer(data);
-		}
-		reader.readAsText(file);
-	}
-}
-
-function processData (csv) {
-	var allTextLines = csv.split(/\r\n|\n/);
-	var lines = [];
-
-	for (var i=0; i < allTextLines.length; i++) {
-		var data = allTextLines[i].split(',');
-		var columns = [];
-
-		for (var j=0; j<data.length; j++) {
-			if (data[j].length > 0)
-				columns.push(data[j]);
-		}
-		if (columns.length > 0)
-			lines.push(columns);
-	}
-	return lines;
-}
-
-function handleDragOver (evt) {
-	evt.stopPropagation();
-	evt.preventDefault();
-	evt.dataTransfer.dropEffect = 'copy'; 
-}
-
-/******************
- * Create analyzer
- ******************/
-function initAnalyzer (data) {
-	$('#panel-data').html( '<table class="table table-striped table-bordered" id="custom-datatable"></table>' );
-
-	var timeout;
-
-	// Create dataTable
-	var dataTable = $('#custom-datatable').dataTable( {
-		"data": data,
-		"aLengthMenu": [5, 10, 25,50],
-		"iDisplayLength": 5,
-		"columns": [
-			{ "title": "Name" },
-			{ "title": "Latitude" },
-			{ "title": "Longitude" },
-			{ "title": "Country" },
-			{ "title": "Elevation" },
-			{ "title": "Type" },
-			{ "title": "Routes" },
-			{ "title": "Grade" },
-		],
-		"columnDefs": [
-			{
-				"targets": [ 1,2 ],
-				"visible": false,
-				"searchable": false
-			}
-		],
-		"fnDrawCallback": function (o) {
-			window.clearTimeout(timeout);
-			timeout = window.setTimeout(drawSubPanels,800);
-		},
-	} );
-
-	function drawSubPanels () {
-		var data = getFilteredData(dataTable);
-
-		drawGoogleMap(data);
-		drawScatterPlot(data);
-	}
-};
-
 
 function drawGoogleMap (data) {
 
@@ -98,7 +9,6 @@ function drawGoogleMap (data) {
 	{
 		var site = data[key];
 
-		console.log(site);
 		// Test valid site to display
 		if (typeof site !== 'object' ||	!site ||
 			!site.hasOwnProperty('name') ||
@@ -237,31 +147,4 @@ function drawScatterPlot(data) {
 			return 0;
 		return parseFloat(string.replace(",",""));
 	}
-}
-
-/******************
- * DataTable utils
- * ****************/
-
-function getFilteredData (dataTable) {
-	var o = dataTable.fnSettings();
-	var header = new Array();
-	var data = new Array();
-
-	// get Headers
-	o.aoColumns.forEach(function(entry){
-		header[entry.sTitle.toLowerCase()] = entry.mData;
-	});
-
-	// Fitler rows
-	var rows = o.oInstance._('tr', {"filter":"applied"});
-	for (var i = 0 ; i< rows.length ; i ++) {
-		var entry = rows[i];
-		var obj = new Object();
-		for (var index in header)
-			obj[index] = $('<p>'+entry[header[index]]+'</p>').text();
-		data.push(obj);
-	}
-
-	return data;
 }

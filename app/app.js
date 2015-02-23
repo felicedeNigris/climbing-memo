@@ -10,4 +10,4 @@ app.config (function ($routeProvider) {
 		});
 });
 
-app.constant('FIREBASE_URL', 'https://<YOUR_FIREBASE_URL>.firebaseio.com');
+app.constant('FIREBASE_URL', 'https://dazzling-heat-1886.firebaseio.com');
