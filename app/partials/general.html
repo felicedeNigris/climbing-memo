@@ -1,49 +1,48 @@
 
 <div class="page-header">
-	<h1>Data Analyzer <small> Climbing routes</small></h1>
+	<h1>Climbing Memo<small> - Remember your progress</small></h1>
 </div>
 
 <!-- Panel Data -->
 <div class="panel panel-default">
-	<div class="panel-heading">
-		<h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> Data</h3>
-	</div>
 	<div class="panel-body">
-		<button class="btn btn-success btn-xs" ng-click="addRoute()">Add</button>
+		<button class="pull-right btn btn-success btn-xs" ng-click="addRoute()">Add</button>
+		<h2><i class="glyphicon glyphicon-grain"></i> Climbing routes</h2>
+
 		<table ng-table class="table table-condensed">
 			<tr ng-repeat="route in routes">
 				<td data-title="'Name'">
 					<span ng-if="!route.$edit">{{route.name}}</span>
-					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.name" /></div>
+					<div ng-if="route.$edit"><input placeholder="Name" class="form-control" type="text" ng-model="route.name"></div>
 				</td>
 				<td data-title="'Grade'">
 					<span ng-if="!route.$edit">{{route.grade}}</span>
-					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.grade" /></div>
+					<div ng-if="route.$edit"><input placeholder="Grade" class="form-control" type="text" ng-model="route.grade" ></div>
 				</td>
 				<td data-title="'Rating'">
 					<span ng-if="!route.$edit">{{route.rating}}</span>
-					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.rating" /></div>
+					<div ng-if="route.$edit"><input placeholder="Rating" class="form-control" type="text" ng-model="route.rating" ></div>
 				</td>
 				<td data-title="'Setter'">
 					<span ng-if="!route.$edit">{{route.setter}}</span>
-					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.setter" /></div>
+					<div ng-if="route.$edit"><input placeholder="Setter" class="form-control" type="text" ng-model="route.setter" ></div>
 				</td>
 				<td data-title="'Status'">
 					<span ng-if="!route.$edit">{{route.status}}</span>
-					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.status" /></div>
+					<div ng-if="route.$edit"><input placeholder="Status" class="form-control" type="text" ng-model="route.status" ></div>
 				</td>
 				<td data-title="'Rock'">
 					<span ng-if="!route.$edit">{{route.rock}}</span>
-					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.rock" /></div>
+					<div ng-if="route.$edit"><input placeholder="Rock" class="form-control" type="text" ng-model="route.rock" ></div>
 				</td>
-				<td data-title="'Location'">
+				<td data-title="'Location'" >
 					<span ng-if="!route.$edit">{{route.location}}</span>
-					<div ng-if="route.$edit"><input class="form-control" type="text" ng-model="route.location" /></div>
+					<div ng-if="route.$edit"><input placeholder="Location" class="form-control" type="text" ng-model="route.location" ></div>
 				</td>
-				<td data-title="'Actions'">
-					<a ng-if="!route.$edit" href="" class="btn btn-info btn-xs" ng-click="route.$edit = true">Edit</a>
-					<a ng-if="route.$edit" href="" class="btn btn-info active btn-xs" ng-click="route.$edit = false">Edit</a>
-					<a href="" class="btn btn-danger btn-xs" ng-click="deleteRoute(route)">Delete</a>
+				<td data-title="'Actions'" width="90">
+					<span ng-if="!route.$edit" class="label label-info" ng-click="route.$edit = true">Edit</span>
+					<span ng-if="route.$edit" class="label label-primary" ng-click="route.$edit = false">Done</span>
+					<span ng-if="!route.$edit" class="label label-danger" ng-click="deleteRoute(route)">Delete</span>
 				</td>
 			</tr>
 		</table>
