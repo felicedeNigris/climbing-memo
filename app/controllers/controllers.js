@@ -5,8 +5,12 @@ app.controller ('GeneralController', function ($scope,routeService,ngTableParams
 	// Get Data
 	routeService.getRoutes().$bindTo($scope,"routes").then(function () {
 		initController()
-	});
 
+		for (var key in $scope.routes)
+			if (isRoute($scope.routes[key]))
+				$scope.routes[key].$visible = true;
+
+	});
 
 	// Init Controller
 	var initController = function () {
@@ -17,24 +21,12 @@ app.controller ('GeneralController', function ($scope,routeService,ngTableParams
 		$scope.setters = groupBy($scope.routes,"setter");
 	};
 
-	// Util function
-	var groupBy = function (object,field) {
-		var seen = {};
-		return Object.keys(object).map ( function (group) {
-			if (typeof object[group] === 'object' &&
-				object[group] &&
-				object[group].hasOwnProperty(field))
-				return object[group][field];
-		}).filter(function(n) { 
-			return seen.hasOwnProperty(n) || n === undefined ? false : (seen[n] = true)
-		});
-	};
-
 	// Controller methods
 	$scope.addRoute = function () {
 		var id = Date.now();
 		$scope.routes[id] = {
 			'$edit':true,
+			'$visible':true,
 			'id': id
 		};
 	};
