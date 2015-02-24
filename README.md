@@ -7,6 +7,11 @@
 * Scatter plot of attributes
 * Geolocation using Google map
 
+Demo
+-----
+
+Hosted demo is available at [cmizony.com/climbing](http://cmizony.com/climbing)
+
 Quick Start
 -----
 
