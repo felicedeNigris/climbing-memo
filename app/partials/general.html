@@ -79,7 +79,7 @@
 						<span ng-if="!route.$edit">{{route.location}}</span>
 						<div ng-if="route.$edit"><input placeholder="Location" class="form-control" type="text" ng-model="route.location" typeahead="location for location in locations | filter:$viewValue"></div>
 					</td>
-					<td >
+					<td style="width:90px" >
 						<span ng-if="!route.$edit" class="label label-info" ng-click="route.$edit = true">Edit</span>
 						<span ng-if="route.$edit" class="label label-primary" ng-click="updatedRoute(route)">Done</span>
 						<span ng-if="!route.$edit" class="label label-danger" ng-click="deleteRoute(route)">Delete</span>

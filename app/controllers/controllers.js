@@ -1,6 +1,6 @@
 
 
-app.controller ('GeneralController', function ($scope,routeService,ngTableParams,$http) {
+app.controller ('GeneralController', function ($scope,routeService,$http) {
 
 	// Get Data
 	routeService.getRoutes().$bindTo($scope,"routes").then(function () {
