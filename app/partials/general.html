@@ -20,31 +20,57 @@
 					<div ng-if="route.$edit"><input placeholder="Grade" class="form-control" type="text" ng-model="route.grade" ></div>
 				</td>
 				<td data-title="'Rating'">
-					<span ng-if="!route.$edit">{{route.rating}}</span>
-					<div ng-if="route.$edit"><input placeholder="Rating" class="form-control" type="text" ng-model="route.rating" ></div>
+					<span ng-if="!route.$edit"><rating readonly="true" ng-model="route.rating"></rating></span>
+					<div ng-if="route.$edit" style="min-width:80px"><rating ng-model="route.rating"></rating></div>
 				</td>
 				<td data-title="'Setter'">
 					<span ng-if="!route.$edit">{{route.setter}}</span>
-					<div ng-if="route.$edit"><input placeholder="Setter" class="form-control" type="text" ng-model="route.setter" ></div>
+					<div ng-if="route.$edit"><input placeholder="Setter" typeahead="setter for setter in setters | filter:$viewValue" class="form-control" type="text" ng-model="route.setter" ></div>
 				</td>
 				<td data-title="'Status'">
 					<span ng-if="!route.$edit">{{route.status}}</span>
 					<div ng-if="route.$edit">
 						<select class="form-control" ng-model="route.status" style="width:80px">
-							<option>Project</option>
+							<option>Attempt</option>
 							<option>Redpoint</option>
 							<option>Flash</option>
 							<option>Onsight</option>
 						</select>
 					</div>
 				</td>
+				<td data-title="'Climb'">
+					<span ng-if="!route.$edit">{{route.climb}}</span>
+					<div ng-if="route.$edit">
+						<select class="form-control" ng-model="route.climb" style="width:80px">
+							<option>Sport lead</option>
+							<option>Boulder</option>
+							<option>Traditional</option>
+							<option>Multi-pitch</option>
+							<option>Top rope</option>
+						</select>
+					</div>
+				</td>
 				<td data-title="'Rock'">
 					<span ng-if="!route.$edit">{{route.rock}}</span>
-					<div ng-if="route.$edit"><input placeholder="Rock" class="form-control" type="text" ng-model="route.rock" ></div>
+					<div ng-if="route.$edit">
+						<select class="form-control" ng-model="route.rock" style="width:80px">
+							<option>Granite</option>
+							<option>Sandstone</option>
+							<option>Limestone</option>
+							<option>Indoor</option>
+							<option>Conglomerate</option>
+							<option>Basalt</option>
+							<option>Volcanic</option>
+						</select>
+					</div>
+				</td>
+				<td data-title="'Sector'" >
+					<span ng-if="!route.$edit">{{route.sector}}</span>
+					<div ng-if="route.$edit"><input placeholder="Sector" typeahead="sector for sector in sectors | filter:$viewValue" class="form-control" type="text" ng-model="route.sector" ></div>
 				</td>
 				<td data-title="'Location'" >
 					<span ng-if="!route.$edit">{{route.location}}</span>
-					<div ng-if="route.$edit"><input placeholder="Location" class="form-control" type="text" ng-model="route.location" ></div>
+					<div ng-if="route.$edit"><input placeholder="Location" class="form-control" type="text" ng-model="route.location" typeahead="location for location in locations | filter:$viewValue"></div>
 				</td>
 				<td data-title="'Actions'" width="90">
 					<span ng-if="!route.$edit" class="label label-info" ng-click="route.$edit = true">Edit</span>

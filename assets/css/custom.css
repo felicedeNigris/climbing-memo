@@ -27,8 +27,8 @@ h2
 	margin-bottom:20px;
 }
 
+/* Material design edit in ng-table */
 select.form-control
 {
 	height:28px;
-	
 }

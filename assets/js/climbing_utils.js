@@ -4,7 +4,6 @@ function drawGoogleMap (data) {
 	var map = new google.maps.Map(document.getElementById('panel-map'),{} );
 	var bounds = new google.maps.LatLngBounds();
 
-	console.log(data);
 	for (var key in data)
 	{
 		var site = data[key];

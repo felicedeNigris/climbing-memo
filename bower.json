@@ -11,6 +11,7 @@
     "ng-table": "~0.5.1",
     "firebase": "~2.2.0",
     "angularfire": "~0.9.2",
+    "angular-bootstrap": "~0.12.1",
 	"bootstrap-material-design": "~0.2.0"
   },
   "resolutions": {
