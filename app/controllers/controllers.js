@@ -1,4 +1,9 @@
 
+app.controller ('MainController', function ($scope) {
+	$scope.$on('$viewContentLoaded', function(){
+		$.material.init();
+	});
+});
 
 app.controller ('GeneralController', function ($scope,routeService,$http) {
 
