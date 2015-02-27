@@ -5,7 +5,7 @@ app.controller ('MainController', function ($scope) {
 	});
 });
 
-app.controller ('GeneralController', function ($scope,routeService,$http) {
+app.controller ('GeneralController', function ($scope,$filter,routeService,$http) {
 
 	// Get Data
 	routeService.getRoutes().$bindTo($scope,"routes").then(function () {
@@ -40,10 +40,19 @@ app.controller ('GeneralController', function ($scope,routeService,$http) {
 			'id': id
 		};
 	};
-	
+
+	$scope.openDatepicker = function($event,route) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.routes[route.id].$datepicker = !route.$datepicker;
+	};
+
 	$scope.updatedRoute = function (route) {
 		
 		route.$edit = false;
+		route.date = $filter('date')(route.date,'dd/MM/yyyy'); // Save to Firebase
+
 		var baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 
 		$http.get(baseUrl+ encodeURIComponent(route.location)).success(function (data) {
@@ -63,4 +72,5 @@ app.controller ('GeneralController', function ($scope,routeService,$http) {
 			initController();
 		}
 	};
+
 });

@@ -3,16 +3,30 @@
 	<h1>Memo<small> <i class="glyphicon glyphicon-pencil"></i> Remember your progress</small></h1>
 </div>
 
+<!-- Panel Overview -->
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title"><span class="glyphicon glyphicon-calendar"></span> Overview</h3>
+	</div>
+	<div class="panel-body">
+		<div class="row">	
+			<div class="col-md-4"></div>
+			<div class="col-md-8"></div>
+		</div>
+	</div>
+</div>
+
 <!-- Panel Data -->
 <div class="panel panel-default">
 	<div class="panel-body">
+
 		<button class="pull-right btn btn-success btn-xs" ng-click="addRoute()">Add</button>
 		<h2><i class="glyphicon glyphicon-grain"></i> Climbing routes</h2>
 
-		<table class="table table-condensed">
+		<table class="table table-condensed table-hover">
 			<thead>
 				<tr>
-					<th>Name</th> <th>Grade</th> <th>Rating</th> <th>Setter</th> <th>Status</th> <th>Climb</th>
+					<th>Name</th> <th>Grade</th> <th>Rating</th> <th>Setter</th> <th>Status</th> <th>Date</th> <th>Climb</th>
 					<th>Rock</th> <th>Sector</th><th>Location</th><th>Action</th>
 				</tr>
 			</thead>
@@ -43,6 +57,11 @@
 								<option>Flash</option>
 								<option>Onsight</option>
 							</select>
+						</div>
+					</td>
+					<td >
+						<span ng-if="!route.$edit">{{route.date}}</span>
+						<div ng-if="route.$edit"><input type="text" class="form-control" ng-model="route.date" datepicker-popup='EEE MMM dd y' is-open="route.$datepicker" ng-click="openDatepicker($event,route)">
 						</div>
 					</td>
 					<td >
@@ -87,15 +106,6 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
-</div>
-
-<!-- Panel Data -->
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<h3 class="panel-title"><span class="glyphicon glyphicon-calendar"></span> Performances</h3>
-	</div>
-	<div class="panel-body" id="panel-data">
 	</div>
 </div>
 
