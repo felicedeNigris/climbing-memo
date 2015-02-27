@@ -1,7 +1,6 @@
 
 app.controller ('MainController', function ($scope) {
 	$scope.$on('$viewContentLoaded', function(){
-		$.material.init();
 	});
 });
 
@@ -34,11 +33,19 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 	// Controller methods
 	$scope.addRoute = function () {
 		var id = Date.now();
+
+		// Set default values
 		$scope.routes[id] = {
 			'$edit':true,
 			'$visible':true,
+			'date':$filter('date')(id,'dd/MM/yyyy'),
+			'climb':'Top rope',
+			'status':'Attempt',
+			'rock':'Indoor',
 			'id': id
 		};
+
+
 	};
 
 	$scope.openDatepicker = function($event,route) {
