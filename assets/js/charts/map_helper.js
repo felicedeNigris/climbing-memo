@@ -20,6 +20,7 @@ function getMapChartData (rawData) {
 				count: climbs[type].length
 			});
 		}
+		metrics.sort(function (a,b) { return a.count < b.count; });
 
 		data.push({
 			name: key,

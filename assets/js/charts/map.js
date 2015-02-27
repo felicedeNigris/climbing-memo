@@ -18,7 +18,7 @@ function getMapChart () {
 
 			// List of climbing types
 			if (site.metrics.length > 0) {
-				contentString += '<ul class="list-unstyled">';
+				contentString += '<ul class="list-unstyled" style="margin-bottom:0px">';
 
 				for (var j=0 ; j < site.metrics.length ; j++)
 					contentString += '<li>'+site.metrics[j].type+': '+site.metrics[j].count+'</li>';
