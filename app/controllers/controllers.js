@@ -12,18 +12,23 @@ app.controller ('GeneralController', function ($scope,routeService,$http) {
 		initController()
 
 		for (var key in $scope.routes)
-			if (isRoute($scope.routes[key]))
+			if (routeService.isObject($scope.routes[key]))
 				$scope.routes[key].$visible = true;
 
 	});
 
 	// Init Controller
 	var initController = function () {
-		drawGoogleMap($scope.routes);
 
-		$scope.locations = groupBy($scope.routes,"location");
-		$scope.sectors = groupBy($scope.routes,"sector");
-		$scope.setters = groupBy($scope.routes,"setter");
+		var arrayRoutes = routeService.objectToArray($scope.routes);
+		drawMapChart({
+			data:arrayRoutes,
+			containerId:'panel-map'
+		});
+		
+		$scope.locations = arrayGroupBy(arrayRoutes,"location");
+		$scope.sectors = arrayGroupBy(arrayRoutes,"sector");
+		$scope.setters = arrayGroupBy(arrayRoutes,"setter");
 	};
 
 	// Controller methods

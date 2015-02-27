@@ -1,17 +1,25 @@
 
-function isRoute (object) {
-	return typeof object === 'object' && object && object.hasOwnProperty('id');
-};
-
-function groupBy (object,field) {
+function arrayGroupBy (data,field) {
 	var seen = {};
-	return Object.keys(object).map ( function (group) {
-		if (typeof object[group] === 'object' &&
-			object[group] &&
-			object[group].hasOwnProperty(field))
-			return object[group][field];
+	return data.map ( function (group) {
+		if (group.hasOwnProperty(field))
+			return group[field];
 	}).filter(function(n) { 
 		return seen.hasOwnProperty(n) || n === undefined ? false : (seen[n] = true)
 	});
-};
+}
 
+function arrayToHashtable (data,field) {
+	var hashtable = [];
+
+	for (var i=0 ; i < data.length ; i++){
+		var index = data[i][field];
+
+		if (typeof hashtable[index] === 'undefined')
+			hashtable[index] = [];
+
+		hashtable[index].push(data[i]);
+	}
+
+	return hashtable;
+}

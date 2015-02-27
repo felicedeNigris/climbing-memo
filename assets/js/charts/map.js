@@ -1,37 +1,58 @@
-function drawGoogleMap (data) {
+function getMapChart () {
 
-	var map = new google.maps.Map(document.getElementById('panel-map'),{} );
-	var bounds = new google.maps.LatLngBounds();
+	var rawData = [];
 
-	for (var key in data)
-	{
-		var site = data[key];
+	function my(container) {
 
-		// Test valid site to display
-		if (typeof site !== 'object' ||	!site ||
-			!site.hasOwnProperty('name') ||
-			!site.hasOwnProperty('latitude') ||
-			!site.hasOwnProperty('longitude'))
-			continue;
+		var map = new google.maps.Map(document.getElementById(container),{} );
+		var bounds = new google.maps.LatLngBounds();
 
-		var contentString = '<div style="white-space:nowrap">'+
-			'<b>'+site.location+'</b></div>';
+		// Process data
+		var data = getMapChartData(rawData);
 
-		marker = new google.maps.Marker({
-			position: new google.maps.LatLng(site.latitude,site.longitude),
-			map: map,
-			title: site.name,
-			infowindow: new google.maps.InfoWindow({content: contentString}),
-		});
+		for (var i=0 ; i < data.length ; i++) {
+			var site = data[i];
 
-		bounds.extend(marker.position);
+			var contentString = '<div style="white-space:nowrap">';
+			contentString += '<b>'+site.name+'</b><br>';
 
-		google.maps.event.addListener(marker, 'click', function() {
-			this.infowindow.open(map,this);
-		});
+			// List of climbing types
+			if (site.metrics.length > 0) {
+				contentString += '<ul class="list-unstyled">';
 
-		google.maps.event.trigger(map, 'resize');
-		map.fitBounds(bounds);
+				for (var j=0 ; j < site.metrics.length ; j++)
+					contentString += '<li>'+site.metrics[j].type+': '+site.metrics[j].count+'</li>';
+
+				contentString += '</ul>';
+			}
+
+			contentString += '</div>';
+
+			marker = new google.maps.Marker({
+				position: new google.maps.LatLng(site.latitude,site.longitude),
+				   map: map,
+				   title: site.name,
+				   infowindow: new google.maps.InfoWindow({content: contentString}),
+			});
+
+			bounds.extend(marker.position);
+
+			google.maps.event.addListener(marker, 'click', function() {
+				this.infowindow.open(map,this);
+			});
+
+			google.maps.event.trigger(map, 'resize');
+			map.fitBounds(bounds);
+		}
+
 	}
+
+	my.data = function (value) {
+		if (!arguments.length) return rawData;
+		rawData = value;
+		return my;
+	};
+
+	return my;
 }
 
