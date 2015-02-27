@@ -7,9 +7,6 @@ function getMapChartData (rawData) {
 	var data = [];
 	for (var key in locations){
 
-		if (key === 'undefined')
-			continue;
-
 		var routes = locations[key];
 
 		var metrics = [];

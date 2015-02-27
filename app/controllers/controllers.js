@@ -20,10 +20,9 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 	var initController = function () {
 
 		var arrayRoutes = routeService.objectToArray($scope.routes);
-		drawMapChart({
-			data:arrayRoutes,
-			containerId:'panel-map'
-		});
+
+		drawMapChart({ data:arrayRoutes, containerId:'panel-map'});
+		drawCalendarHeatmap({ data:arrayRoutes, containerSelector:'#panel-calendar-heatmap'});
 		
 		$scope.locations = arrayGroupBy(arrayRoutes,"location");
 		$scope.sectors = arrayGroupBy(arrayRoutes,"sector");
