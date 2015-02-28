@@ -34,7 +34,7 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 		$scope.setters = arraySetters;
 		$scope.metrics = {
 			count: arrayRoutes.length,
-			favoriteSector: arrayLocations[0],
+			favoriteSector: arraySectors[0],
 			favoriteClimb: arrayClimbs[0],
 		};
 
