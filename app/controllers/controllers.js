@@ -24,9 +24,20 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 		drawMapChart({ data:arrayRoutes, containerId:'panel-map'});
 		drawCalendarHeatmap({ data:arrayRoutes, containerSelector:'#panel-calendar-heatmap'});
 		
-		$scope.locations = arrayGroupBy(arrayRoutes,"location");
-		$scope.sectors = arrayGroupBy(arrayRoutes,"sector");
-		$scope.setters = arrayGroupBy(arrayRoutes,"setter");
+		var arrayLocations = arrayGroupBy(arrayRoutes,"location");
+		var arraySectors = arrayGroupBy(arrayRoutes,"sector");
+		var arraySetters = arrayGroupBy(arrayRoutes,"setter");
+		var arrayClimbs = arrayGroupBy(arrayRoutes,"climb");
+
+		$scope.locations = arrayLocations;
+		$scope.sectors = arraySectors;
+		$scope.setters = arraySetters;
+		$scope.metrics = {
+			count: arrayRoutes.length,
+			favoriteSector: arrayLocations[0],
+			favoriteClimb: arrayClimbs[0],
+		};
+
 	};
 
 	// Controller methods

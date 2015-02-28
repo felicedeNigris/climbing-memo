@@ -1,8 +1,8 @@
 function getCalendarHeatmap () {
 
 	var rawData = [];
-	var width = 800;
 	var cellSize = 13;
+	var width = 54 * cellSize + 10;
 	var height = cellSize*8+10;
 
 	function my(container) {
@@ -137,12 +137,6 @@ function getCalendarHeatmap () {
 	my.data = function (value) {
 		if (!arguments.length) return rawData;
 		rawData = value;
-		return my;
-	};
-
-	my.width = function(value) {
-		if (!arguments.length) return width;
-		width = value;
 		return my;
 	};
 
