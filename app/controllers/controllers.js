@@ -10,9 +10,12 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 	routeService.getRoutes().$bindTo($scope,"routes").then(function () {
 		initController()
 
-		for (var key in $scope.routes)
-			if (routeService.isObject($scope.routes[key]))
+		for (var key in $scope.routes) {
+			if (routeService.isObject($scope.routes[key])) {
 				$scope.routes[key].$visible = true;
+				$scope.routes[key].$date = $scope.routes[key].date;
+			}
+		}
 
 	});
 
@@ -40,13 +43,18 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 
 	// Controller methods
 	$scope.addRoute = function () {
-		var id = Date.now();
+
+		var createdAt = Date.now();
+
+		// Create incremental ID based on current date
+		var id = new Date(4000,0).getTime() - createdAt;
 
 		// Set default values
 		$scope.routes[id] = {
 			'$edit':true,
 			'$visible':true,
-			'date':$filter('date')(id,'dd/MM/yyyy'),
+			'$date':$filter('date')(createdAt,'dd/MM/yyyy'),
+			'createdAt': createdAt,
 			'status':'Attempt',
 			'id': id
 		};
@@ -64,7 +72,7 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 	$scope.updatedRoute = function (route) {
 		
 		route.$edit = false;
-		route.date = $filter('date')(route.date,'dd/MM/yyyy'); // Save to Firebase
+		route.date = $filter('date')(route.$date,'dd/MM/yyyy'); // Save to Firebase
 
 		var baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
 
