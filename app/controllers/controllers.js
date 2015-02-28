@@ -26,12 +26,10 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 		
 		var arrayLocations = arrayGroupBy(arrayRoutes,"location");
 		var arraySectors = arrayGroupBy(arrayRoutes,"sector");
-		var arraySetters = arrayGroupBy(arrayRoutes,"setter");
 		var arrayClimbs = arrayGroupBy(arrayRoutes,"climb");
 
 		$scope.locations = arrayLocations;
 		$scope.sectors = arraySectors;
-		$scope.setters = arraySetters;
 		$scope.metrics = {
 			count: arrayRoutes.length,
 			favoriteSector: arraySectors[0],
@@ -93,7 +91,7 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 		var arrayRoutes = routeService.objectToArray($scope.routes);
 		arrayRoutes = arrayRoutes.filter(function (n) { return n.sector == item });
 
-		var properties = ['climb','rock','location','setter'];
+		var properties = ['climb','rock','location'];
 
 		for (var i=0 ; i < properties.length ; i++) {
 			var property = properties[i];

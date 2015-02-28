@@ -69,7 +69,7 @@
 			<thead>
 				<tr>
 					<th>Name</th> <th>Grade</th> <th>Rating</th> <th>Status</th> <th>Date</th> <th>Sector</th>
-					<th>Climb</th> <th>Setter</th> <th>Rock</th><th>Location</th><th>Action</th>
+					<th>Climb</th> <th>Rock</th><th>Location</th><th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -117,10 +117,6 @@
 								<option>Top rope</option>
 							</select>
 						</div>
-					</td>
-					<td >
-						<span ng-if="!route.$edit">{{route.setter}}</span>
-						<div ng-if="route.$edit"><input placeholder="Setter" typeahead="setter for setter in setters | filter:$viewValue" class="form-control" type="text" ng-model="route.setter" ></div>
 					</td>
 					<td >
 						<span ng-if="!route.$edit">{{route.rock}}</span>
