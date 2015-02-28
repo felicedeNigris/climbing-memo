@@ -82,7 +82,7 @@ function getCalendarHeatmap () {
 				var string =  
 					metric.grade+ ' ' +
 					metric.status + ' ('+
-					metric.climb + ') on ' + d;
+					metric.type + ') on ' + d;
 
 					return string;
 			});
@@ -112,7 +112,7 @@ function getCalendarHeatmap () {
 
 			svg.append("text")
 				.attr("transform", "translate(0," + (2 + cellSize * 8) + ")")
-				.text('Summary of climb over the last year');
+				.text('Summary of climbs over the last year');
 			
 			// Difficulty legend
 			var xPos = 490;

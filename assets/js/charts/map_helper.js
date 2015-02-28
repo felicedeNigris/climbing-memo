@@ -17,11 +17,11 @@ function getMapChartData (rawData) {
 		var routes = locations[key];
 
 		var metrics = [];
-		var climbs = arrayToHashtable(routes,'climb');
-		for (var type in climbs) {
+		var types = arrayToHashtable(routes,'type');
+		for (var type in types) {
 			metrics.push({
 				type: type,
-				count: climbs[type].length
+				count: types[type].length
 			});
 		}
 		metrics.sort(function (a,b) { return a.count < b.count; });

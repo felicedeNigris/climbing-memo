@@ -36,14 +36,14 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 		
 		var arrayLocations = arrayGroupBy(arrayRoutes,"location");
 		var arraySectors = arrayGroupBy(arrayRoutes,"sector");
-		var arrayClimbs = arrayGroupBy(arrayRoutes,"climb");
+		var arrayTypes = arrayGroupBy(arrayRoutes,"type");
 
 		$scope.locations = arrayLocations;
 		$scope.sectors = arraySectors;
 		$scope.metrics = {
 			count: arrayRoutes.length,
 			favoriteSector: arraySectors[0],
-			favoriteClimb: arrayClimbs[0],
+			favoriteType: arrayTypes[0],
 		};
 
 	};
@@ -131,7 +131,7 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 		var arrayRoutes = routeService.objectToArray($scope.routes);
 		arrayRoutes = arrayRoutes.filter(function (n) { return n.sector == item });
 
-		var properties = ['climb','rock','location'];
+		var properties = ['type','rock','location'];
 
 		for (var i=0 ; i < properties.length ; i++) {
 			var property = properties[i];

@@ -42,7 +42,7 @@
 							</td>
 							<td class="text-center" style="width:33%">
 								<small class="text-muted">Favorite climbing type</small><br>
-								<b>{{metrics.favoriteClimb}}</b>
+								<b>{{metrics.favoriteType}}</b>
 							</td>
 							<td class="text-center" style="width:33%">
 								<small class="text-muted">Favorite climbing sector</small><br>
@@ -69,7 +69,7 @@
 			<thead>
 				<tr>
 					<th>Name</th> <th>Grade</th> <th>Rating</th> <th>Status</th> <th>Date</th> <th>Sector</th>
-					<th>Climb</th> <th>Rock</th><th>Location</th><th>Action</th>
+					<th>Type</th> <th>Rock</th><th>Location</th><th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -107,9 +107,9 @@
 						<div ng-if="route.$edit"><input placeholder="Sector" typeahead="sector for sector in sectors | filter:$viewValue" typeahead-on-select="sectorPopulatePlaceholder($item,route)" class="form-control" type="text" ng-model="route.sector" ></div>
 					</td>
 					<td >
-						<span ng-if="!route.$edit">{{route.climb}}</span>
+						<span ng-if="!route.$edit">{{route.type}}</span>
 						<div ng-if="route.$edit">
-							<select class="form-control" ng-model="route.climb" style="width:80px">
+							<select class="form-control" ng-model="route.type" style="width:80px">
 								<option>Sport lead</option>
 								<option>Boulder</option>
 								<option>Traditional</option>
