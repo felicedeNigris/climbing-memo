@@ -49,9 +49,7 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 			'$edit':true,
 			'$visible':true,
 			'date':$filter('date')(id,'dd/MM/yyyy'),
-			'climb':'Top rope',
 			'status':'Attempt',
-			'rock':'Indoor',
 			'id': id
 		};
 
@@ -90,4 +88,17 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 		}
 	};
 
+	$scope.sectorPopulatePlaceholder = function (item,route) {
+		
+		var arrayRoutes = routeService.objectToArray($scope.routes);
+		arrayRoutes = arrayRoutes.filter(function (n) { return n.sector == item });
+
+		var properties = ['climb','rock','location','setter'];
+
+		for (var i=0 ; i < properties.length ; i++) {
+			var property = properties[i];
+			if (!route.hasOwnProperty(property)) 
+				route[property] = arrayGroupBy(arrayRoutes,property)[0];
+		}
+	};
 });

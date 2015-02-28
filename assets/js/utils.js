@@ -16,17 +16,18 @@ function arrayGroupBy (data,field) {
 	.map ( function (group) {
 		if (group.hasOwnProperty(field)){
 			
-			if (!frequency.hasOwnProperty(field))
-				frequency[field] = 0;
-			frequency[field] ++;
+			var value = group[field];
+			if (!frequency.hasOwnProperty(value))
+				frequency[value] = 0;
+			frequency[value] += 1;
 			
-			return group[field];
+			return value;
 		}
 	})
+	.sort(function (a,b) { return frequency[a] < frequency[b] })
 	.filter(function(n) { 
 		return seen.hasOwnProperty(n) || n === undefined ? false : (seen[n] = true)
-	})
-	.sort(function (a,b) { return frequency[a] < frequency[b] });
+	});
 }
 
 function arrayToHashtable (data,field) {

@@ -68,8 +68,8 @@
 		<table class="table table-condensed table-hover">
 			<thead>
 				<tr>
-					<th>Name</th> <th>Grade</th> <th>Rating</th> <th>Setter</th> <th>Status</th> <th>Date</th> <th>Climb</th>
-					<th>Rock</th> <th>Sector</th><th>Location</th><th>Action</th>
+					<th>Name</th> <th>Grade</th> <th>Rating</th> <th>Status</th> <th>Date</th> <th>Sector</th>
+					<th>Climb</th> <th>Setter</th> <th>Rock</th><th>Location</th><th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -85,10 +85,6 @@
 					<td >
 						<span ng-if="!route.$edit"><rating readonly="true" ng-model="route.rating"></rating></span>
 						<div ng-if="route.$edit" style="min-width:80px"><rating ng-model="route.rating"></rating></div>
-					</td>
-					<td >
-						<span ng-if="!route.$edit">{{route.setter}}</span>
-						<div ng-if="route.$edit"><input placeholder="Setter" typeahead="setter for setter in setters | filter:$viewValue" class="form-control" type="text" ng-model="route.setter" ></div>
 					</td>
 					<td >
 						<span ng-if="!route.$edit">{{route.status}}</span>
@@ -107,6 +103,10 @@
 						</div>
 					</td>
 					<td >
+						<span ng-if="!route.$edit">{{route.sector}}</span>
+						<div ng-if="route.$edit"><input placeholder="Sector" typeahead="sector for sector in sectors | filter:$viewValue" typeahead-on-select="sectorPopulatePlaceholder($item,route)" class="form-control" type="text" ng-model="route.sector" ></div>
+					</td>
+					<td >
 						<span ng-if="!route.$edit">{{route.climb}}</span>
 						<div ng-if="route.$edit">
 							<select class="form-control" ng-model="route.climb" style="width:80px">
@@ -117,6 +117,10 @@
 								<option>Top rope</option>
 							</select>
 						</div>
+					</td>
+					<td >
+						<span ng-if="!route.$edit">{{route.setter}}</span>
+						<div ng-if="route.$edit"><input placeholder="Setter" typeahead="setter for setter in setters | filter:$viewValue" class="form-control" type="text" ng-model="route.setter" ></div>
 					</td>
 					<td >
 						<span ng-if="!route.$edit">{{route.rock}}</span>
@@ -131,10 +135,6 @@
 								<option>Volcanic</option>
 							</select>
 						</div>
-					</td>
-					<td >
-						<span ng-if="!route.$edit">{{route.sector}}</span>
-						<div ng-if="route.$edit"><input placeholder="Sector" typeahead="sector for sector in sectors | filter:$viewValue" class="form-control" type="text" ng-model="route.sector" ></div>
 					</td>
 					<td >
 						<span ng-if="!route.$edit">{{route.location}}</span>
