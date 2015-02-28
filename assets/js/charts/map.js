@@ -1,3 +1,9 @@
+
+/**
+ * Create and return a Google Map  chart
+ *
+ * @return {Function} Callable object to create map
+ */
 function getMapChart () {
 
 	var rawData = [];

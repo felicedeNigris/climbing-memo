@@ -1,3 +1,10 @@
+
+/**
+ * Pre-process data to be rendered on a Map
+ *
+ * @params {Array} Flat routes objects
+ * @return {Array} Array of locations
+ */
 function getMapChartData (rawData) {
 
 	// Create hashmap of sites
@@ -30,6 +37,11 @@ function getMapChartData (rawData) {
 	return data;
 }
 
+/**
+ * Render google map on the DOM
+ *
+ * @params {Object} Parameters of the chart
+ */
 function drawMapChart (params) {
 	
 	var chart = getMapChart()

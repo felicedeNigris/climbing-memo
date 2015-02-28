@@ -24,8 +24,15 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 
 		var arrayRoutes = routeService.objectToArray($scope.routes);
 
-		drawMapChart({ data:arrayRoutes, containerId:'panel-map'});
-		drawCalendarHeatmap({ data:arrayRoutes, containerSelector:'#panel-calendar-heatmap'});
+		drawMapChart({
+			data:arrayRoutes,
+			containerId:'panel-map'
+		});
+		drawCalendarHeatmap({
+			data:arrayRoutes,
+			cellSize:13,
+			containerSelector:'#panel-calendar-heatmap'
+		});
 		
 		var arrayLocations = arrayGroupBy(arrayRoutes,"location");
 		var arraySectors = arrayGroupBy(arrayRoutes,"sector");
@@ -41,7 +48,11 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 
 	};
 
-	// Controller methods
+	/**
+	 * Create a route object in the scope using default values
+	 *
+	 * @method addRoute
+	 */
 	$scope.addRoute = function () {
 
 		var createdAt = Date.now();
@@ -62,6 +73,11 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 
 	};
 
+	/**
+	 * Open datepicker when click on an edited route
+	 *
+	 * @method openDatepicker
+	 */
 	$scope.openDatepicker = function($event,route) {
 		$event.preventDefault();
 		$event.stopPropagation();
@@ -69,6 +85,12 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 		$scope.routes[route.id].$datepicker = !route.$datepicker;
 	};
 
+	/**
+	 * Update route when click on done button. It will calculate the lat long
+	 * and re-init the controller $method openDatepicker
+	 *
+	 * @method updatedRoute
+	 */
 	$scope.updatedRoute = function (route) {
 		
 		route.$edit = false;
@@ -86,6 +108,11 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 
 	};
 
+	/**
+	 * Delete route from the scope object and re-init controller
+	 *
+	 * @method deleteRoute
+	 */
 	$scope.deleteRoute = function (route) {
 		if ($scope.routes[route.id] != undefined)
 		{
@@ -94,6 +121,11 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 		}
 	};
 
+	/**
+	 * Populate smart default values when a sector is selected
+	 *
+	 * @method sectorPopulatePlaceholder
+	 */
 	$scope.sectorPopulatePlaceholder = function (item,route) {
 		
 		var arrayRoutes = routeService.objectToArray($scope.routes);

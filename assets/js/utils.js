@@ -30,6 +30,15 @@ function arrayGroupBy (data,field) {
 	});
 }
 
+/**
+ * Create an array Hashtable of an object for a specific property name
+ *
+ * @method arrayToHashtable
+ * @param {Array} array of objects
+ * @param {String} property name 
+ *
+ * @return {Array} Array indexed by property
+ */
 function arrayToHashtable (data,field) {
 	var hashtable = [];
 

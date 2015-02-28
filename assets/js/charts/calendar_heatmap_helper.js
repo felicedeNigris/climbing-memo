@@ -1,3 +1,9 @@
+/**
+ * Pre-process data to be rendered on a Calendar Heatmap
+ *
+ * @params {Array} Flat routes objects
+ * @return {Array} Array indexed by dates
+ */
 function getCalendarHeatmapData (rawData){
 
 	// Create hashmap of dates
@@ -52,12 +58,16 @@ function getCalendarHeatmapData (rawData){
 	return data;
 }
 
+/**
+ * Render calendar heatmap chart on the DOM
+ *
+ * @params {Object} Parameters of the chart
+ */
 function drawCalendarHeatmap (params) {
 
-	// If width & height not defined, find largest
-
 	var chart = getCalendarHeatmap()
-		.data(params.data);
+		.data(params.data)
+		.cellSize(params.cellSize);
 
 	d3.select(params.containerSelector).call(chart);
 }

@@ -1,9 +1,13 @@
+
+/**
+ * Create and return a Calendar Heatmap chart
+ *
+ * @return {Function} Callable object to create chart
+ */
 function getCalendarHeatmap () {
 
 	var rawData = [];
 	var cellSize = 13;
-	var width = 54 * cellSize + 10;
-	var height = cellSize*8+10;
 
 	function my(container) {
 
@@ -29,6 +33,9 @@ function getCalendarHeatmap () {
 
 		var endDate = new Date();
 		var startDate = new Date(endDate.getFullYear()-1,endDate.getMonth(),endDate.getDate()+1);
+
+		var width = 54 * cellSize + 10;
+		var height = cellSize*8+10;
 
 		var svg = container.append("svg")
 			.data([1])
@@ -137,12 +144,6 @@ function getCalendarHeatmap () {
 	my.data = function (value) {
 		if (!arguments.length) return rawData;
 		rawData = value;
-		return my;
-	};
-
-	my.height = function(value) {
-		if (!arguments.length) return height;
-		height = value;
 		return my;
 	};
 
