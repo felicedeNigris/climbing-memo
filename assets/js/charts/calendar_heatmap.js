@@ -2,19 +2,28 @@ function getCalendarHeatmap () {
 
 	var rawData = [];
 	var width = 800;
-	var cellSize = 14;
-	var height = cellSize*8;
+	var cellSize = 13;
+	var height = cellSize*8+10;
 
 	function my(container) {
 
 		// Process data
 		var data = getCalendarHeatmapData(rawData);
 
-
 		var day = d3.time.format("%w"),
 			week = d3.time.format("%U"),
 			format = d3.time.format("%d/%m/%Y");
 
+		var color = function (ease) {
+			switch (ease) {
+				case 0: case 1: return '#3460cf';
+				case 2: case 3: return '#446cd3';
+				case 4:	case 5: return '#5479d7';
+				case 6:	case 7: return '#6485da';
+				case 8:	case 9: return '#7392de';
+				case 10: default:  return '#839ee2';
+			}
+		};
 
 		container.select("svg").remove();
 
@@ -33,10 +42,11 @@ function getCalendarHeatmap () {
 			.style("text-anchor", "middle")
 			.text(function(d) { return d; });
 
-		var rect = svg.selectAll(".day")
+
+		var rect = svg.selectAll(".emptyDay")
 			.data(function(d) { return d3.time.days(startDate, endDate); })
 			.enter().append("rect")
-			.attr("class", "day")
+			.attr("class", "emptyDay")
 			.attr("width", cellSize)
 			.attr("height", cellSize)
 			.attr("x", function(d) { 
@@ -54,31 +64,73 @@ function getCalendarHeatmap () {
 			.text(function(d) { return d; });
 
 		rect.filter(function(d) { return d in data; })
-			.attr("class", function(d) { return  'day climb '+data[d].metrics[0].status})
+			.attr("class", "climbDay")
+			.style('fill', function (d) {
+				var ease = parseInt(data[d].metrics[0].ease * 10);
+				return color(ease);
+			})
 			.select("title")
 			.text(function(d) {
 				var metric = data[d].metrics[0];
-				return d + ": " + data[d].total+ ' climb ('+metric.count + ' '+metric.status+')';
+				var string =  
+					metric.grade+ ' ' +
+					metric.status + ' ('+
+					metric.climb + ') on ' + d;
+
+					return string;
 			});
 
 
+		createLegend();
 		applyStyle();
 
 		function applyStyle ()
 		{
-			svg.selectAll('.day').style({
+			svg.selectAll('.emptyDay').style({
 				'fill': '#fff',
 				'stroke': '#ccc'
 			});
 
-			svg.selectAll('.day.Attempt').style({'fill': 'gray'});
-			svg.selectAll('.day.Redpoint').style({'fill': 'red'});
-			svg.selectAll('.day.Flash').style({'fill': 'orange'});
-			svg.selectAll('.day.Onsight').style({'fill': 'yellow'});
-
 			svg.selectAll('rect').style({
 				'shape-rendering': 'crispEdges'
 			});
+			
+			svg.selectAll('text').style({
+				'font': '12px sans-serif',
+				'fill': 'gray'
+			});
+		}
+
+		function createLegend () {
+
+			svg.append("text")
+				.attr("transform", "translate(0," + (2 + cellSize * 8) + ")")
+				.text('Summary of climb over the last year');
+			
+			// Difficulty legend
+			var xPos = 490;
+			svg.append("text")
+				.attr("transform", "translate("+ xPos +"," + (2 + cellSize * 8) + ")")
+				.text('Difficulty: Less');
+		
+			var legendDays = [10,8,6,4,2,1];
+			var rect = svg.selectAll(".legendDay")
+				.data(legendDays)
+				.enter().append("rect")
+				.attr("width", cellSize)
+				.attr("height", cellSize)
+				.attr("x", function (d) {
+					var numRect = legendDays.indexOf(d);
+					return xPos + 80 + cellSize * numRect + numRect * 2;
+				})
+				.attr("y",  cellSize * 8 - 8)
+				.style("fill", function (d) {
+					return color(d);
+				});
+
+			svg.append("text")
+				.attr("transform", "translate("+ (xPos + cellSize * 6 + 93 ) +"," + (2 + cellSize * 8) + ")")
+				.text('more');
 		}
 	}
 
