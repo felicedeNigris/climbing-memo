@@ -4,7 +4,7 @@ app.controller ('MainController', function ($scope) {
 	});
 });
 
-app.controller ('GeneralController', function ($scope,$filter,routeService,$http) {
+app.controller ('GeneralController', function ($scope,$filter,routeService,$http,$modal) {
 
 	// Get Data
 	routeService.getRoutes().$bindTo($scope,"routes").then(function () {
@@ -139,4 +139,38 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 				route[property] = arrayGroupBy(arrayRoutes,property)[0];
 		}
 	};
+	
+	/**
+	 * Open a modal to display route details
+	 *
+	 * @method openRouteModal
+	 */
+	$scope.openRouteModal = function (route) {
+		$modal.open({
+			templateUrl: 'app/partials/routeModal.html',
+			controller: 'modalRouteController',
+			size: 'lg',
+			resolve: {
+				route: function () {
+					return route;
+				}
+			}
+		});
+	}
+
+});
+
+app.controller ('modalRouteController', function ($scope,$modalInstance,route){
+	
+	$scope.route = route;
+
+	/**
+	 * Close the modal
+	 *
+	 * @method closeModal
+	 */
+	$scope.closeModal = function () {
+		$modalInstance.dismiss('cancel');
+	};
+
 });

@@ -1,5 +1,5 @@
 
-var app = angular.module('climbingMemo', ['ngRoute','firebase','ui.bootstrap']);
+var app = angular.module('climbingMemo', ['ngRoute','firebase','ui.bootstrap','hc.marked']);
 
 app.config (function ($routeProvider) {
 	$routeProvider

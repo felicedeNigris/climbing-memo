@@ -75,7 +75,9 @@
 			<tbody>
 				<tr ng-repeat="route in routes" ng-if="route.$visible">
 					<td>
-						<span ng-if="!route.$edit">{{route.name}}</span>
+						<span ng-if="!route.$edit">
+							<a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">{{route.name}}</a>
+						</span>
 						<div ng-if="route.$edit"><input placeholder="Name" class="form-control" type="text" ng-model="route.name"></div>
 					</td>
 					<td>
