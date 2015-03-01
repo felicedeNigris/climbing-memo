@@ -10,7 +10,6 @@ describe('Climbing Utils', function(){
 			var itemB = {name:'NameB',location:'locationB'};
 			var itemC = {name:'NameC',location:'locationB'};
 
-			console.log(utils);
 			var inputArray = [];
 			inputArray.push(itemA,itemB,itemC);
 
