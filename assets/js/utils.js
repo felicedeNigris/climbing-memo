@@ -1,4 +1,3 @@
-
 /**
  * Create array of uniq strings sorted by frequency
  *
@@ -28,7 +27,7 @@ function arrayGroupBy (data,field) {
 	.filter(function(n) { 
 		return seen.hasOwnProperty(n) || n === undefined ? false : (seen[n] = true)
 	});
-}
+};
 
 /**
  * Create an array Hashtable of an object for a specific property name
@@ -52,7 +51,7 @@ function arrayToHashtable (data,field) {
 	}
 
 	return hashtable;
-}
+};
 
 /**
  * Comapre grade between two routes
@@ -72,4 +71,14 @@ function compareRouteGrade (a,b) {
 	var charB = b.replace(/[0-9]/g,'');
 
 	return intA > intB || (intA === intB && charA > charB);
+};
+
+// Export interface for Mocha tests
+if (typeof module !== 'undefined')
+{
+	module.exports.utils = {
+		arrayToHashtable: arrayToHashtable,
+		compareRouteGrade: compareRouteGrade,
+		arrayGroupBy: arrayGroupBy
+	};
 }
