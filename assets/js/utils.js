@@ -53,3 +53,23 @@ function arrayToHashtable (data,field) {
 
 	return hashtable;
 }
+
+/**
+ * Comapre grade between two routes
+ *
+ * @method compareRouteGrade
+ * @param {String} grade a
+ * @param {String} grade b
+ *
+ * @return {Boolean} TRUE if grade a greater than b
+ */
+function compareRouteGrade (a,b) {
+
+	// Compare route grade with digit & char
+	var intA = parseInt(a.replace(/\D/g, ''));
+	var intB = parseInt(b.replace(/\D/g, ''));
+	var charA = a.replace(/[0-9]/g,'');
+	var charB = b.replace(/[0-9]/g,'');
+
+	return intA > intB || (intA === intB && charA > charB);
+}
