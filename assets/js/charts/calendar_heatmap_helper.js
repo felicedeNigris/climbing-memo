@@ -73,3 +73,11 @@ function drawCalendarHeatmap (params) {
 
 	d3.select(params.containerSelector).call(chart);
 }
+
+// Export interface for Mocha tests
+if (typeof module !== 'undefined')
+{
+	module.exports.calendarHeatmapHelper = {
+		getCalendarHeatmapData: getCalendarHeatmapData
+	};
+}
