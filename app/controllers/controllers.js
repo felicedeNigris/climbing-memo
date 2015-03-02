@@ -28,6 +28,10 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 			data:arrayRoutes,
 			containerId:'panel-map'
 		});
+		drawScatterPlot({
+			data:arrayRoutes,
+			containerSelector:'#panel-scatter-plot'
+		});
 		drawCalendarHeatmap({
 			data:arrayRoutes,
 			cellSize:13,

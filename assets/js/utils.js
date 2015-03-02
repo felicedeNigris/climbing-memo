@@ -67,8 +67,8 @@ function compareRouteGrade (a,b) {
 	// Compare route grade with digit & char
 	var intA = parseInt(a.replace(/\D/g, ''));
 	var intB = parseInt(b.replace(/\D/g, ''));
-	var charA = a.replace(/[0-9]/g,'');
-	var charB = b.replace(/[0-9]/g,'');
+	var charA = a.replace(/[0-9]/g,'').toLowerCase();
+	var charB = b.replace(/[0-9]/g,'').toLowerCase();
 
 	return intA > intB || (intA === intB && charA > charB);
 };

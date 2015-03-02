@@ -1,3 +1,4 @@
+
 /**
  * Pre-process data to be rendered on a Map
  *
@@ -6,9 +7,8 @@
  */
 function getMapChartData (rawData) {
 
-	console.log(utils);
 	// Create hashmap of sites
-	var locations = utils.arrayToHashtable(rawData,'location');
+	var locations = arrayToHashtable(rawData,'location');
 
 	// Calculate metrics for sites
 	var data = [];
@@ -17,7 +17,7 @@ function getMapChartData (rawData) {
 		var routes = locations[key];
 
 		var metrics = [];
-		var types = utils.arrayToHashtable(routes,'type');
+		var types = arrayToHashtable(routes,'type');
 		for (var type in types) {
 			metrics.push({
 				type: type,

@@ -1,111 +1,141 @@
-function drawScatterPlot(data) {
+function getScatterPlot(data) {
 
-	var margin_focus = {top: 20, right: 25, bottom: 30, left: 50},
-	width      = $("#panel-chart").width() - margin_focus.left - margin_focus.right,
-	height     = 300 - margin_focus.top - margin_focus.bottom,
-	selected_x = "routes",
-	selected_y = "grade";
+	var rawData = [];
+	var width = 800;
+	var height = 600;
 
-	var x_focus = d3.scale.linear().range([0, width]),
-	y_focus = d3.scale.linear().range([height, 0]);
+	function my (container) {
 
-	var x_axis_focus = d3.svg.axis().scale(x_focus).orient("bottom"),
-	y_axis_focus = d3.svg.axis().scale(y_focus).orient("left");
+		var margin_focus = {top: 20, right: 25, bottom: 30, left: 50},
+			widthChart      = width - margin_focus.left - margin_focus.right,
+			heightChart     = height - margin_focus.top - margin_focus.bottom,
+			selected_x = "routes",
+			selected_y = "grade";
 
-	var focus;
+		var x_focus = d3.scale.linear().range([0, widthChart]),
+			y_focus = d3.scale.linear().range([heightChart, 0]);
 
-	//REMOVE SVG
-	$("#panel-chart").empty();
+		var x_axis_focus = d3.svg.axis()
+			.scale(x_focus)
+			.orient("bottom")
+			.tickFormat(d3.format("d"));
 
-	// CREATE NEW SVG
-	var svg = d3.select("#panel-chart").append("svg")
-		.attr("width", width + margin_focus.left + margin_focus.right)
-		.attr("height", height + margin_focus.top + margin_focus.bottom);
+		var y_axis_focus = d3.svg.axis()
+			.scale(y_focus)
+			.orient("left")
+			.tickFormat(d3.format("d"));
 
-	focus = svg.append("g")
-		.attr("transform", "translate(" + margin_focus.left + "," + margin_focus.top + ")");
+		var focus;
 
-	// CREATE CHART DATA
-	var chart_data = new Array();
-	for (var i = 0 ; i < data.length ; i++)
-	{
-		var object = data[i];
-		object[selected_x] = parseNumber(object[selected_x]);
-		object[selected_y] = parseNumber(object[selected_y]);
+		var typeColor = function (type) {
+			switch (type) {
+				case 'Sport lead':	return 'gold';
+				case 'Boulder':		return 'lightskyblue';
+				case 'Traditional':	return 'lightgreen';
+				case 'Multi-pitch':	return 'sandybrown';
+				case 'Top rope':	return 'lightgray';
+				default :			return 'lightgray';
+			};
+		};
 
-		if (object[selected_x] > 0 && object[selected_y] > 0)
-			chart_data.push(object);
-	}
+		//REMOVE SVG
+		container.select("svg").remove();
 
-	// CREATE DOMAIN
-	x_focus.domain([
-		d3.min(chart_data, function(d) { return d[selected_x] }),
-		d3.max(chart_data, function(d) { return d[selected_x] })
-	]);
-	y_focus.domain([
-		d3.min(chart_data, function(d) { return d[selected_y] }),
-		d3.max(chart_data, function(d) { return d[selected_y] })
-	]);
+		// CREATE NEW SVG
+		var svg = container.append("svg")
+			.attr("width", width)
+			.attr("height", height);
 
-	// TOOLTIP DIV
-	var div = d3.select("body").append("div")   
-		.attr("class", "tooltip")               
-		.style("opacity", 0);
+		focus = svg.append("g")
+			.attr("transform", "translate(" + margin_focus.left + "," + margin_focus.top + ")");
 
-	// DOTS
-	focus.selectAll(".dot")
-		.data(chart_data)
-		.enter()
-		.append("circle")
-		.attr("class", "dot-usage")
-		.attr("r", 5)       
-		.attr("cx", function(d) { return x_focus(d[selected_x]) } )
-		.attr("cy", function(d) { return y_focus(d[selected_y]) } )
-		.style("fill", "lightskyblue")
-		.on("mouseover", function(d) {      
-			div.style("background", "skyblue");
+		// CREATE CHART DATA
+		var data = getScatterPlotData(rawData);
+
+		// CREATE DOMAIN
+		x_focus.domain([0,d3.max(data, function(d) { return d.totalRoutes })]);
+		y_focus.domain([0,5]);
+
+		// TOOLTIP DIV
+		var div = d3.select("body").append("div")   
+			.attr("class", "tooltip")               
+			.style("opacity", 0);
+
+		// DOTS
+		focus.selectAll(".dot")
+			.data(data)
+			.enter()
+			.append("circle")
+			.attr("class", "dot-usage")
+			.attr("r", 6)       
+			.attr("cx", function(d) { return x_focus(d.totalRoutes) } )
+			.attr("cy", function(d) { return y_focus(d.avgRating) } )
+			.style("fill", function(d) { return typeColor(d.dominantType); })
+			.on("mouseover", function(d) {      
+				div.style("background", typeColor(d.dominantType))
+				div.transition()        
+				.duration(200)      
+				.style("opacity", .8);
+
+				var contentHtml = d.sector + ' <br>';
+				contentHtml += d.totalRoutes + ' routes - ';
+				contentHtml += d.avgRating.toFixed(1) + ' <i class="fa fa-star-o"></i>'; 
+				div.html(contentHtml)  
+					.style("left", (event.pageX) + "px")     
+					.style("top", (event.pageY-40)  + "px");    
+			})                  
+		.on("mouseout", function(d) {       
 			div.transition()        
-			.duration(200)      
-			.style("opacity", .8);
+			.duration(500)      
+			.style("opacity", 0);   
+		});
 
-		div.html(d.name)  
-			.style("left", (event.pageX) + "px")     
-			.style("top", (event.pageY-18)  + "px");    
-		})                  
-	.on("mouseout", function(d) {       
-		div.transition()        
-		.duration(500)      
-		.style("opacity", 0);   
-	});
+		focus.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + heightChart + ")")
+			.call(x_axis_focus);
 
-	focus.append("g")
-		.attr("class", "x axis")
-		.attr("transform", "translate(0," + height + ")")
-		.call(x_axis_focus);
+		focus.append("g")
+			.attr("class", "y axis")
+			.call(y_axis_focus)
+			.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", 6)
+			.attr("dy", ".71em")
+			.style("text-anchor", "end")
+			.text("Average Rating");
 
-	focus.append("g")
-		.attr("class", "y axis")
-		.call(y_axis_focus)
-		.append("text")
-		.attr("transform", "rotate(-90)")
-		.attr("y", 6)
-		.attr("dy", ".71em")
-		.style("text-anchor", "end");
+		focus.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + heightChart + ")")
+			.call(x_axis_focus)
+			.append("text")
+			.attr("x", widthChart)
+			.attr("y", "-6")
+			.style("text-anchor", "end")
+			.text("Total Routes");
 
-	focus.append("g")
-		.attr("class", "x axis")
-		.attr("transform", "translate(0," + height + ")")
-		.call(x_axis_focus)
-		.append("text")
-		.attr("x", width)
-		.attr("y", "-6")
-		.style("text-anchor", "end");
+		svg.selectAll('.axis line, .axis path').style({'stroke': 'Black', 'fill': 'none', 'stroke-width': '1px','shape-rendering':'crispEdges'});
 
-	svg.selectAll('.axis line, .axis path').style({'stroke': 'Black', 'fill': 'none', 'stroke-width': '1px','shape-rendering':'crispEdges'});
-
-	function parseNumber(string) {
-		if (!string || string.length == 0)
-			return 0;
-		return parseFloat(string.replace(",",""));
 	}
+
+
+	my.data = function (value) {
+		if (!arguments.length) return rawData;
+		rawData = value;
+		return my;
+	};
+
+	my.width = function(value) {
+		if (!arguments.length) return width;
+		width = value;
+		return my;
+	};
+
+	my.height = function(value) {
+		if (!arguments.length) return height;
+		height = value;
+		return my;
+	};
+	return my;
 }
