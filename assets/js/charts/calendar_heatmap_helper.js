@@ -13,9 +13,10 @@ function getCalendarHeatmapData (rawData){
 	var allTypes = arrayToHashtable(rawData,'type'); 
 	var difficulties = [];
 
-	for (var type in allTypes)
+	for (var type in allTypes) {
 		difficulties[type] = arrayGroupBy(allTypes[type],'grade')
 			.sort(function(a,b) { return !compareRouteGrade(a,b) });
+	}
 	
 
 	// Calculate metrics at dates for each climbing type
@@ -28,17 +29,18 @@ function getCalendarHeatmapData (rawData){
 		var dayTypes = arrayToHashtable(routes,'type');
 		for (var type in dayTypes) {
 			
-			var routes = dayTypes[type];
-			routes.sort(function(a,b) { return !compareRouteGrade(a.grade ,b.grade) });
+			var typeRoutes = dayTypes[type];
+			typeRoutes.sort(function(a,b) { return !compareRouteGrade(a.grade ,b.grade) });
 
 			// Routes sorted hardest to easiest
-			var hardestRoute = routes[0];
+			var hardestRoute = typeRoutes[0];
 		
 			var position = difficulties[hardestRoute.type].indexOf(hardestRoute.grade);
 			var ease = Math.abs(parseFloat(position)/allTypes[type].length);
 
-			if (!hardestRoute.grade)
+			if (!hardestRoute.grade) {
 				hardestRoute.grade = '';
+			}
 
 			metrics.push({
 				type: hardestRoute.type,

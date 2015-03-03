@@ -58,7 +58,7 @@ function getCalendarHeatmap () {
 			.attr("height", cellSize)
 			.attr("x", function(d) { 
 
-				var dist = (endDate.getFullYear() == d.getFullYear()) ?
+				var dist = (endDate.getFullYear() === d.getFullYear()) ?
 					1+ parseInt(week(endDate)) - parseInt(week(d)):
 					53-parseInt(week(d)) + parseInt(week(endDate));
 
@@ -87,9 +87,6 @@ function getCalendarHeatmap () {
 					return string;
 			});
 
-
-		createLegend();
-		applyStyle();
 
 		function applyStyle ()
 		{
@@ -139,16 +136,24 @@ function getCalendarHeatmap () {
 				.attr("transform", "translate("+ (xPos + cellSize * 6 + 93 ) +"," + (2 + cellSize * 8) + ")")
 				.text('more');
 		}
+		
+		createLegend();
+		applyStyle();
+
 	}
 
 	my.data = function (value) {
-		if (!arguments.length) return rawData;
+		if (!arguments.length) {
+			return rawData;
+		}
 		rawData = value;
 		return my;
 	};
 
 	my.cellSize = function(value) {
-		if (!arguments.length) return cellSize;
+		if (!arguments.length) {
+			return cellSize;
+		}
 		cellSize = value;
 		return my;
 	};

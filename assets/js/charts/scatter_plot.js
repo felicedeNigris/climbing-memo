@@ -6,22 +6,20 @@ function getScatterPlot(data) {
 
 	function my (container) {
 
-		var margin_focus = {top: 20, right: 25, bottom: 30, left: 50},
-			widthChart      = width - margin_focus.left - margin_focus.right,
-			heightChart     = height - margin_focus.top - margin_focus.bottom,
-			selected_x = "routes",
-			selected_y = "grade";
+		var marginFocus = {top: 20, right: 25, bottom: 30, left: 50},
+			widthChart      = width - marginFocus.left - marginFocus.right,
+			heightChart     = height - marginFocus.top - marginFocus.bottom;
 
-		var x_focus = d3.scale.linear().range([0, widthChart]),
-			y_focus = d3.scale.linear().range([heightChart, 0]);
+		var xFocus = d3.scale.linear().range([0, widthChart]),
+			yFocus = d3.scale.linear().range([heightChart, 0]);
 
-		var x_axis_focus = d3.svg.axis()
-			.scale(x_focus)
+		var xAxisFocus = d3.svg.axis()
+			.scale(xFocus)
 			.orient("bottom")
 			.tickFormat(d3.format("d"));
 
-		var y_axis_focus = d3.svg.axis()
-			.scale(y_focus)
+		var yAxisFocus = d3.svg.axis()
+			.scale(yFocus)
 			.orient("left")
 			.tickFormat(d3.format("d"));
 
@@ -47,14 +45,14 @@ function getScatterPlot(data) {
 			.attr("height", height);
 
 		focus = svg.append("g")
-			.attr("transform", "translate(" + margin_focus.left + "," + margin_focus.top + ")");
+			.attr("transform", "translate(" + marginFocus.left + "," + marginFocus.top + ")");
 
 		// CREATE CHART DATA
 		var data = getScatterPlotData(rawData);
 
 		// CREATE DOMAIN
-		x_focus.domain([0,d3.max(data, function(d) { return d.totalRoutes })]);
-		y_focus.domain([0,5]);
+		xFocus.domain([0,d3.max(data, function(d) { return d.totalRoutes })]);
+		yFocus.domain([0,5]);
 
 		// TOOLTIP DIV
 		var div = d3.select("body").append("div")   
@@ -68,8 +66,8 @@ function getScatterPlot(data) {
 			.append("circle")
 			.attr("class", "dot-usage")
 			.attr("r", 6)       
-			.attr("cx", function(d) { return x_focus(d.totalRoutes) } )
-			.attr("cy", function(d) { return y_focus(d.avgRating) } )
+			.attr("cx", function(d) { return xFocus(d.totalRoutes) } )
+			.attr("cy", function(d) { return yFocus(d.avgRating) } )
 			.style("fill", function(d) { return typeColor(d.dominantType); })
 			.on("mouseover", function(d) {      
 				div.style("background", typeColor(d.dominantType))
@@ -93,11 +91,11 @@ function getScatterPlot(data) {
 		focus.append("g")
 			.attr("class", "x axis")
 			.attr("transform", "translate(0," + heightChart + ")")
-			.call(x_axis_focus);
+			.call(xAxisFocus);
 
 		focus.append("g")
 			.attr("class", "y axis")
-			.call(y_axis_focus)
+			.call(yAxisFocus)
 			.append("text")
 			.attr("transform", "rotate(-90)")
 			.attr("y", 6)
@@ -108,7 +106,7 @@ function getScatterPlot(data) {
 		focus.append("g")
 			.attr("class", "x axis")
 			.attr("transform", "translate(0," + heightChart + ")")
-			.call(x_axis_focus)
+			.call(xAxisFocus)
 			.append("text")
 			.attr("x", widthChart)
 			.attr("y", "-6")
@@ -121,19 +119,25 @@ function getScatterPlot(data) {
 
 
 	my.data = function (value) {
-		if (!arguments.length) return rawData;
+		if (!arguments.length) {
+			return rawData;
+		}
 		rawData = value;
 		return my;
 	};
 
 	my.width = function(value) {
-		if (!arguments.length) return width;
+		if (!arguments.length) {
+			return width;
+		}
 		width = value;
 		return my;
 	};
 
 	my.height = function(value) {
-		if (!arguments.length) return height;
+		if (!arguments.length) {
+			return height;
+		}
 		height = value;
 		return my;
 	};

@@ -2,16 +2,16 @@
 	min-height: 300px;
 }
 #panel-chart {
-	padding:0px;
+	padding:0;
 	min-height: 300px;
 }
 
-div.tooltip {   
+.tooltip {   
 	position: absolute;           
 	text-align: center;           
 	padding: 5px;             
 	font: 12px sans-serif;        
-	border: 0px;      
+	border: 0;      
 	border-radius: 8px;           
 	pointer-events: none;         
 	color:white;
@@ -28,12 +28,12 @@ h2
 }
 
 /* Material design edit in ng-table */
-select.form-control
+.form-control
 {
 	height:28px;
 }
 
 .btn {
 	padding: 6px 12px;
-	margin:0px;
+	margin:0;
 }

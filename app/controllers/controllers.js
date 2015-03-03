@@ -118,7 +118,7 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 	 * @method deleteRoute
 	 */
 	$scope.deleteRoute = function (route) {
-		if ($scope.routes[route.id] != undefined)
+		if ($scope.routes[route.id] !== undefined)
 		{
 			delete $scope.routes[route.id];
 			initController();
@@ -133,14 +133,15 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 	$scope.sectorPopulatePlaceholder = function (item,route) {
 		
 		var arrayRoutes = routeService.objectToArray($scope.routes);
-		arrayRoutes = arrayRoutes.filter(function (n) { return n.sector == item });
+		arrayRoutes = arrayRoutes.filter(function (n) { return n.sector === item });
 
 		var properties = ['type','rock','location'];
 
 		for (var i=0 ; i < properties.length ; i++) {
 			var property = properties[i];
-			if (!route.hasOwnProperty(property)) 
+			if (!route.hasOwnProperty(property)) {
 				route[property] = arrayGroupBy(arrayRoutes,property)[0];
+			}
 		}
 	};
 	

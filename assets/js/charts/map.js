@@ -25,8 +25,9 @@ function getMapChart () {
 			contentString += '<b>'+site.name+'</b><br>';
 			contentString += '<ul class="list-unstyled" style="margin-bottom:0px">';
 
-			for (var j=0 ; j < site.metrics.length ; j++)
+			for (var j=0 ; j < site.metrics.length ; j++) {
 				contentString += '<li>'+site.metrics[j].type+': '+site.metrics[j].count+'</li>';
+			}
 
 			contentString += '</ul>';
 			contentString += '</div>';
@@ -41,7 +42,7 @@ function getMapChart () {
 				case 'Top rope':	markerIcon = "climbing_gray.png"; break;
 			}
 
-			marker = new google.maps.Marker({
+			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng(site.latitude,site.longitude),
 				map: map,
 				icon: 'assets/img/'+markerIcon,
@@ -64,7 +65,9 @@ function getMapChart () {
 	}
 
 	my.data = function (value) {
-		if (!arguments.length) return rawData;
+		if (!arguments.length) {
+			return rawData;
+		}
 		rawData = value;
 		return my;
 	};
