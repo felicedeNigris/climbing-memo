@@ -15,7 +15,7 @@ function getHorizontalBar(data) {
 			.attr("height", height);
 
 		// CREATE CHART DATA
-		var data = getScatterPlotData(rawData);
+		var data = getHorizontalBarData(rawData);
 
 		return my;
 	};

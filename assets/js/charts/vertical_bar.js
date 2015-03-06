@@ -15,7 +15,7 @@ function getVerticalBar(data) {
 			.attr("height", height);
 
 		// CREATE CHART DATA
-		var data = getScatterPlotData(rawData);
+		var data = getVerticalBarData(rawData);
 
 		return my;
 	};
