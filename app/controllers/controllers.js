@@ -37,6 +37,14 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 			cellSize:13,
 			containerSelector:'#panel-calendar-heatmap'
 		});
+		drawVerticalBar({
+			data:arrayRoutes,
+			containerSelector:'#panel-vertical-chart'
+		});
+		drawHorizontalBar({
+			data:arrayRoutes,
+			containerSelector:'#panel-horizontal-chart'
+		});
 		
 		var arrayLocations = arrayGroupBy(arrayRoutes,"location");
 		var arraySectors = arrayGroupBy(arrayRoutes,"sector");
