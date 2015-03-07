@@ -46,7 +46,7 @@ function getScatterPlotData (rawData){
 function drawScatterPlot (params) {
 
 	var chart = getScatterPlot()
-		.data(params.data)
+		.data(getScatterPlotData(params.data))
 		.width($(params.containerSelector).width())
 		.height(300);
 

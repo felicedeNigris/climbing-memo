@@ -6,7 +6,7 @@
  */
 function getMapChart () {
 
-	var rawData = [];
+	var data = [];
 
 	function my(container) {
 
@@ -14,7 +14,6 @@ function getMapChart () {
 		var bounds = new google.maps.LatLngBounds();
 
 		// Process data
-		var data = getMapChartData(rawData);
 
 		for (var i=0 ; i < data.length ; i++) {
 			var site = data[i];
@@ -66,9 +65,9 @@ function getMapChart () {
 
 	my.data = function (value) {
 		if (!arguments.length) {
-			return rawData;
+			return data;
 		}
-		rawData = value;
+		data = value;
 		return my;
 	};
 

@@ -45,7 +45,7 @@ function getMapChartData (rawData) {
 function drawMapChart (params) {
 	
 	var chart = getMapChart()
-		.data(params.data);
+		.data(getMapChartData(params.data));
 
 	chart(params.containerId);
 }

@@ -80,7 +80,7 @@ function getVerticalBarData (rawData){
 function drawVerticalBar (params) {
 
 	var chart = getVerticalBar()
-		.data(params.data)
+		.data(getVerticalBarData(params.data))
 		.width($(params.containerSelector).width())
 		.height(300);
 

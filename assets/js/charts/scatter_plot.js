@@ -1,6 +1,6 @@
 function getScatterPlot(data) {
 
-	var rawData = [];
+	var data = [];
 	var width = 800;
 	var height = 600;
 
@@ -46,9 +46,6 @@ function getScatterPlot(data) {
 
 		focus = svg.append("g")
 			.attr("transform", "translate(" + marginFocus.left + "," + marginFocus.top + ")");
-
-		// CREATE CHART DATA
-		var data = getScatterPlotData(rawData);
 
 		// CREATE DOMAIN
 		xFocus.domain([0,d3.max(data, function(d) { return d.totalRoutes })]);
@@ -120,9 +117,9 @@ function getScatterPlot(data) {
 
 	my.data = function (value) {
 		if (!arguments.length) {
-			return rawData;
+			return data;
 		}
-		rawData = value;
+		data = value;
 		return my;
 	};
 

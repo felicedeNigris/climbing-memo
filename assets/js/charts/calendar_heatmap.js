@@ -6,14 +6,12 @@
  */
 function getCalendarHeatmap () {
 
-	var rawData = [];
+	var data = [];
 	var cellSize = 13;
 
 	function my(container) {
 
 		// Process data
-		var data = getCalendarHeatmapData(rawData);
-
 		var day = d3.time.format("%w"),
 			week = d3.time.format("%U"),
 			format = d3.time.format("%d/%m/%Y");
@@ -144,9 +142,9 @@ function getCalendarHeatmap () {
 
 	my.data = function (value) {
 		if (!arguments.length) {
-			return rawData;
+			return data;
 		}
-		rawData = value;
+		data = value;
 		return my;
 	};
 

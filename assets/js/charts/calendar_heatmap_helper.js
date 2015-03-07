@@ -70,7 +70,7 @@ function getCalendarHeatmapData (rawData){
 function drawCalendarHeatmap (params) {
 
 	var chart = getCalendarHeatmap()
-		.data(params.data)
+		.data(getCalendarHeatmapData(params.data))
 		.cellSize(params.cellSize);
 
 	d3.select(params.containerSelector).call(chart);

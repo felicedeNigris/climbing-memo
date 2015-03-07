@@ -1,6 +1,6 @@
 function getHorizontalBar(data) {
 
-	var rawData = [];
+	var data = [];
 	var width = 800;
 	var height = 600;
 
@@ -15,16 +15,15 @@ function getHorizontalBar(data) {
 			.attr("height", height);
 
 		// CREATE CHART DATA
-		var data = getHorizontalBarData(rawData);
 
 		return my;
 	};
 
 	my.data = function (value) {
 		if (!arguments.length) {
-			return rawData;
+			return data;
 		}
-		rawData = value;
+		data = value;
 		return my;
 	};
 

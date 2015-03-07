@@ -1,6 +1,6 @@
 function getVerticalBar(data) {
 
-	var rawData = [];
+	var data = [];
 	var width = 800;
 	var height = 600;
 
@@ -14,17 +14,15 @@ function getVerticalBar(data) {
 			.attr("width", width)
 			.attr("height", height);
 
-		// CREATE CHART DATA
-		var data = getVerticalBarData(rawData);
 
 		return my;
 	};
 
 	my.data = function (value) {
 		if (!arguments.length) {
-			return rawData;
+			return data;
 		}
-		rawData = value;
+		data = value;
 		return my;
 	};
 

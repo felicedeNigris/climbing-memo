@@ -19,7 +19,7 @@ function getHorizontalBarData (rawData){
 function drawHorizontalBar (params) {
 
 	var chart = getHorizontalBar()
-		.data(params.data)
+		.data(getHorizontalBarData(params.data))
 		.width($(params.containerSelector).width())
 		.height(300);
 
