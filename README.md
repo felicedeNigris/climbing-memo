@@ -16,7 +16,7 @@
 Demo
 -----
 
-Hosted demo is available at [cmizony.com/climbing](http://cmizony.com/climbing)
+Hosted demo is available on heroku at [climbing-memo.herokuapp.com](http://climbing-memo.herokuapp.com/)
 
 Quick Start
 -----
