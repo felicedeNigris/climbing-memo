@@ -3,6 +3,6 @@ var app = express();
 
 app.use(express.static(__dirname));
 
-var server = app.listen(3000);
+var server = app.listen(80,'climbing-memo.herokuapp.com');
 
-console.log('Climbing Memo app listening at http://localhost:3000');
+console.log('Climbing Memo app listening');
