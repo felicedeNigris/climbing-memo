@@ -22,36 +22,37 @@ function getVerticalBarData (rawData){
 		if (!(monthDate in months)) {
 			months[monthDate] = { 
 				date:monthDate,
-				sectors: []
+				type: []
 			};
 		}
 
 		// Sector name in month
 		var month = months[monthDate];
 
-		if (! (route.sector in month.sectors)) {
-			month.sectors[route.sector] = {
+		if (! (route.type in month.type)) {
+			month.type[route.type] = {
+				name: route.type,
 				sum: 0,
 				y0: 0,
 				y1: 0
 			};
 		}
 
-		month.sectors[route.sector].sum += 1;
+		month.type[route.type].sum += 1;
 
 	}
 
-	// Sort by sector sum TODO
+	// Sort by type sum TODO
 
-	// Calculate y0 & y1 per sector
+	// Calculate y0 & y1 per type
 	for (monthDate in months) {
 
 		var month = months[monthDate];
 		var barSum = 0;
 
-		for (sector in month.sectors) {
+		for (type in month.type) {
 		
-			var barItem = month.sectors[sector];
+			var barItem = month.type[type];
 
 			barItem.y0 = barSum;
 			barSum += barItem.sum;
@@ -63,8 +64,8 @@ function getVerticalBarData (rawData){
 	var data = new Array();
 	var data = Object.keys(months).map(function(keyA) { 
 		var entry = months[keyA];
-		entry.sectors = Object.keys(entry.sectors).map(function(keyB) { 
-			return entry.sectors[keyB] 
+		entry.type = Object.keys(entry.type).map(function(keyB) { 
+			return entry.type[keyB] 
 		});
 		return entry;
 	});

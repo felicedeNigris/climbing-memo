@@ -110,7 +110,13 @@ function getScatterPlot(data) {
 			.style("text-anchor", "end")
 			.text("Total Routes");
 
-		svg.selectAll('.axis line, .axis path').style({'stroke': 'Black', 'fill': 'none', 'stroke-width': '1px','shape-rendering':'crispEdges'});
+		svg.selectAll('.axis line, .axis path')
+			.style({
+				'stroke': 'Black',
+				'fill': 'none',
+				'stroke-width': '1px',
+				'shape-rendering':'crispEdges'
+			});
 
 	}
 
