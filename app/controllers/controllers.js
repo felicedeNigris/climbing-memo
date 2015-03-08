@@ -23,6 +23,10 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 	var initController = function () {
 
 		var arrayRoutes = routeService.objectToArray($scope.routes);
+		var arrayLocations = arrayGroupBy(arrayRoutes,"location");
+		var arraySectors = arrayGroupBy(arrayRoutes,"sector");
+		var arrayTypes = arrayGroupBy(arrayRoutes,"type");
+
 
 		drawMapChart({
 			data:arrayRoutes,
@@ -43,13 +47,10 @@ app.controller ('GeneralController', function ($scope,$filter,routeService,$http
 		});
 		drawHorizontalBar({
 			data:arrayRoutes,
+			type: arrayTypes[0],
 			containerSelector:'#panel-horizontal-chart'
 		});
 		
-		var arrayLocations = arrayGroupBy(arrayRoutes,"location");
-		var arraySectors = arrayGroupBy(arrayRoutes,"sector");
-		var arrayTypes = arrayGroupBy(arrayRoutes,"type");
-
 		$scope.locations = arrayLocations;
 		$scope.sectors = arraySectors;
 		$scope.metrics = {
