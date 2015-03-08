@@ -133,11 +133,15 @@ function getVerticalBar(data) {
 			.style("fill", function (d) { return typeColor(d.name); } )
 			.style("fill-opacity","0.6")
 			.on("mousemove", function(d) { 
+
 				div.style("background",typeColor(d.name));   
 				div.transition().duration(200).style("opacity", .8);
 				div.html(d.sum + ' ' +d.name);
-				div.style("left", (event.pageX) + "px")
-				div.style("top", (event.pageY-40)  + "px");
+				div.style("font-weight","bold");
+				div.style("color","black");
+				div.style("left", (event.pageX) + "px");
+				div.style("top", (event.pageY-20)  + "px");
+
 			})
 			.on("mouseout", function(d) {       
 				div.transition()        

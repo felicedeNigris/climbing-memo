@@ -66,18 +66,21 @@ function getScatterPlot(data) {
 			.attr("cx", function(d) { return xFocus(d.totalRoutes) } )
 			.attr("cy", function(d) { return yFocus(d.avgRating) } )
 			.style("fill", function(d) { return typeColor(d.dominantType); })
-			.on("mouseover", function(d) {      
-				div.style("background", typeColor(d.dominantType))
-				div.transition()        
-				.duration(200)      
+			.on("mousemove", function(d) {      
+				div.style("background", typeColor(d.dominantType));
+				div.transition()
+				.duration(200)  
 				.style("opacity", .8);
 
 				var contentHtml = d.sector + ' <br>';
 				contentHtml += d.totalRoutes + ' routes - ';
 				contentHtml += d.avgRating.toFixed(1) + ' <i class="fa fa-star-o"></i>'; 
-				div.html(contentHtml)  
-					.style("left", (event.pageX) + "px")     
-					.style("top", (event.pageY-40)  + "px");    
+
+				div.html(contentHtml); 
+				div.style("font-weight","bold");
+				div.style("color","black");
+				div.style("left", (event.pageX) + "px");
+				div.style("top", (event.pageY-40)  + "px");    
 			})                  
 		.on("mouseout", function(d) {       
 			div.transition()        
