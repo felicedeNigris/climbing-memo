@@ -22,7 +22,7 @@
 	</div>
 
 	<div class="col-md-9">
-		<div class="panel panel-default">
+		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h3 class="panel-title"><span class="fa fa-calendar"></span> Overview</h3>
 			</div>
@@ -63,7 +63,7 @@
 	<div class="panel-body">
 
 		<button class="pull-right btn btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i> Add</button>
-		<h2><i class="fa fa-connectdevelop"></i> Routes</h3>
+		<h2><i class="fa fa-connectdevelop"></i> Climbs</h3>
 
 		<table class="table table-condensed table-hover">
 			<thead>
@@ -76,7 +76,7 @@
 				<tr ng-repeat="route in routes" ng-if="route.$visible">
 					<td>
 						<span ng-if="!route.$edit">
-							<a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">{{route.name}}</a>
+							<a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)"><i class="fa fa-file-text-o"></i> {{route.name}}</a>
 						</span>
 						<div ng-if="route.$edit"><input placeholder="Name" class="form-control" type="text" ng-model="route.name"></div>
 					</td>
@@ -155,7 +155,7 @@
 		<!-- Panel Map -->
 		<div class="panel panel-success">
 			<div class="panel-heading">
-				<h3 class="panel-title"><span class="fa fa-globe"></span> Map</h3>
+				<h3 class="panel-title"><span class="fa fa-globe"></span> Locations</h3>
 			</div>
 			<div class="panel-body">
 				<div id="panel-map"></div>
@@ -167,9 +167,9 @@
 	<div class="col-md-6">
 
 		<!-- Panel Scatter plot -->
-		<div class="panel panel-info">
+		<div class="panel panel-success">
 			<div class="panel-heading">
-				<h3 class="panel-title"><span class="fa fa-bar-chart"></span> Sectors quality</h3>
+				<h3 class="panel-title"><span class="fa fa-star-o"></span> Sectors quality</h3>
 			</div>
 			<div class="panel-body">
 				<div id="panel-scatter-plot"></div>
@@ -183,7 +183,7 @@
 	<div class="col-md-6">
 
 		<!-- Panel Vertical Chart -->
-		<div class="panel panel-info">
+		<div class="panel panel-success">
 			<div class="panel-heading">
 				<h3 class="panel-title"><span class="fa fa-bar-chart"></span> Climbs Quantity</h3>
 			</div>
