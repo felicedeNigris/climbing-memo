@@ -1,6 +1,0 @@
-Rodellar,42.282356,0.078061,Spain,650m,limestone,300,6
-Siurana,41.25828,0.932294,Spain,700m,limestone,200,7
-Ceuse,44.498464,5.940211,France,1800m,limestone,280,7
-Autoire,44.84937,1.812,France,350m,limestone,40,6
-Carlat,44.889092,2.56069,France,900m,basalt,25,5
-Frankenjura,49.784546,11.268311,Germany,300m,limestone,700,8
