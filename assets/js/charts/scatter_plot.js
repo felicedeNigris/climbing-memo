@@ -68,6 +68,7 @@ function getScatterPlot(data) {
 			.style("fill", function(d) { return typeColor(d.dominantType); })
 			.on("mousemove", function(d) {      
 				div.style("background", typeColor(d.dominantType));
+				div.style("border","1px solid black");
 				div.transition()
 				.duration(200)  
 				.style("opacity", .8);

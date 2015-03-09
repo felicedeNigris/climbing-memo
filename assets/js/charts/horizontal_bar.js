@@ -93,6 +93,7 @@ function getHorizontalBar(data) {
 				.on("mousemove", function(d) { 
 
 					div.style("background",typeColor(d.name));   
+					div.style("border","1px solid black");
 					div.transition().duration(200).style("opacity", .8);
 					div.html(d.grade + ' - ' +d.name);
 					div.style("font-weight","bold");
