@@ -18,6 +18,12 @@ Demo
 
 Hosted demo is available on heroku at [climbing-memo.herokuapp.com](http://climbing-memo.herokuapp.com/)
 
+Requierments
+-----
+
+* Install [nodejs](https://nodejs.org/)
+
+
 Quick Start
 -----
 
@@ -25,7 +31,7 @@ Quick Start
 $ npm install
 $ npm start
 ```
-Create a [firebase account](https://www.firebase.com/) and configure your app URL in [app/app.js#L16](app/app.js)
+Create a [firebase account](https://www.firebase.com/) and configure your app URL in [app/app.js](app/app.js#L16)
 
 Run tests
 -----
