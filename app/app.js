@@ -1,8 +1,9 @@
 'use strict'
 
-var app = angular.module('climbingMemo', ['ngRoute','firebase','ui.bootstrap','hc.marked'])
+angular.module('climbingMemo', ['ngRoute','firebase','ui.bootstrap','hc.marked'])
 
-app.config(function($routeProvider) {
+angular.module('climbingMemo')
+.config(function($routeProvider) {
 	$routeProvider
 	.when('/',
 		{
@@ -11,4 +12,5 @@ app.config(function($routeProvider) {
 		})
 })
 
-app.constant('FIREBASE_URL', 'https://dazzling-heat-1886.firebaseio.com')
+angular.module('climbingMemo')
+.constant('FIREBASE_URL', 'https://dazzling-heat-1886.firebaseio.com')

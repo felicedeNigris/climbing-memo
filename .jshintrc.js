@@ -1,5 +1,14 @@
 {
   "globals": {
+    /* Charts */
+    "arrayGroupBy": false,
+    "drawScatterPlot": false,
+    "drawMapChart": false,
+    "drawVerticalBar" : false,
+    "drawCalendarHeatmap": false,
+    "drawHorizontalBar": false,
+    /* Firebase */
+    "Firebase": false,
     /* MOCHA */
     "describe"   : false,
     "it"         : false,

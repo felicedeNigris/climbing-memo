@@ -1,6 +1,7 @@
 'use strict'
 
-app.factory('routeService', function routeService($firebaseObject,FIREBASE_URL,$http) {
+angular.module('climbingMemo')
+.factory('routeService', function routeService($firebaseObject,FIREBASE_URL,$http) {
 
 	var _ref = new Firebase(FIREBASE_URL)
 	var routeServiceFactory = {}

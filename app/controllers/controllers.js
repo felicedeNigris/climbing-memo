@@ -1,11 +1,13 @@
 'use strict'
 
-app.controller('MainController', function($scope) {
+angular.module('climbingMemo')
+.controller('MainController', function($scope) {
   $scope.$on('$viewContentLoaded', function() {
   })
 })
 
-app.controller('GeneralController', function($scope,$filter,routeService,$http,$modal) {
+angular.module('climbingMemo')
+.controller('GeneralController', function($scope,$filter,routeService,$http,$modal) {
 
   // Get Data
   routeService.getRoutes().$bindTo($scope,"routes").then(function() {
@@ -174,7 +176,8 @@ app.controller('GeneralController', function($scope,$filter,routeService,$http,$
 
 })
 
-app.controller('modalRouteController', function($scope,$modalInstance,route) {
+angular.module('climbingMemo')
+.controller('modalRouteController', function($scope,$modalInstance,route) {
 
   $scope.route = route
 
