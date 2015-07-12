@@ -38,5 +38,5 @@ Run tests
 
 
 ```sh
-$ node_modules/.bin/mocha test -r jscoverage
+$ npm test
 ```
