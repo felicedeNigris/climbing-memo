@@ -16,7 +16,7 @@
     "mocha-lcov-reporter": "~0.0.2"
   },
   "scripts": {
-    "test": "grunt test",
+    "test": "node_modules/.bin/grunt test",
     "postinstall": "bower install"
   }
 }
