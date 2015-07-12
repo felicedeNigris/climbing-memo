@@ -17,6 +17,6 @@
   },
   "scripts": {
     "test": "node_modules/.bin/grunt test",
-    "postinstall": "bower install"
+    "postinstall": "node_modules/.bin/bower install"
   }
 }

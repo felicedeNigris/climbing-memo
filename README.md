@@ -23,10 +23,9 @@ Quick Start
 
 ```sh
 $ npm install
-$ node_modules/.bin/bower install
-$ node server.js
+$ npm start
 ```
-Create a [firebase account](https://www.firebase.com/) and configure your app URL in [app/app.js](app/app.js)
+Create a [firebase account](https://www.firebase.com/) and configure your app URL in [app/app.js#L16](app/app.js)
 
 Run tests
 -----
