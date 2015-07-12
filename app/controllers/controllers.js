@@ -1,3 +1,4 @@
+'user strict'
 
 app.controller('MainController', function($scope) {
   $scope.$on('$viewContentLoaded', function() {

@@ -1,3 +1,5 @@
+'user strict'
+
 app.factory('routeService', function routeService($firebaseObject,FIREBASE_URL,$http) {
 
 	var _ref = new Firebase(FIREBASE_URL)

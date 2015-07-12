@@ -1,3 +1,5 @@
+'use strict'
+
 var assert = require("assert") // node.js core module
 var utils = require("../assets/js/utils.js").utils // assets utils
 
