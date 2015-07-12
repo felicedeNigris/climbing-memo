@@ -7,25 +7,23 @@ angular.module('climbingMemo')
 })
 
 angular.module('climbingMemo')
-.controller('GeneralController', function($scope,$filter,routeService,$http,$modal) {
+.controller('GeneralController', function($scope, $filter, routesSvc, $http, $modal) {
 
   // Get Data
-  routeService.getRoutes().$bindTo($scope,"routes").then(function() {
+  routesSvc.getRoutes().success(function(data) {
+    _.map(data, function(route, key) {
+      route.$visible = true
+      route.$date = route.date
+      route.$id = key
+    })
+    $scope.routes = data
     initController()
-
-    for (var key in $scope.routes) {
-      if (routeService.isObject($scope.routes[key])) {
-        $scope.routes[key].$visible = true
-        $scope.routes[key].$date = $scope.routes[key].date
-      }
-    }
-
   })
 
   // Init Controller
   var initController = function() {
 
-    var arrayRoutes = routeService.objectToArray($scope.routes)
+    var arrayRoutes = _.toArray($scope.routes)
     var arrayLocations = arrayGroupBy(arrayRoutes,"location")
     var arraySectors = arrayGroupBy(arrayRoutes,"sector")
     var arrayTypes = arrayGroupBy(arrayRoutes,"type")
@@ -85,8 +83,6 @@ angular.module('climbingMemo')
       'status':'Attempt',
       'id': id
     }
-
-
   }
 
   /**
@@ -102,13 +98,12 @@ angular.module('climbingMemo')
   }
 
   /**
-  * Update route when click on done button. It will calculate the lat long
-  * and re-init the controller $method openDatepicker
+  * Save or Create new route when click on done button. It will calculate the
+  * lat long and re-init the controller.
   *
-  * @method updatedRoute
+  * @method saveRoute
   */
-  $scope.updatedRoute = function(route) {
-
+  $scope.saveRoute = function(route) {
     route.$edit = false
     route.date = $filter('date')(route.$date,'dd/MM/yyyy') // Save to Firebase
 
@@ -119,9 +114,34 @@ angular.module('climbingMemo')
         route.latitude = data.results[0].geometry.location.lat
         route.longitude = data.results[0].geometry.location.lng
       }
+
+      if (route.$id) { // Update route
+        routesSvc.updateRoute(route, route.$id)
+      } else { // Create new route
+        routesSvc.addRoute(route).success(function(data) {
+          route.$id = data.name
+        })
+      }
       initController()
     })
+  }
 
+  /**
+   * Create a copy of an existing route and let the user edit it
+   *
+   * @method copyRoute
+   */
+  $scope.copyRoute = function(route) {
+    var newRoute = JSON.parse(JSON.stringify(route)) // Clone
+    newRoute.createdAt = Date.now()
+    newRoute.$date = $filter('date')(newRoute.createdAt,'dd/MM/yyyy')
+    newRoute.$edit = true
+
+    routesSvc.addRoute(newRoute).success(function(data) {
+      newRoute.$id = data.name
+      $scope.routes[newRoute.$id] = newRoute
+      initController()
+    })
   }
 
   /**
@@ -130,10 +150,9 @@ angular.module('climbingMemo')
   * @method deleteRoute
   */
   $scope.deleteRoute = function(route) {
-    if ($scope.routes[route.id] !== undefined) {
-      delete $scope.routes[route.id]
-      initController()
-    }
+    delete $scope.routes[route.$id]
+    routesSvc.deleteRoute(route.$id)
+    initController()
   }
 
   /**
@@ -143,7 +162,7 @@ angular.module('climbingMemo')
   */
   $scope.sectorPopulatePlaceholder = function(item,route) {
 
-    var arrayRoutes = routeService.objectToArray($scope.routes)
+    var arrayRoutes = _.toArray($scope.routes)
     arrayRoutes = arrayRoutes.filter(function(n) { return n.sector === item })
 
     var properties = ['type','rock','location']
@@ -177,9 +196,19 @@ angular.module('climbingMemo')
 })
 
 angular.module('climbingMemo')
-.controller('modalRouteController', function($scope,$modalInstance,route) {
+.controller('modalRouteController', function($scope, $modalInstance, route, routesSvc) {
 
   $scope.route = route
+
+  /**
+   * Save the route after editing the note on the modal
+   *
+   * @method saveRoute
+   */
+  $scope.saveRoute = function(route) {
+    route.$editNotes = false
+    routesSvc.updateRoute(route, route.$id)
+  }
 
   /**
   * Close the modal

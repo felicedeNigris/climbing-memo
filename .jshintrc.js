@@ -7,8 +7,8 @@
     "drawVerticalBar" : false,
     "drawCalendarHeatmap": false,
     "drawHorizontalBar": false,
-    /* Firebase */
-    "Firebase": false,
+    /* Lodash */
+    "_": false,
     /* MOCHA */
     "describe"   : false,
     "it"         : false,

@@ -1,6 +1,6 @@
 <div class="modal-header">
 
-	<button ng-if="route.$editNotes" class="pull-right btn btn-primary" ng-click="route.$editNotes = false"><i class="fa fa-check"></i> Done</button>
+	<button ng-if="route.$editNotes" class="pull-right btn btn-primary" ng-click="saveRoute(route)"><i class="fa fa-check"></i> Done</button>
 	<button ng-if="!route.$editNotes" class="pull-right btn btn-success" ng-click="route.$editNotes = true"><i class="fa fa-pencil"></i> Notes</button>
 
 	<h3 class="modal-title"><i class="fa fa-connectdevelop"></i> {{ route.name }}</h3>
@@ -55,14 +55,14 @@
 				<tab-heading>
 					<span style="cursor:pointer"><i class="fa fa-pencil"></i> Markdown</span>
 				</tab-heading>
-				
+
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<textarea rows="20" class="form-control" ng-model="route.notes"></textarea>
 					</div>
 				</div>
 			</tab>
-		
+
 			<tab>
 				<tab-heading>
 					<span style="cursor:pointer"><i class="fa fa-search"></i> Preview</span>

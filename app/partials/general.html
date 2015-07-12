@@ -2,7 +2,7 @@
 
 <!-- Panel Overview -->
 
-<div class="row">	
+<div class="row">
 
 	<div class="col-md-3">
 		<div class="panel panel-default">
@@ -140,7 +140,8 @@
 					</td>
 					<td style="width:90px" >
 						<span ng-if="!route.$edit" class="label label-info" ng-click="route.$edit = true">Edit</span>
-						<span ng-if="route.$edit" class="label label-primary" ng-click="updatedRoute(route)">Done</span>
+						<span ng-if="route.$edit" class="label label-primary" ng-click="saveRoute(route)">Done</span>
+            <span ng-if="!route.$edit" class="label label-success" ng-click="copyRoute(route)">Copy</span>
 						<span ng-if="!route.$edit" class="label label-danger" ng-click="deleteRoute(route)">Delete</span>
 					</td>
 				</tr>

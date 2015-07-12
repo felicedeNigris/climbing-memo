@@ -13,4 +13,4 @@ angular.module('climbingMemo')
 })
 
 angular.module('climbingMemo')
-.constant('FIREBASE_URL', 'https://dazzling-heat-1886.firebaseio.com')
+.constant('FIREBASE_URL', 'https://dazzling-heat-1886.firebaseio.com/')
