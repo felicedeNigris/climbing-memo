@@ -1,4 +1,4 @@
-'user strict'
+'use strict'
 
 app.controller('MainController', function($scope) {
   $scope.$on('$viewContentLoaded', function() {

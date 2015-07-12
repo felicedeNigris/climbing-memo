@@ -1,4 +1,4 @@
-'user strict'
+'use strict'
 
 app.factory('routeService', function routeService($firebaseObject,FIREBASE_URL,$http) {
 
