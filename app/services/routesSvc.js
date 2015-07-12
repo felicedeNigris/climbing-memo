@@ -1,9 +1,9 @@
 'use strict'
 
 angular.module('climbingMemo')
-.factory('routesSvc', function routeSvc($http, FIREBASE_URL) {
+.factory('routesSvc', function routeSvc($http, DATABASE_URL) {
 
-  var urlBase = FIREBASE_URL + 'routes'
+  var urlBase = DATABASE_URL + 'routes'
 
   var cleanObjectProperties = function(object) {
     var cleanedObject = JSON.parse(JSON.stringify(object)) // Clone

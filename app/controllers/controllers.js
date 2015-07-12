@@ -105,7 +105,7 @@ angular.module('climbingMemo')
   */
   $scope.saveRoute = function(route) {
     route.$edit = false
-    route.date = $filter('date')(route.$date,'dd/MM/yyyy') // Save to Firebase
+    route.date = $filter('date')(route.$date,'dd/MM/yyyy')
 
     var baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
 
