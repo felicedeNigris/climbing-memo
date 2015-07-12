@@ -1,7 +1,7 @@
 app.factory('routeService', function routeService($firebaseObject,FIREBASE_URL,$http) {
 
-	var _ref = new Firebase(FIREBASE_URL);
-	var routeService = {};
+	var _ref = new Firebase(FIREBASE_URL)
+	var routeServiceFactory = {}
 
 	/**
 	 * Get routes as Object from firebase
@@ -9,9 +9,9 @@ app.factory('routeService', function routeService($firebaseObject,FIREBASE_URL,$
 	 * @method getRoutes
 	 * @return {Object} Firebase object
 	 */
-	routeService.getRoutes = function () {
-		return $firebaseObject(_ref.child('routes'));
-	};
+	routeServiceFactory.getRoutes = function() {
+		return $firebaseObject(_ref.child('routes'))
+	}
 
 	/**
 	 * Tell if a firebase object is a route
@@ -20,28 +20,28 @@ app.factory('routeService', function routeService($firebaseObject,FIREBASE_URL,$
 	 * @param {Object} Firebase object
 	 * @return {Boolean} True if is a route
 	 */
-	routeService.isObject = function (object) {
-		return typeof object === 'object' && object && object.hasOwnProperty('id');
-	};
+	routeServiceFactory.isObject = function(object) {
+		return typeof object === 'object' && object && object.hasOwnProperty('id')
+	}
 
 	/**
 	 * Convert Firebase object to an array of routes
-	 * 
+	 *
 	 * @method objectToArray
 	 * @param {Object} Firebase object
 	 * @return {Array} Array of routes
 	 */
-	routeService.objectToArray = function (object) {
-		var routes = [];
-		for (var key in object){
-			if (routeService.isObject(object[key]))
-				routes.push(object[key]);
+	routeServiceFactory.objectToArray = function(object) {
+		var routes = []
+		for (var key in object) {
+			if (routeServiceFactory.isObject(object[key]))
+				routes.push(object[key])
 		}
-		return routes;
-	};
+		return routes
+	}
 
 
-	return routeService;
+	return routeServiceFactory
 
-});
+})
 
