@@ -182,7 +182,7 @@ angular.module('climbingMemo')
   */
   $scope.openRouteModal = function(route) {
     $modal.open({
-      templateUrl: 'app/partials/routeModal.html',
+      templateUrl: 'app/views/routeModal.html',
       controller: 'modalRouteController',
       size: 'lg',
       resolve: {

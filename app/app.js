@@ -8,7 +8,7 @@ angular.module('climbingMemo')
 	.when('/',
 		{
 			controller: 'GeneralController',
-			templateUrl: 'app/partials/general.html'
+			templateUrl: 'app/views/general.html'
 		})
 })
 
