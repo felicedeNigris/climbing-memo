@@ -1,3 +1,4 @@
+'use strict'
 
 angular.module('climbingMemo')
 .directive('headerDescription', function() {
