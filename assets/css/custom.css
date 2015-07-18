@@ -1,19 +1,22 @@
+body >.container {
+  margin-top:55px;
+}
 #panel-map {
-	min-height: 300px;
+	min-height: 600px;
 }
 #panel-chart {
 	padding:0;
 	min-height: 300px;
 }
 
-.tooltip {   
-	position: absolute;           
-	text-align: center;           
-	padding: 5px;             
-	font: 12px sans-serif;        
-	border: 0;      
-	border-radius: 8px;           
-	pointer-events: none;         
+.tooltip {
+	position: absolute;
+	text-align: center;
+	padding: 5px;
+	font: 12px sans-serif;
+	border: 0;
+	border-radius: 8px;
+	pointer-events: none;
 	color:white;
 }
 

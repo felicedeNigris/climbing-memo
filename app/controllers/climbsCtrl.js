@@ -1,13 +1,7 @@
 'use strict'
 
 angular.module('climbingMemo')
-.controller('MainController', function($scope) {
-  $scope.$on('$viewContentLoaded', function() {
-  })
-})
-
-angular.module('climbingMemo')
-.controller('GeneralController', function($scope, $filter, routesSvc, $http,
+.controller('climbsCtrl', function($scope, $filter, routesSvc, $http,
 $modal, notificationService) {
 
   // Get Data
@@ -23,44 +17,12 @@ $modal, notificationService) {
 
   // Init Controller
   var initController = function() {
-
     var arrayRoutes = _.toArray($scope.routes)
     var arrayLocations = arrayGroupBy(arrayRoutes,"location")
     var arraySectors = arrayGroupBy(arrayRoutes,"sector")
-    var arrayTypes = arrayGroupBy(arrayRoutes,"type")
-
-
-    drawMapChart({
-      data:arrayRoutes,
-      containerId:'panel-map'
-    })
-    drawScatterPlot({
-      data:arrayRoutes,
-      containerSelector:'#panel-scatter-plot'
-    })
-    drawCalendarHeatmap({
-      data:arrayRoutes,
-      cellSize:13,
-      containerSelector:'#panel-calendar-heatmap'
-    })
-    drawVerticalBar({
-      data:arrayRoutes,
-      containerSelector:'#panel-vertical-chart'
-    })
-    drawHorizontalBar({
-      data:arrayRoutes,
-      type: arrayTypes[0],
-      containerSelector:'#panel-horizontal-chart'
-    })
 
     $scope.locations = arrayLocations
     $scope.sectors = arraySectors
-    $scope.metrics = {
-      count: arrayRoutes.length,
-      favoriteSector: arraySectors[0],
-      favoriteType: arrayTypes[0]
-    }
-
   }
 
   /**
@@ -205,7 +167,7 @@ $modal, notificationService) {
   $scope.openRouteModal = function(route) {
     $modal.open({
       templateUrl: 'app/views/routeModal.html',
-      controller: 'modalRouteController',
+      controller: 'modalRouteCtrl',
       size: 'lg',
       resolve: {
         route: function() {
@@ -217,35 +179,3 @@ $modal, notificationService) {
 
 })
 
-angular.module('climbingMemo')
-.controller('modalRouteController', function($scope, $modalInstance, route,
-routesSvc, notificationService) {
-
-  $scope.route = route
-
-  /**
-   * Save the route after editing the note on the modal
-   *
-   * @method saveRoute
-   */
-  $scope.saveRoute = function(route) {
-    route.$editNotes = false
-    routesSvc.updateRoute(route, route.$id)
-    .success(function() {
-      notificationService.success(route.name + ' - note saved')
-    })
-    .error(function() {
-      notificationService.error('Error while saving ' + route.name)
-    })
-  }
-
-  /**
-  * Close the modal
-  *
-  * @method closeModal
-  */
-  $scope.closeModal = function() {
-    $modalInstance.dismiss('cancel')
-  }
-
-})

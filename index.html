@@ -16,12 +16,20 @@
 	</head>
 	<body>
 
-		<div ng-controller="MainController">
-			<div class="container">
-				<hr>
-				<div data-ng-view></div>
-			</div>
-		</div>
+    <main-navbar></main-navbar>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <header-description></header-description>
+        </div>
+        <div class="col-md-9">
+          <header-overview></header-overview>
+        </div>
+      </div>
+      <hr>
+      <div data-ng-view></div>
+    </div>
 
 		<!-- JS LIBRARIES -->
 		<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -60,10 +68,19 @@
 
     <!-- Angular ClimbingMemo App -->
 		<script src="app/app.js"></script>
+    <!-- Angular ClimbingMemo Services -->
 		<script src="app/services/routesSvc.js"></script>
-		<script src="app/controllers/controllers.js"></script>
+    <!-- Angular ClimbingMemo Controllers -->
+		<script src="app/controllers/overviewCtrl.js"></script>
+		<script src="app/controllers/navbarCtrl.js"></script>
+		<script src="app/controllers/climbsCtrl.js"></script>
+		<script src="app/controllers/chartsCtrl.js"></script>
+		<script src="app/controllers/mapCtrl.js"></script>
+		<script src="app/controllers/modal/routeCtrl.js"></script>
+    <!-- Angular ClimbingMemo Directives -->
 		<script src="app/directives/headerDescription.js"></script>
 		<script src="app/directives/headerOverview.js"></script>
+		<script src="app/directives/mainNavbar.js"></script>
 
 	</body>
 </html>

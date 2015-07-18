@@ -1,0 +1,25 @@
+<div class="navbar navbar-default navbar-fixed-top" ng-controller="navbarCtrl">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/"><i class="fa fa-book"></i> Memo App</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+      <ul class="nav navbar-nav">
+        <li ng-class="{ active: isActive('/climbs')}">
+        <a href="#/climbs"><i class="fa fa-connectdevelop"></i> Climbs</a>
+        </li>
+        <li ng-class="{ active: isActive('/map')}">
+        <a href="#/map"><i class="fa fa-globe"></i> Map</a>
+        </li>
+        <li ng-class="{ active: isActive('/charts')}">
+        <a href="#/charts"><i class="fa fa-bar-chart"></i> Charts</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
