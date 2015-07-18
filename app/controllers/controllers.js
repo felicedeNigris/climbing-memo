@@ -7,7 +7,8 @@ angular.module('climbingMemo')
 })
 
 angular.module('climbingMemo')
-.controller('GeneralController', function($scope, $filter, routesSvc, $http, $modal) {
+.controller('GeneralController', function($scope, $filter, routesSvc, $http,
+$modal, notificationService) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
@@ -117,10 +118,22 @@ angular.module('climbingMemo')
 
       if (route.$id) { // Update route
         routesSvc.updateRoute(route, route.$id)
-      } else { // Create new route
-        routesSvc.addRoute(route).success(function(data) {
-          route.$id = data.name
+        .success(function() {
+          notificationService.success(route.name + ' saved')
         })
+        .error(function() {
+          notificationService.error('Error while saving ' + route.name)
+        })
+      } else { // Create new route
+        routesSvc.addRoute(route)
+        .success(function(data) {
+          route.$id = data.name
+          notificationService.success(route.name + ' saved')
+        })
+        .error(function() {
+          notificationService.error('Error while saving ' + route.name)
+        })
+
       }
       initController()
     })
@@ -134,6 +147,7 @@ angular.module('climbingMemo')
   $scope.copyRoute = function(route) {
     var newRoute = JSON.parse(JSON.stringify(route)) // Clone
     newRoute.createdAt = Date.now()
+    newRoute.name= route.name + ' (Copy)'
     newRoute.$date = $filter('date')(newRoute.createdAt,'dd/MM/yyyy')
     newRoute.$edit = true
 
@@ -151,7 +165,15 @@ angular.module('climbingMemo')
   */
   $scope.deleteRoute = function(route) {
     delete $scope.routes[route.$id]
+
     routesSvc.deleteRoute(route.$id)
+    .success(function() {
+      notificationService.success(route.name + ' deleted')
+    })
+    .error(function() {
+      notificationService.error('Error while deleting' + route.name)
+    })
+
     initController()
   }
 
@@ -196,7 +218,8 @@ angular.module('climbingMemo')
 })
 
 angular.module('climbingMemo')
-.controller('modalRouteController', function($scope, $modalInstance, route, routesSvc) {
+.controller('modalRouteController', function($scope, $modalInstance, route,
+routesSvc, notificationService) {
 
   $scope.route = route
 
@@ -208,6 +231,12 @@ angular.module('climbingMemo')
   $scope.saveRoute = function(route) {
     route.$editNotes = false
     routesSvc.updateRoute(route, route.$id)
+    .success(function() {
+      notificationService.success(route.name + ' - note saved')
+    })
+    .error(function() {
+      notificationService.error('Error while saving ' + route.name)
+    })
   }
 
   /**
