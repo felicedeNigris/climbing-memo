@@ -72,16 +72,16 @@ module.exports = function(grunt) {
             'bower_components/pnotify/pnotify.confirm.js',
             'bower_components/pnotify/pnotify.buttons.js',
             'bower_components/angular-pnotify/src/angular-pnotify.js',
-		        'bower_components/ng-appcache/dist/appcache.js'
+            'bower_components/ng-appcache/dist/appcache.js'
           ],
           network: ['*'],
-            fallback: ['/ /offline.html'],
-            exclude: [],
-            preferOnline: true,
-            verbose: true,
-            timestamp: true,
-            hash: true,
-            master: ['index.html']
+          fallback: ['/ /offline.html'],
+          exclude: [],
+          preferOnline: true,
+          verbose: true,
+          timestamp: true,
+          hash: true,
+          master: ['index.html']
         },
         src: [
           'app/**/*.js',
