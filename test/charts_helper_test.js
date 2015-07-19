@@ -1,7 +1,6 @@
 'use strict'
 
 var assert = require("assert") // node.js core module
-var heatmap = require("../assets/js/charts/calendar_heatmap_helper.js").calendarHeatmapHelper
 var map = require("../assets/js/charts/map_helper.js").mapHelper
 
 describe('Climbing Charts', function() {
