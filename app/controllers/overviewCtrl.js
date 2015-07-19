@@ -14,12 +14,6 @@ angular.module('climbingMemo')
     var arraySectors = arrayGroupBy(arrayRoutes,"sector")
     var arrayTypes = arrayGroupBy(arrayRoutes,"type")
 
-    drawCalendarHeatmap({
-      data:arrayRoutes,
-      cellSize:13,
-      containerSelector:'#panel-calendar-heatmap'
-    })
-
     $scope.routes = arrayRoutes
     $scope.metrics = {
       count: arrayRoutes.length,

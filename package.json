@@ -19,5 +19,8 @@
   "scripts": {
     "test": "node_modules/.bin/grunt test",
     "postinstall": "node_modules/.bin/bower install"
+  },
+  "devDependencies": {
+    "grunt-manifest": "^0.4.0"
   }
 }

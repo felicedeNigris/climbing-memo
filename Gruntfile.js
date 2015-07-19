@@ -46,8 +46,51 @@ module.exports = function(grunt) {
           'test/*.js'
         ]
       }
+    },
+    manifest: {
+      generate: {
+        options: {
+          basePath: '.',
+          cache: [
+            'index.html',
+            'bower_components/bootstrap/dist/css/bootstrap.css',
+            'bower_components/components-font-awesome/css/font-awesome.css',
+            'bower_components/pnotify/pnotify.core.css',
+            'bower_components/pnotify/pnotify.buttons.css',
+            'bower_components/jquery/dist/jquery.js',
+            'bower_components/bootstrap/dist/js/bootstrap.js',
+            'bower_components/bootstrap-material-design/dist/js/material.js',
+            'bower_components/d3/d3.js',
+            'bower_components/gmaps/gmaps.js',
+            'bower_components/lodash/lodash.min.js',
+            'bower_components/angular/angular.js',
+            'bower_components/angular-route/angular-route.js',
+            'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+            'bower_components/marked/lib/marked.js',
+            'bower_components/angular-marked/angular-marked.js',
+            'bower_components/pnotify/pnotify.core.js',
+            'bower_components/pnotify/pnotify.confirm.js',
+            'bower_components/pnotify/pnotify.buttons.js',
+            'bower_components/angular-pnotify/src/angular-pnotify.js',
+		        'bower_components/ng-appcache/dist/appcache.js'
+          ],
+          network: ['*'],
+            fallback: ['/ /offline.html'],
+            exclude: [],
+            preferOnline: true,
+            verbose: true,
+            timestamp: true,
+            hash: true,
+            master: ['index.html']
+        },
+        src: [
+          'app/**/*.js',
+          'assets/css/*.css',
+          'app/views/**/*.html'
+        ],
+        dest: 'manifest.appcache'
+      }
     }
-
   })
 
   grunt.loadNpmTasks('grunt-contrib-jshint')
@@ -55,6 +98,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jscs')
   grunt.loadNpmTasks('grunt-version-check')
   grunt.loadNpmTasks('grunt-mocha-test')
+  grunt.loadNpmTasks('grunt-manifest')
 
   grunt.registerTask('default', ['watch'])
   grunt.registerTask('test', [

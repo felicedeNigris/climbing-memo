@@ -1,6 +1,7 @@
 'use strict'
 
-angular.module('climbingMemo', ['ngRoute','ui.bootstrap','hc.marked', 'jlareau.pnotify'])
+angular.module('climbingMemo', ['ngRoute','ui.bootstrap','hc.marked',
+'jlareau.pnotify', 'ng-appcache'])
 
 angular.module('climbingMemo')
 .config(function($routeProvider) {
