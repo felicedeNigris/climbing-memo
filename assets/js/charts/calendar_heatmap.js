@@ -54,7 +54,7 @@ function getCalendarHeatmap () {
 			.attr("class", "emptyDay")
 			.attr("width", cellSize)
 			.attr("height", cellSize)
-			.attr("x", function(d) { 
+			.attr("x", function(d) {
 
 				var dist = (endDate.getFullYear() === d.getFullYear()) ?
 					1+ parseInt(week(endDate)) - parseInt(week(d)):
@@ -77,7 +77,7 @@ function getCalendarHeatmap () {
 			.select("title")
 			.text(function(d) {
 				var metric = data[d].metrics[0];
-				var string =  
+				var string =
 					metric.grade+ ' ' +
 					metric.status + ' ('+
 					metric.type + ') on ' + d;
@@ -96,7 +96,7 @@ function getCalendarHeatmap () {
 			svg.selectAll('rect').style({
 				'shape-rendering': 'crispEdges'
 			});
-			
+
 			svg.selectAll('text').style({
 				'font': '12px sans-serif',
 				'fill': 'gray'
@@ -108,13 +108,13 @@ function getCalendarHeatmap () {
 			svg.append("text")
 				.attr("transform", "translate(0," + (2 + cellSize * 8) + ")")
 				.text('Summary of climbs over the last year');
-			
+
 			// Difficulty legend
 			var xPos = 490;
 			svg.append("text")
 				.attr("transform", "translate("+ xPos +"," + (2 + cellSize * 8) + ")")
 				.text('Difficulty: Less');
-		
+
 			var legendDays = [10,8,6,4,2,1];
 			var rect = svg.selectAll(".legendDay")
 				.data(legendDays)
@@ -134,7 +134,7 @@ function getCalendarHeatmap () {
 				.attr("transform", "translate("+ (xPos + cellSize * 6 + 93 ) +"," + (2 + cellSize * 8) + ")")
 				.text('more');
 		}
-		
+
 		createLegend();
 		applyStyle();
 

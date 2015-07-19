@@ -20,6 +20,7 @@ angular.module('climbingMemo')
       containerSelector:'#panel-calendar-heatmap'
     })
 
+    $scope.routes = arrayRoutes
     $scope.metrics = {
       count: arrayRoutes.length,
       favoriteSector: arraySectors[0],
