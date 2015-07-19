@@ -1,98 +1,101 @@
 <div class="modal-header">
 
-	<button ng-if="route.$editNotes" class="pull-right btn btn-primary" ng-click="saveRoute(route)"><i class="fa fa-check"></i> Done</button>
-	<button ng-if="!route.$editNotes" class="pull-right btn btn-success" ng-click="route.$editNotes = true"><i class="fa fa-pencil"></i> Notes</button>
+  <button ng-if="route.$editNotes" class="pull-right btn btn-primary" ng-click="saveRoute(route)"><i class="fa fa-check"></i> Done</button>
+  <button ng-if="!route.$editNotes" class="pull-right btn btn-success" ng-click="route.$editNotes = true"><i class="fa fa-pencil"></i> Notes</button>
 
-	<h3 class="modal-title"><i class="fa fa-connectdevelop"></i> {{ route.name }}</h3>
+  <h3 class="modal-title"><i class="fa fa-connectdevelop"></i> {{ route.name }}</h3>
 </div>
 
 <div class="modal-body">
-	<table class="table table-bordered">
-		<tbody>
-			<tr class="active">
-				<td class="text-center">
-					<small class="text-muted">Grade</small><br>
-					{{route.grade}}
-				</td>
-				<td class="text-center">
-					<small class="text-muted">Rating</small><br>
-					<rating readonly="true" ng-model="route.rating"></rating>
-				</td>
-				<td class="text-center">
-					<small class="text-muted">Status</small><br>
-					{{route.status}}
-				</td>
-				<td class="text-center">
-					<small class="text-muted">Date</small><br>
-					{{route.date}}
-				</td>
-				<td class="text-center">
-					<small class="text-muted">Sector</small><br>
-					{{route.sector}}
-				</td>
-				<td class="text-center">
-					<small class="text-muted">Type</small><br>
-					{{route.type}}
-				</td>
-				<td class="text-center">
-					<small class="text-muted">Rock</small><br>
-					{{route.rock}}
-				</td>
-			</tr>
-		</table>
-	</tbody>
+  <table class="table table-bordered hidden-xs">
+    <tbody>
+      <tr class="active">
+        <td class="text-center">
+          <small class="text-muted">Grade</small><br>
+          {{route.grade}}
+        </td>
+        <td class="text-center">
+          <small class="text-muted">Rating</small><br>
+          <rating readonly="true" ng-model="route.rating"></rating>
+        </td>
+        <td class="text-center">
+          <small class="text-muted">Status</small><br>
+          {{route.status}}
+        </td>
+        <td class="text-center">
+          <small class="text-muted">Date</small><br>
+          {{route.date}}
+        </td>
+        <td class="text-center">
+          <small class="text-muted">Sector</small><br>
+          {{route.sector}}
+        </td>
+        <td class="text-center">
+          <small class="text-muted">Type</small><br>
+          {{route.type}}
+        </td>
+        <td class="text-center">
+          <small class="text-muted">Rock</small><br>
+          {{route.rock}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-	<div class="panel panel-default" ng-if="!route.$editNotes">
-		<div class="panel-body">
-			<div marked="route.notes" style="min-height:100px"></div>
-		</div>
-	</div>
+  <div class="panel panel-default" ng-if="!route.$editNotes">
+    <div class="panel-body">
+      <div marked="route.notes" style="min-height:100px"></div>
+    </div>
+  </div>
 
-	<div ng-if="route.$editNotes">
+  <div ng-if="route.$editNotes">
 
-		<tabset>
-			<tab>
-				<tab-heading>
-					<span style="cursor:pointer"><i class="fa fa-pencil"></i> Markdown</span>
-				</tab-heading>
+    <tabset type="pills">
+    <tab>
+    <tab-heading>
+    <span style="cursor:pointer"><i class="fa fa-pencil"></i> Markdown</span>
+    </tab-heading>
 
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<textarea rows="20" class="form-control" ng-model="route.notes"></textarea>
-					</div>
-				</div>
-			</tab>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <textarea rows="20" class="form-control" ng-model="route.notes"></textarea>
+      </div>
+    </div>
+    </tab>
 
-			<tab>
-				<tab-heading>
-					<span style="cursor:pointer"><i class="fa fa-search"></i> Preview</span>
-				</tab-heading>
+    <tab>
+    <tab-heading>
+    <span style="cursor:pointer"><i class="fa fa-search"></i> Preview</span>
+    </tab-heading>
 
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div marked="route.notes"></div>
-					</div>
-				</div>
-			</tab>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div marked="route.notes"></div>
+      </div>
+    </div>
+    </tab>
 
-			<tab>
-				<tab-heading>
-					<span style="cursor:pointer"><i class="fa fa-question-circle"></i> Help</span>
-				</tab-heading>
+    <tab>
+    <tab-heading>
+    <span style="cursor:pointer"><i class="fa fa-question-circle"></i> Help</span>
+    </tab-heading>
 
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div ng-include src="'app/views/markdownReference.html'"></div>
-					</div>
-				</div>
-				</tab>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="hidden-xs hidden-sm" ng-include
+          src="'app/views/markdownReference.html'"></div>
+        <div class="visible-xs visible-sm" ng-include
+          src="'app/views/_markdownReferenceSummary.html'"></div>
+      </div>
+    </div>
+    </tab>
 
-		</tabset>
+    </tabset>
 
-	</div>
+  </div>
 
 </div>
 
 <div class="modal-footer">
-	<button class="btn btn-primary" ng-click="closeModal()"><i class="fa fa-times"></i> Close</button>
+  <button class="btn btn-primary" ng-click="closeModal()"><i class="fa fa-times"></i> Close</button>
 </div>

@@ -1,5 +1,5 @@
 <!-- Panel Data -->
-<div class="panel panel-default">
+<div class="panel panel-default climbs">
 	<div class="panel-body">
 
 		<button class="pull-right btn btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i> Add</button>
@@ -8,15 +8,25 @@
 		<table class="table table-condensed table-hover">
 			<thead>
 				<tr>
-					<th>Name</th> <th>Grade</th> <th>Rating</th> <th>Status</th> <th>Date</th> <th>Sector</th>
-					<th>Type</th> <th>Rock</th><th>Location</th><th>Action</th>
+          <th class="">Name</th>
+          <th class="">Grade</th>
+          <th class="hidden-xs hidden-sm">Rating</th>
+          <th class="">Status</th>
+          <th class="hidden-xs">Date</th>
+          <th class="hidden-xs">Sector</th>
+          <th class="hidden-xs">Type</th>
+          <th class="hidden-xs">Rock</th>
+          <th class="hidden-xs">Location</th>
+          <th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="route in routes" ng-if="route.$visible">
 					<td>
 						<span ng-if="!route.$edit">
-							<a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)"><i class="fa fa-file-text-o"></i> {{route.name}}</a>
+              <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">
+                <i class="hidden-xs fa fa-file-text-o"></i> {{route.name}}
+              </a>
 						</span>
 						<div ng-if="route.$edit"><input placeholder="Name" class="form-control" type="text" ng-model="route.name"></div>
 					</td>
@@ -24,11 +34,11 @@
 						<span ng-if="!route.$edit">{{route.grade}}</span>
 						<div ng-if="route.$edit"><input placeholder="Grade" class="form-control" type="text" ng-model="route.grade" ></div>
 					</td>
-					<td >
+					<td class="hidden-xs hidden-sm">
 						<span ng-if="!route.$edit"><rating readonly="true" ng-model="route.rating"></rating></span>
 						<div ng-if="route.$edit" style="min-width:80px"><rating ng-model="route.rating"></rating></div>
 					</td>
-					<td >
+					<td  class="">
 						<span ng-if="!route.$edit">{{route.status}}</span>
 						<div ng-if="route.$edit">
 							<select class="form-control" ng-model="route.status" style="width:80px">
@@ -39,16 +49,16 @@
 							</select>
 						</div>
 					</td>
-					<td >
+					<td  class="hidden-xs">
 						<span ng-if="!route.$edit">{{route.date}}</span>
 						<div ng-if="route.$edit"><input type="text" class="form-control" ng-model="route.$date" datepicker-popup='EEE MMM dd y' is-open="route.$datepicker" ng-click="openDatepicker($event,route)">
 						</div>
 					</td>
-					<td >
+					<td  class="hidden-xs">
 						<span ng-if="!route.$edit">{{route.sector}}</span>
 						<div ng-if="route.$edit"><input placeholder="Sector" typeahead="sector for sector in sectors | filter:$viewValue" typeahead-on-select="sectorPopulatePlaceholder($item,route)" class="form-control" type="text" ng-model="route.sector" ></div>
 					</td>
-					<td >
+					<td  class="hidden-xs">
 						<span ng-if="!route.$edit">{{route.type}}</span>
 						<div ng-if="route.$edit">
 							<select class="form-control" ng-model="route.type" style="width:80px">
@@ -60,7 +70,7 @@
 							</select>
 						</div>
 					</td>
-					<td >
+					<td  class="hidden-xs">
 						<span ng-if="!route.$edit">{{route.rock}}</span>
 						<div ng-if="route.$edit">
 							<select class="form-control" ng-model="route.rock" style="width:80px">
@@ -74,7 +84,7 @@
 							</select>
 						</div>
 					</td>
-					<td >
+					<td  class="hidden-xs">
 						<span ng-if="!route.$edit">{{route.location}}</span>
 						<div ng-if="route.$edit"><input placeholder="Location" class="form-control" type="text" ng-model="route.location" typeahead="location for location in locations | filter:$viewValue"></div>
 					</td>
@@ -82,7 +92,7 @@
 						<span ng-if="!route.$edit" class="label label-info" ng-click="route.$edit = true">Edit</span>
 						<span ng-if="route.$edit" class="label label-primary" ng-click="saveRoute(route)">Done</span>
             <span ng-if="!route.$edit" class="label label-success" ng-click="copyRoute(route)">Copy</span>
-						<span ng-if="!route.$edit" class="label label-danger" ng-click="deleteRoute(route)">Delete</span>
+						<span ng-if="!route.$edit" class="label label-danger hidden-xs" ng-click="deleteRoute(route)">Delete</span>
 					</td>
 				</tr>
 			</tbody>
