@@ -16,8 +16,8 @@ angular.module('climbingMemo')
     var frequency = {}
 
     return data
-    .map ( function (group) {
-      if (group.hasOwnProperty(field)){
+    .map(function(group) {
+      if (group.hasOwnProperty(field)) {
 
         var value = group[field]
         if (!frequency.hasOwnProperty(value))
@@ -27,7 +27,7 @@ angular.module('climbingMemo')
         return value
       }
     })
-    .sort(function (a,b) { return frequency[a] < frequency[b] })
+    .sort(function(a,b) { return frequency[a] < frequency[b] })
     .filter(function(n) {
       return seen.hasOwnProperty(n) || n === undefined ? false : (seen[n] = true)
     })
@@ -45,7 +45,7 @@ angular.module('climbingMemo')
   this.arrayToHashtable = function(data,field) {
     var hashtable = []
 
-    for (var i=0 ; i < data.length ; i++){
+    for (var i=0 ; i < data.length ; i++) {
       var index = data[i][field]
 
       if (typeof hashtable[index] === 'undefined')

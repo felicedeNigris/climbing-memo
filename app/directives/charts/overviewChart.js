@@ -30,7 +30,7 @@ angular.module('climbingMemo')
        *
        * @return {Function} Callable object to create chart
        */
-      function getCalendarHeatmap () {
+      function getCalendarHeatmap() {
 
         // Default values
         var data = []
@@ -43,7 +43,7 @@ angular.module('climbingMemo')
             week = d3.time.format("%U"),
             format = d3.time.format("%d/%m/%Y")
 
-          var color = function (ease) {
+          var color = function(ease) {
             var color = '#839ee2'
             switch (ease) {
               case 0: case 1: color = '#3460cf'
@@ -63,10 +63,14 @@ angular.module('climbingMemo')
           container.select("svg").remove()
 
           var endDate = new Date()
-          var startDate = new Date(endDate.getFullYear()-1,endDate.getMonth(),endDate.getDate()+1)
+          var startDate = new Date(
+            endDate.getFullYear() - 1,
+            endDate.getMonth(),
+            endDate.getDate() + 1
+          )
 
           var width = 54 * cellSize + 10
-          var height = cellSize*8+10
+          var height = cellSize * 8 + 10
 
           var svg = container.append("svg")
             .data([1])
@@ -90,10 +94,10 @@ angular.module('climbingMemo')
             .attr("x", function(d) {
 
               var dist = (endDate.getFullYear() === d.getFullYear()) ?
-                1+ parseInt(week(endDate)) - parseInt(week(d)):
-                53-parseInt(week(d)) + parseInt(week(endDate))
+                1 + parseInt(week(endDate)) - parseInt(week(d)) :
+                53 - parseInt(week(d)) + parseInt(week(endDate))
 
-              return (53-dist) * cellSize
+              return (53 - dist) * cellSize
             })
             .attr("y", function(d) { return day(d) * cellSize; })
             .datum(format)
@@ -103,7 +107,7 @@ angular.module('climbingMemo')
 
           rect.filter(function(d) { return d in data; })
             .attr("class", "climbDay")
-            .style('fill', function (d) {
+            .style('fill', function(d) {
               var ease = parseInt(data[d].metrics[0].ease * 10)
               return color(ease)
             })
@@ -111,16 +115,15 @@ angular.module('climbingMemo')
             .text(function(d) {
               var metric = data[d].metrics[0]
               var string =
-                metric.grade+ ' ' +
-                metric.status + ' ('+
+                metric.grade + ' ' +
+                metric.status + ' (' +
                 metric.type + ') on ' + d
 
                 return string
             })
 
 
-          function applyStyle ()
-          {
+          function applyStyle() {
             svg.selectAll('.emptyDay').style({
               'fill': '#fff',
               'stroke': '#ccc'
@@ -136,8 +139,7 @@ angular.module('climbingMemo')
             })
           }
 
-          function createLegend () {
-
+          function createLegend() {
             svg.append("text")
               .attr("transform", "translate(0," + (2 + cellSize * 8) + ")")
               .text('Summary of climbs over the last year')
@@ -145,7 +147,7 @@ angular.module('climbingMemo')
             // Difficulty legend
             var xPos = 490
             svg.append("text")
-              .attr("transform", "translate("+ xPos +"," + (2 + cellSize * 8) + ")")
+              .attr("transform", "translate(" + xPos + "," + (2 + cellSize * 8) + ")")
               .text('Difficulty: Less')
 
             var legendDays = [10,8,6,4,2,1]
@@ -154,17 +156,18 @@ angular.module('climbingMemo')
               .enter().append("rect")
               .attr("width", cellSize)
               .attr("height", cellSize)
-              .attr("x", function (d) {
+              .attr("x", function(d) {
                 var numRect = legendDays.indexOf(d)
                 return xPos + 80 + cellSize * numRect + numRect * 2
               })
               .attr("y",  cellSize * 8 - 8)
-              .style("fill", function (d) {
+              .style("fill", function(d) {
                 return color(d)
               })
 
             svg.append("text")
-              .attr("transform", "translate("+ (xPos + cellSize * 6 + 93 ) +"," + (2 + cellSize * 8) + ")")
+              .attr("transform", "translate(" + (xPos + cellSize * 6 + 93) +
+              "," + (2 + cellSize * 8) + ")")
               .text('more')
           }
 
@@ -173,7 +176,7 @@ angular.module('climbingMemo')
 
         }
 
-        my.data = function (value) {
+        my.data = function(value) {
           if (!arguments.length) {
             return data
           }

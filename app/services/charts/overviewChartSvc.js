@@ -32,7 +32,7 @@ angular.module('climbingMemo')
     sortRouteGrade = function(a, b) {
       return !utilsChartSvc.compareRouteGrade(a.grade, b.grade)
     }
-    for (var key in dates){
+    for (var key in dates) {
 
       var routes = dates[key]
 
@@ -47,7 +47,7 @@ angular.module('climbingMemo')
         var hardestRoute = typeRoutes[0]
 
         var position = difficulties[hardestRoute.type].indexOf(hardestRoute.grade)
-        var ease = Math.abs(parseFloat(position)/allTypes[type].length)
+        var ease = Math.abs(parseFloat(position) / allTypes[type].length)
 
         if (!hardestRoute.grade) {
           hardestRoute.grade = ''
@@ -61,7 +61,7 @@ angular.module('climbingMemo')
           count: dayTypes[type].length
         })
       }
-      metrics.sort(function (a,b) { return a.count < b.count; })
+      metrics.sort(function(a,b) { return a.count < b.count; })
 
       data[key] = {
         date: key,
