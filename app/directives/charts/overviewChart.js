@@ -15,13 +15,13 @@ angular.module('climbingMemo')
 
       // Draw chart when routes change
       scope.$watch('routes', function(data) {
-        if (data) {
-          var chart = getCalendarHeatmap()
-          .data(overviewChartSvc.processData(data))
-          .cellSize(13)
+        data = data || []
 
-          d3.select('#chart-' + ID).call(chart)
-        }
+        var chart = getCalendarHeatmap()
+        .data(overviewChartSvc.processData(data))
+        .cellSize(13)
+
+        d3.select('#chart-' + ID).call(chart)
       })
 
       /**

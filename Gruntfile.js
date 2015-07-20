@@ -72,6 +72,7 @@ module.exports = function(grunt) {
             'bower_components/pnotify/pnotify.confirm.js',
             'bower_components/pnotify/pnotify.buttons.js',
             'bower_components/angular-pnotify/src/angular-pnotify.js',
+            'bower_components/ngstorage/ngStorage.js',
             'bower_components/ng-appcache/dist/appcache.js'
           ],
           network: ['*'],

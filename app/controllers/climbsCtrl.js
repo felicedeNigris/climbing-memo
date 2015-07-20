@@ -2,21 +2,27 @@
 
 angular.module('climbingMemo')
 .controller('climbsCtrl', function($scope, $filter, routesSvc, $http,
-$modal, notificationService) {
+$modal, notificationService, $localStorage, $log) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
+    $localStorage.routes = data
+    initController(data)
+  })
+  .error(function() {
+    $log.log('Local Storage used - routes')
+    initController($localStorage.routes || [])
+  })
+
+  // Init Controller
+  var initController = function(data) {
     _.map(data, function(route, key) {
       route.$visible = true
       route.$date = route.date
       route.$id = key
     })
     $scope.routes = data
-    initController()
-  })
 
-  // Init Controller
-  var initController = function() {
     var arrayRoutes = _.toArray($scope.routes)
     var arrayLocations = arrayGroupBy(arrayRoutes,"location")
     var arraySectors = arrayGroupBy(arrayRoutes,"sector")
@@ -97,7 +103,6 @@ $modal, notificationService) {
         })
 
       }
-      initController()
     })
   }
 
@@ -116,7 +121,6 @@ $modal, notificationService) {
     routesSvc.addRoute(newRoute).success(function(data) {
       newRoute.$id = data.name
       $scope.routes[newRoute.$id] = newRoute
-      initController()
     })
   }
 
@@ -133,10 +137,9 @@ $modal, notificationService) {
       notificationService.success(route.name + ' deleted')
     })
     .error(function() {
-      notificationService.error('Error while deleting' + route.name)
+      notificationService.error('Error while deleting ' + route.name)
     })
 
-    initController()
   }
 
   /**

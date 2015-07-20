@@ -1,11 +1,16 @@
 'use strict'
 
 angular.module('climbingMemo')
-.controller('overviewCtrl', function($scope, routesSvc) {
+.controller('overviewCtrl', function($scope, routesSvc, $localStorage, $log) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
+    $localStorage.routes = data
     initController(data)
+  })
+  .error(function() {
+    $log.log('Local Storage used - routes')
+    initController($localStorage.routes || [])
   })
 
   // Init Controller
