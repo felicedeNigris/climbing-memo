@@ -53,9 +53,9 @@ module.exports = function(grunt) {
           basePath: '.',
           cache: [
             'index.html',
-            'bower_components/components-font-awesome/fonts/fontawesome-webfont.ttf',
-            'bower_components/components-font-awesome/fonts/fontawesome-webfont.woff',
-            'bower_components/components-font-awesome/fonts/fontawesome-webfont.woff2',
+            'bower_components/components-font-awesome/fonts/fontawesome-webfont.ttf?v=4.3.0',
+            'bower_components/components-font-awesome/fonts/fontawesome-webfont.woff?v=4.3.0',
+            'bower_components/components-font-awesome/fonts/fontawesome-webfont.woff2?v=4.3.0',
             'bower_components/bootstrap/dist/css/bootstrap.css',
             'bower_components/components-font-awesome/css/font-awesome.css',
             'bower_components/pnotify/pnotify.core.css',
