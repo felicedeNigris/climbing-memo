@@ -32,6 +32,7 @@ angular.module('climbingMemo')
       containerSelector:'#panel-horizontal-chart'
     })
 
+    $scope.routes = arrayRoutes
     $scope.metrics = {
       favoriteType: arrayTypes[0]
     }
