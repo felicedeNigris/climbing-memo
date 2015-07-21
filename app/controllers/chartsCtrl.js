@@ -18,21 +18,8 @@ angular.module('climbingMemo')
     var arrayRoutes = _.toArray(data)
     var arrayTypes = arrayGroupBy(arrayRoutes,"type")
 
-    drawScatterPlot({
-      data:arrayRoutes,
-      containerSelector:'#panel-scatter-plot'
-    })
-    drawVerticalBar({
-      data:arrayRoutes,
-      containerSelector:'#panel-vertical-chart'
-    })
-    drawHorizontalBar({
-      data:arrayRoutes,
-      type: arrayTypes[0],
-      containerSelector:'#panel-horizontal-chart'
-    })
-
     $scope.routes = arrayRoutes
+    $scope.horizontalBarType = arrayTypes[0]
     $scope.metrics = {
       favoriteType: arrayTypes[0]
     }
