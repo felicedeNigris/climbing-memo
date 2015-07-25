@@ -1,8 +1,8 @@
 'use strict'
 
 angular.module('climbingMemo')
-.controller('climbsCtrl', function($scope, $filter, routesSvc, $http,
-$modal, notificationService, $localStorage, $log, $rootScope) {
+.controller('climbsCtrl', function($scope, $filter, routesSvc, $http, $rootScope,
+$modal, notificationService, $localStorage, $log) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
@@ -14,8 +14,10 @@ $modal, notificationService, $localStorage, $log, $rootScope) {
     initController($localStorage.routes || [])
   })
 
-  // Watch for routes updates
-  $rootScope.$watch('routes', initController, true)
+  $rootScope.$on('routesUpdated', function(event, data) {
+    console.log('ClimbsroutesUpdated event')
+    initController(data)
+  })
 
   // Init Controller
   var initController = function(data) {
@@ -24,9 +26,9 @@ $modal, notificationService, $localStorage, $log, $rootScope) {
       route.$date    = route.date
       route.$id      = key
     })
-    $rootScope.routes = data
+    $scope.routes = data
 
-    var arrayRoutes    = _.toArray($rootScope.routes)
+    var arrayRoutes    = _.toArray($scope.routes)
     var arrayLocations = arrayGroupBy(arrayRoutes,"location")
     var arraySectors   = arrayGroupBy(arrayRoutes,"sector")
 
@@ -47,7 +49,7 @@ $modal, notificationService, $localStorage, $log, $rootScope) {
     var id = new Date(4000,0).getTime() - createdAt
 
     // Set default values
-    $rootScope.routes[id] = {
+    $scope.routes[id] = {
       '$edit':true,
       '$visible':true,
       '$date':$filter('date')(createdAt,'dd/MM/yyyy'),
@@ -68,7 +70,7 @@ $modal, notificationService, $localStorage, $log, $rootScope) {
     // TODO will do that later
     // I'm working here
 
-    $rootScope.routes[route.id].$datepicker = !route.$datepicker
+    $scope.routes[route.id].$datepicker = !route.$datepicker
   }
 
   /**
@@ -88,6 +90,8 @@ $modal, notificationService, $localStorage, $log, $rootScope) {
         route.latitude = data.results[0].geometry.location.lat
         route.longitude = data.results[0].geometry.location.lng
       }
+
+      $rootScope.$broadcast('routesUpdated', $scope.routes)
 
       if (route.$id) { // Update route
         routesSvc.updateRoute(route, route.$id)
@@ -125,7 +129,7 @@ $modal, notificationService, $localStorage, $log, $rootScope) {
 
     routesSvc.addRoute(newRoute).success(function(data) {
       newRoute.$id = data.name
-      $rootScope.routes[newRoute.$id] = newRoute
+      $scope.routes[newRoute.$id] = newRoute
     })
   }
 
@@ -135,7 +139,8 @@ $modal, notificationService, $localStorage, $log, $rootScope) {
   * @method deleteRoute
   */
   $scope.deleteRoute = function(route) {
-    delete $rootScope.routes[route.$id]
+    delete $scope.routes[route.$id]
+    $rootScope.$broadcast('routesUpdated', $scope.routes)
 
     routesSvc.deleteRoute(route.$id)
     .success(function() {
@@ -154,7 +159,7 @@ $modal, notificationService, $localStorage, $log, $rootScope) {
   */
   $scope.sectorPopulatePlaceholder = function(item,route) {
 
-    var arrayRoutes = _.toArray($rootScope.routes)
+    var arrayRoutes = _.toArray($scope.routes)
     arrayRoutes = arrayRoutes.filter(function(n) { return n.sector === item })
 
     var properties = ['type','rock','location']

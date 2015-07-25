@@ -15,6 +15,7 @@ angular.module('climbingMemo')
 
       // Draw chart when routes change
       scope.$watch('routes', function(rawData) {
+        console.log('vertical chart watch')
         rawData = rawData || []
 
         var chart = getVerticalBar()

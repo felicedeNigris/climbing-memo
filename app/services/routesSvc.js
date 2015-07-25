@@ -19,11 +19,11 @@ angular.module('climbingMemo')
   var routeFactory = {}
 
   routeFactory.getRoute = function(id) {
-    return $http.get(urlBase + '/' + id + '.json', {cache: true})
+    return $http.get(urlBase + '/' + id + '.json')
   }
 
   routeFactory.getRoutes = function() {
-    return $http.get(urlBase + '.json', {cache: true})
+    return $http.get(urlBase + '.json')
   }
 
   routeFactory.addRoute = function(route) {

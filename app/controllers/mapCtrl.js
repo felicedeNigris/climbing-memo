@@ -13,11 +13,14 @@ angular.module('climbingMemo')
     $log.log('Map Offline mode')
   })
 
-  // Watch for routes updates
-  $rootScope.$watch('routes', initController, true)
+  $rootScope.$on('routesUpdated', function(event, data) {
+    initController(data)
+    console.log('map routesUpdated event')
+  })
 
   // Init Controller
   var initController = function(routes) {
+    console.log('map initController')
     var arrayRoutes = _.toArray(routes)
     var arrayLocations = arrayGroupBy(arrayRoutes,"location")
     var arraySectors = arrayGroupBy(arrayRoutes,"sector")

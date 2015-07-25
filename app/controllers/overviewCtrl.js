@@ -13,8 +13,10 @@ angular.module('climbingMemo')
     initController($localStorage.routes || [])
   })
 
-  // Watch for routes updates
-  $rootScope.$watch('routes', initController, true)
+  $rootScope.$on('routesUpdated', function(event, data) {
+    console.log('overview routesUpdated event')
+    initController(data)
+  })
 
   // Init Controller
   var initController = function(data) {
