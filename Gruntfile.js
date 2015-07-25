@@ -104,9 +104,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-jscs')
-  grunt.loadNpmTasks('grunt-version-check')
-  grunt.loadNpmTasks('grunt-mocha-test')
   grunt.loadNpmTasks('grunt-manifest')
+  grunt.loadNpmTasks('grunt-mocha-test')
+  grunt.loadNpmTasks('grunt-version-check')
 
   grunt.registerTask('default', ['watch'])
   grunt.registerTask('test', [

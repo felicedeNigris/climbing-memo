@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('climbingMemo')
-.controller('chartsCtrl', function($scope, routesSvc, $localStorage, $log) {
+.controller('chartsCtrl', function($scope, routesSvc, $localStorage, $log, $rootScope) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
@@ -12,6 +12,9 @@ angular.module('climbingMemo')
     $log.log('Local Storage used - routes')
     initController($localStorage.routes || [])
   })
+
+  // Watch for routes updates
+  $rootScope.$watch('routes', initController, true)
 
   // Init Controller
   var initController = function(data) {

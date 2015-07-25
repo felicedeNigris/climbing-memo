@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('climbingMemo')
-.controller('mapCtrl', function(routesSvc, $localStorage, $log, $scope) {
+.controller('mapCtrl', function(routesSvc, $localStorage, $log, $scope, $rootScope) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
@@ -12,6 +12,9 @@ angular.module('climbingMemo')
     $scope.offline = true
     $log.log('Map Offline mode')
   })
+
+  // Watch for routes updates
+  $rootScope.$watch('routes', initController, true)
 
   // Init Controller
   var initController = function(routes) {

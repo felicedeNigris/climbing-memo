@@ -20,14 +20,14 @@ body >.container {
 }
 
 .tooltip {
-	position: absolute;
-	text-align: center;
-	padding: 5px;
-	font: 12px sans-serif;
-	border: 0;
-	border-radius: 8px;
-	pointer-events: none;
-	color:white;
+	border-radius:   8px;
+	border:          0;
+	color:           white;
+	font:            12px sans-serif;
+	padding:         5px;
+	pointer-events:  none;
+	position:        absolute;
+	text-align:      center;
 }
 
 .label {
@@ -36,8 +36,8 @@ body >.container {
 
 h2
 {
-	margin-top:10px;
-	margin-bottom:20px;
+	margin-bottom:  20px;
+	margin-top:     10px;
 }
 
 /* Material design edit in ng-table */

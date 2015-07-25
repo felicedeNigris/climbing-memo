@@ -2,7 +2,7 @@
 
 angular.module('climbingMemo')
 .controller('climbsCtrl', function($scope, $filter, routesSvc, $http,
-$modal, notificationService, $localStorage, $log) {
+$modal, notificationService, $localStorage, $log, $rootScope) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
@@ -14,21 +14,24 @@ $modal, notificationService, $localStorage, $log) {
     initController($localStorage.routes || [])
   })
 
+  // Watch for routes updates
+  $rootScope.$watch('routes', initController, true)
+
   // Init Controller
   var initController = function(data) {
     _.map(data, function(route, key) {
       route.$visible = true
-      route.$date = route.date
-      route.$id = key
+      route.$date    = route.date
+      route.$id      = key
     })
-    $scope.routes = data
+    $rootScope.routes = data
 
-    var arrayRoutes = _.toArray($scope.routes)
+    var arrayRoutes    = _.toArray($rootScope.routes)
     var arrayLocations = arrayGroupBy(arrayRoutes,"location")
-    var arraySectors = arrayGroupBy(arrayRoutes,"sector")
+    var arraySectors   = arrayGroupBy(arrayRoutes,"sector")
 
     $scope.locations = arrayLocations
-    $scope.sectors = arraySectors
+    $scope.sectors   = arraySectors
   }
 
   /**
@@ -44,7 +47,7 @@ $modal, notificationService, $localStorage, $log) {
     var id = new Date(4000,0).getTime() - createdAt
 
     // Set default values
-    $scope.routes[id] = {
+    $rootScope.routes[id] = {
       '$edit':true,
       '$visible':true,
       '$date':$filter('date')(createdAt,'dd/MM/yyyy'),
@@ -62,8 +65,10 @@ $modal, notificationService, $localStorage, $log) {
   $scope.openDatepicker = function($event,route) {
     $event.preventDefault()
     $event.stopPropagation()
+    // TODO will do that later
+    // I'm working here
 
-    $scope.routes[route.id].$datepicker = !route.$datepicker
+    $rootScope.routes[route.id].$datepicker = !route.$datepicker
   }
 
   /**
@@ -120,7 +125,7 @@ $modal, notificationService, $localStorage, $log) {
 
     routesSvc.addRoute(newRoute).success(function(data) {
       newRoute.$id = data.name
-      $scope.routes[newRoute.$id] = newRoute
+      $rootScope.routes[newRoute.$id] = newRoute
     })
   }
 
@@ -130,7 +135,7 @@ $modal, notificationService, $localStorage, $log) {
   * @method deleteRoute
   */
   $scope.deleteRoute = function(route) {
-    delete $scope.routes[route.$id]
+    delete $rootScope.routes[route.$id]
 
     routesSvc.deleteRoute(route.$id)
     .success(function() {
@@ -149,7 +154,7 @@ $modal, notificationService, $localStorage, $log) {
   */
   $scope.sectorPopulatePlaceholder = function(item,route) {
 
-    var arrayRoutes = _.toArray($scope.routes)
+    var arrayRoutes = _.toArray($rootScope.routes)
     arrayRoutes = arrayRoutes.filter(function(n) { return n.sector === item })
 
     var properties = ['type','rock','location']
