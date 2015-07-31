@@ -7,6 +7,6 @@ angular.module('climbingMemo')
       route: '='
     },
     restrict: 'E',
-    templateUrl: 'app/views/_routeSummary.html'
+    templateUrl: 'views/_routeSummary.html'
   }
 })

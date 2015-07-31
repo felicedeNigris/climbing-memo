@@ -11,15 +11,15 @@ angular.module('climbingMemo')
   })
   .when('/climbs', {
     controller: 'climbsCtrl',
-    templateUrl: 'app/views/climbs.html'
+    templateUrl: 'views/climbs.html'
   })
   .when('/map', {
     controller: 'mapCtrl',
-    templateUrl: 'app/views/map.html'
+    templateUrl: 'views/map.html'
   })
   .when('/charts', {
     controller: 'chartsCtrl',
-    templateUrl: 'app/views/charts.html'
+    templateUrl: 'views/charts.html'
   })
   .otherwise({
     redirectTo: '/climbs'

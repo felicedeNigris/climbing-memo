@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rock Climbing memo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/material.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/pnotify/pnotify.core.css" />
+    <link rel="stylesheet" href="bower_components/pnotify/pnotify.buttons.css" />
+    <link rel="stylesheet" href="bower_components/pnotify/pnotify.history.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="climbingMemo">
+    <!--[if lte IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <main-navbar></main-navbar>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 hidden-xs">
+          <header-description></header-description>
+        </div>
+        <div class="col-md-9 hidden-sm hidden-xs">
+          <header-overview></header-overview>
+        </div>
+      </div>
+      <hr class="hidden-xs hidden-sm">
+      <div data-ng-view></div>
+    </div>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/bootstrap-material-design/dist/js/material.js"></script>
+    <script src="bower_components/bootstrap-material-design/dist/js/ripples.js"></script>
+    <script src="bower_components/marked/lib/marked.js"></script>
+    <script src="bower_components/angular-marked/angular-marked.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/pnotify/pnotify.core.js"></script>
+    <script src="bower_components/pnotify/pnotify.buttons.js"></script>
+    <script src="bower_components/pnotify/pnotify.callbacks.js"></script>
+    <script src="bower_components/pnotify/pnotify.confirm.js"></script>
+    <script src="bower_components/pnotify/pnotify.desktop.js"></script>
+    <script src="bower_components/pnotify/pnotify.history.js"></script>
+    <script src="bower_components/pnotify/pnotify.nonblock.js"></script>
+    <script src="bower_components/angular-pnotify/src/angular-pnotify.js"></script>
+    <script src="bower_components/ng-appcache/dist/appcache.js"></script>
+    <script src="bower_components/ng-appcache/dist/appcache.min.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- Angular ClimbingMemo App -->
+    <script src="scripts/app.js"></script>
+    <!-- Angular ClimbingMemo Services -->
+    <script src="scripts/services/routesSvc.js"></script>
+    <!-- Angular ClimbingMemo Charts Services -->
+    <script src="scripts/services/charts/utilsChartSvc.js"></script>
+    <script src="scripts/services/charts/overviewChartSvc.js"></script>
+    <script src="scripts/services/charts/scatterPlotChartSvc.js"></script>
+    <script src="scripts/services/charts/verticalBarChartSvc.js"></script>
+    <script src="scripts/services/charts/horizontalBarChartSvc.js"></script>
+    <!-- Angular ClimbingMemo Controllers -->
+    <script src="scripts/controllers/overviewCtrl.js"></script>
+    <script src="scripts/controllers/navbarCtrl.js"></script>
+    <script src="scripts/controllers/climbsCtrl.js"></script>
+    <script src="scripts/controllers/chartsCtrl.js"></script>
+    <script src="scripts/controllers/mapCtrl.js"></script>
+    <script src="scripts/controllers/modal/routeCtrl.js"></script>
+    <!-- Angular ClimbingMemo Directives -->
+    <script src="scripts/directives/headerDescription.js"></script>
+    <script src="scripts/directives/headerOverview.js"></script>
+    <script src="scripts/directives/routeSummary.js"></script>
+    <script src="scripts/directives/mainNavbar.js"></script>
+    <!-- Angular ClimbingMemo Charts Directives -->
+    <script src="scripts/directives/charts/overviewChart.js"></script>
+    <script src="scripts/directives/charts/scatterPlotChart.js"></script>
+    <script src="scripts/directives/charts/verticalBarChart.js"></script>
+    <script src="scripts/directives/charts/horizontalBarChart.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>

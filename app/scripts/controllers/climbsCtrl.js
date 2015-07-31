@@ -2,7 +2,7 @@
 
 angular.module('climbingMemo')
 .controller('climbsCtrl', function($scope, $filter, routesSvc, $http, $rootScope,
-$modal, notificationService, $localStorage, $log) {
+$modal, notificationService, $localStorage, $log, utilsChartSvc) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
@@ -15,7 +15,6 @@ $modal, notificationService, $localStorage, $log) {
   })
 
   $rootScope.$on('routesUpdated', function(event, data) {
-    console.log('ClimbsroutesUpdated event')
     initController(data)
   })
 
@@ -29,8 +28,8 @@ $modal, notificationService, $localStorage, $log) {
     $scope.routes = data
 
     var arrayRoutes    = _.toArray($scope.routes)
-    var arrayLocations = arrayGroupBy(arrayRoutes,"location")
-    var arraySectors   = arrayGroupBy(arrayRoutes,"sector")
+    var arrayLocations = utilsChartSvc.arrayGroupBy(arrayRoutes,"location")
+    var arraySectors   = utilsChartSvc.arrayGroupBy(arrayRoutes,"sector")
 
     $scope.locations = arrayLocations
     $scope.sectors   = arraySectors
@@ -167,7 +166,7 @@ $modal, notificationService, $localStorage, $log) {
     for (var i=0 ; i < properties.length ; i++) {
       var property = properties[i]
       if (!route.hasOwnProperty(property)) {
-        route[property] = arrayGroupBy(arrayRoutes,property)[0]
+        route[property] = utilsChartSvc.arrayGroupBy(arrayRoutes,property)[0]
       }
     }
   }
@@ -179,7 +178,7 @@ $modal, notificationService, $localStorage, $log) {
   */
   $scope.openRouteModal = function(route) {
     $modal.open({
-      templateUrl: 'app/views/routeModal.html',
+      templateUrl: 'views/routeModal.html',
       controller: 'modalRouteCtrl',
       size: 'lg',
       resolve: {

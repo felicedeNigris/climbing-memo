@@ -1,14 +1,14 @@
-var express = require('express')
-var app = express()
+var gzippo = require('gzippo');
+var express = require('express');
+var morgan = require('morgan');
+var app = express();
 
-app.set('port', (process.env.PORT || 3000))
-app.use(express.static(__dirname))
+app.use(morgan('dev'));
+app.use(gzippo.staticGzip("" + __dirname + "/dist"));
 
-app.get("/offline.manifest", function(req, res){
-  res.contentType("text/cache-manifest")
-  res.end("CACHE MANIFEST")
-})
+// app.get("/offline.manifest", function(req, res){
+//   res.contentType("text/cache-manifest")
+//   res.end("CACHE MANIFEST")
+// })
 
-var server = app.listen(app.get('port'))
-
-console.log('Climbing Memo app listening localhost at port ' + app.get('port'))
+app.listen(process.env.PORT || 5000);
