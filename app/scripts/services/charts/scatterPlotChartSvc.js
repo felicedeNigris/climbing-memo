@@ -20,12 +20,12 @@ angular.module('climbingMemo')
       var sector = sectors[key]
 
       // Calculate dominant type
-      var types = arrayGroupBy(sector,'type')
+      var types = utilsChartSvc.arrayGroupBy(sector,'type')
 
       // Calculate rating average
       var sumRating = 0
       for (var i=0 ; i < sector.length ; i++)
-        sumRating += parseInt(sector[i].rating)
+        sumRating += parseInt(sector[i].rating) || 0
 
       var avgRating = parseFloat(sumRating) / sector.length
 

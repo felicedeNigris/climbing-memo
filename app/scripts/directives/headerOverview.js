@@ -5,6 +5,6 @@ angular.module('climbingMemo')
   return {
     scope: true,
     restrict: 'E',
-    templateUrl: 'app/views/_headerOverview.html'
+    templateUrl: 'views/_headerOverview.html'
   }
 })

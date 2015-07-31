@@ -4,5 +4,7 @@ node_js:
 - "0.11"
 - "0.10"
 
+before_install: bundle install
+
 after_script:
 - node_modules/.bin/mocha test -r jscoverage -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js

@@ -1,7 +1,8 @@
 'use strict'
 
 angular.module('climbingMemo')
-.controller('chartsCtrl', function($scope, routesSvc, $localStorage, $log, $rootScope) {
+.controller('overviewCtrl', function($scope, routesSvc, $localStorage, $log,
+$rootScope, utilsChartSvc) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
@@ -14,20 +15,21 @@ angular.module('climbingMemo')
   })
 
   $rootScope.$on('routesUpdated', function(event, data) {
-    console.log('charts routesUpdated event')
     initController(data)
   })
 
   // Init Controller
   var initController = function(data) {
-    console.log('charts initController function')
     var arrayRoutes = _.toArray(data)
-    var arrayTypes = arrayGroupBy(arrayRoutes,"type")
+    var arraySectors = utilsChartSvc.arrayGroupBy(arrayRoutes,"sector")
+    var arrayTypes = utilsChartSvc.arrayGroupBy(arrayRoutes,"type")
 
     $scope.routes = arrayRoutes
-    $scope.horizontalBarType = arrayTypes[0]
     $scope.metrics = {
+      count: arrayRoutes.length,
+      favoriteSector: arraySectors[0],
       favoriteType: arrayTypes[0]
     }
+
   }
 })
