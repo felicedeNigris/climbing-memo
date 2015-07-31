@@ -5,6 +5,13 @@
   </div>
   <div class="panel-body">
     <div class="alert alert-info" role="alert" ng-if="offline">Offline Mode</div>
-    <div id="panel-map"></div>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+      <ui-gmap-marker ng-repeat="location in locations" idKey='location.name'
+      coords='location.coords' options="location.options" >
+
+      <ui-gmap-window templateUrl="'views/_windowLocationMap.html'" templateParameter="location"> </ui-gmap-window>
+
+      </ui-gmap-marker>
+    </ui-gmap-google-map>
   </div>
 </div>

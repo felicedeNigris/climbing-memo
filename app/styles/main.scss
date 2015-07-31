@@ -3,13 +3,13 @@ body >.container {
 }
 
 @media screen and (min-width: 769px) {
-  #panel-map {
+  .angular-google-map-container {
     min-height: 600px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  #panel-map {
+  .angular-google-map-container {
     min-height: 350px;
   }
 }

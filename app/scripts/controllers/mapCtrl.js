@@ -2,7 +2,7 @@
 
 angular.module('climbingMemo')
 .controller('mapCtrl', function(routesSvc, $localStorage, $log, $scope,
-$rootScope, utilsChartSvc) {
+$rootScope, mapChartSvc) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
@@ -21,14 +21,25 @@ $rootScope, utilsChartSvc) {
   // Init Controller
   var initController = function(routes) {
     var arrayRoutes = _.toArray(routes)
-    var arrayLocations = utilsChartSvc.arrayGroupBy(arrayRoutes,"location")
-    var arraySectors = utilsChartSvc.arrayGroupBy(arrayRoutes,"sector")
-    var arrayTypes = utilsChartSvc.arrayGroupBy(arrayRoutes,"type")
+    var arrayLocations = mapChartSvc.getMapChartData(arrayRoutes)
 
+    _.map(arrayLocations, function(site) {
+			var markerIcon = "climbing_gray.png";
+			switch (site.metrics[0].type) {
+				case 'Sport lead':	markerIcon = "climbing_yellow.png"; break;
+				case 'Boulder':		markerIcon = "climbing_blue.png"; break;
+				case 'Traditional':	markerIcon = "climbing_green.png"; break;
+				case 'Multi-pitch':	markerIcon = "climbing_orange.png"; break;
+				case 'Top rope':	markerIcon = "climbing_gray.png"; break;
+			}
+      site.options = {
+        icon: 'images/' + markerIcon
+      }
+      return site
+    })
+    console.log(arrayLocations);
 
-    // drawMapChart({
-    //   data:arrayRoutes,
-    //   containerId:'panel-map'
-    // })
+    $scope.locations = arrayLocations
+    $scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 8 }
   }
 })

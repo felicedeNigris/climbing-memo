@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('climbingMemo', ['ngRoute','ui.bootstrap','hc.marked',
-'jlareau.pnotify', 'ng-appcache', 'ngStorage'])
+'jlareau.pnotify', 'ng-appcache', 'ngStorage', 'uiGmapgoogle-maps'])
 
 angular.module('climbingMemo')
 .config(function($routeProvider) {
@@ -28,3 +28,11 @@ angular.module('climbingMemo')
 
 angular.module('climbingMemo')
 .constant('DATABASE_URL', 'https://dazzling-heat-1886.firebaseio.com/')
+
+angular.module('climbingMemo')
+.config(function(uiGmapGoogleMapApiProvider) {
+  uiGmapGoogleMapApiProvider.configure({
+    v: '3.17',
+    libraries: 'weather,geometry,visualization'
+  })
+})
