@@ -37,7 +37,6 @@ $rootScope, mapChartSvc) {
       }
       return site
     })
-    console.log(arrayLocations);
 
     $scope.locations = arrayLocations
     $scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 8 }
