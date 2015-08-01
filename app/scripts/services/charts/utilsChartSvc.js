@@ -77,5 +77,4 @@ angular.module('climbingMemo')
 
     return intA > intB || (intA === intB && charA > charB)
   }
-
 })
