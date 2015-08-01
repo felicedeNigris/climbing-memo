@@ -10,10 +10,10 @@
 angular.module('climbingMemo')
 .service('treemapChartSvc', function(utilsChartSvc) {
   /**
-  * Pre-process data to be rendered on a Calendar Heatmap
+  * Pre-process data to be rendered on a Tree map
   *
   * @params {Array} Flat routes objects
-  * @return {Array} Array indexed by dates
+  * @return {Object} Tree of properties
   */
   this.processData = function(rawData) {
 
