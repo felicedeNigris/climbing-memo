@@ -59,6 +59,7 @@ module.exports = function(config) {
       'bower_components/ng-appcache/dist/appcache.min.js',
       'bower_components/ngstorage/ngStorage.js',
       'bower_components/angular-google-maps/dist/angular-google-maps.js',
+      'bower_components/d3-tip/index.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

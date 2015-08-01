@@ -68,9 +68,19 @@ angular.module('climbingMemo')
           yFocus.domain([0,5])
 
           // TOOLTIP DIV
-          var div = d3.select("body").append("div")
-          .attr("class", "tooltip")
-          .style("opacity", 0)
+          tip = d3.tip()
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(d) {
+            var html = ''
+            html += '<span style="color:'+utilsChartSvc.typeColor(d.dominantType)+'">'
+            html += d.dominantType + "</span> "
+            html += d.sector + ' ' + d.avgRating.toFixed(1) + ' <i class="fa fa-star-o"></i>'
+            html += " : <span style='color:red'>" + d.totalRoutes + "</span>"
+            return html
+          })
+
+          svg.call(tip)
 
           // DOTS
           focus.selectAll(".dot")
@@ -82,27 +92,13 @@ angular.module('climbingMemo')
           .attr("cx", function(d) { return xFocus(d.totalRoutes) })
           .attr("cy", function(d) { return yFocus(d.avgRating) })
           .style("fill", function(d) { return utilsChartSvc.typeColor(d.dominantType); })
-          .on("mousemove", function(d) {
-            div.style("background", utilsChartSvc.typeColor(d.dominantType))
-            div.style("border","1px solid black")
-            div.transition()
-            .duration(200)
-            .style("opacity", 0.8)
-
-            var contentHtml = d.sector + ' <br>'
-            contentHtml += d.totalRoutes + ' routes - '
-            contentHtml += d.avgRating.toFixed(1) + ' <i class="fa fa-star-o"></i>'
-
-            div.html(contentHtml)
-            div.style("font-weight","bold")
-            div.style("color","black")
-            div.style("left", (event.pageX) + "px")
-            div.style("top", (event.pageY - 40)  + "px")
+          .on("mouseover", function(d) {
+            $(this).css({'opacity':0.8})
+            tip.show(d)
           })
           .on("mouseout", function(d) {
-            div.transition()
-            .duration(500)
-            .style("opacity", 0)
+            $(this).css({'opacity':1})
+            tip.hide(d)
           })
 
           focus.append("g")

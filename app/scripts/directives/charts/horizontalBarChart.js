@@ -79,7 +79,7 @@ angular.module('climbingMemo')
             .orient("top")
           }
 
-          var svg,div
+          var svg,tip
 
           function addSvgChart() {
             container.select("svg").remove()
@@ -90,9 +90,18 @@ angular.module('climbingMemo')
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-            div = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0)
+            tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+              var html = ''
+              html += '<span style="color:'+utilsChartSvc.typeColor(d.name)+'">'
+              html += d.name + "</span> "
+              html += d.grade + " : <span style='color:red'>" + d.total + "</span>"
+              return html
+            })
+
+            svg.call(tip)
           }
 
 
@@ -111,23 +120,15 @@ angular.module('climbingMemo')
             .attr("width", function(d) { return xScale(d.total) - xScale(-d.total) })
             .attr("height", yScale.rangeBand())
             .style("fill", function(d) { return utilsChartSvc.typeColor(d.name) })
-            .on("mousemove", function(d) {
-
-              div.style("background",utilsChartSvc.typeColor(d.name))
-              div.style("border","1px solid black")
-              div.transition().duration(200).style("opacity", 0.8)
-              div.html(d.grade + ' - ' + d.name)
-              div.style("font-weight","bold")
-              div.style("color","black")
-              div.style("left", (event.pageX) + "px")
-              div.style("top", (event.pageY - 20)  + "px")
-
+            .on("mouseover", function(d) {
+              $(this).css({'opacity':0.8})
+              tip.show(d)
             })
             .on("mouseout", function(d) {
-              div.transition()
-              .duration(800)
-              .style("opacity", 0)
+              $(this).css({'opacity':1})
+              tip.hide(d)
             })
+
           }
 
           function addAxes() {

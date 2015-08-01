@@ -1,7 +1,7 @@
 'user strict'
 
 angular.module('climbingMemo')
-.directive('overviewChart', function(overviewChartSvc) {
+.directive('overviewChart', function(overviewChartSvc, utilsChartSvc) {
   // Private 5 digit chart ID
   var ID = _.random(10000, 99999)
 
@@ -25,11 +25,11 @@ angular.module('climbingMemo')
       })
 
       /**
-       * Create and return a Calendar Heatmap chart
-       * created using D3.js
-       *
-       * @return {Function} Callable object to create chart
-       */
+      * Create and return a Calendar Heatmap chart
+      * created using D3.js
+      *
+      * @return {Function} Callable object to create chart
+      */
       function getCalendarHeatmap() {
 
         // Default values
@@ -40,22 +40,22 @@ angular.module('climbingMemo')
 
           // Process data
           var day = d3.time.format("%w"),
-            week = d3.time.format("%U"),
-            format = d3.time.format("%d/%m/%Y")
+          week = d3.time.format("%U"),
+          format = d3.time.format("%d/%m/%Y")
 
           var color = function(ease) {
             var color = '#839ee2'
             switch (ease) {
               case 0: case 1: color = '#3460cf'
-              break
+                break
               case 2: case 3: color = '#446cd3'
-              break
+                break
               case 4:	case 5: color = '#5479d7'
-              break
+                break
               case 6:	case 7: color = '#6485da'
-              break
+                break
               case 8:	case 9: color = '#7392de'
-              break
+                break
             }
             return color
           }
@@ -73,54 +73,63 @@ angular.module('climbingMemo')
           var height = cellSize * 8 + 10
 
           var svg = container.append("svg")
-            .data([1])
-            .attr("width", width)
-            .attr("height", height)
-            .attr("class", "RdYlGn")
-            .append("g")
+          .data([1])
+          .attr("width", width)
+          .attr("height", height)
+          .attr("class", "RdYlGn")
+          .append("g")
 
           svg.append("text")
-            .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
-            .style("text-anchor", "middle")
-            .text(function(d) { return d; })
+          .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
+          .style("text-anchor", "middle")
+          .text(function(d) { return d; })
 
+          var tip= d3.tip()
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(d) {
+            var metric = data[d].metrics[0]
+            var html = ''
+            html += '<span style="color:'+utilsChartSvc.typeColor(metric.type)+'">'
+            html += metric.type + "</span> "
+            html += metric.grade + ' ' + metric.status
+            html +=" <span style='color:gray'>" + d + "</span>"
+            return html
+          })
+
+          svg.call(tip)
 
           var rect = svg.selectAll(".emptyDay")
-            .data(function(d) { return d3.time.days(startDate, endDate); })
-            .enter().append("rect")
-            .attr("class", "emptyDay")
-            .attr("width", cellSize)
-            .attr("height", cellSize)
-            .attr("x", function(d) {
+          .data(function(d) { return d3.time.days(startDate, endDate); })
+          .enter().append("rect")
+          .attr("class", "emptyDay")
+          .attr("width", cellSize)
+          .attr("height", cellSize)
+          .attr("x", function(d) {
 
-              var dist = (endDate.getFullYear() === d.getFullYear()) ?
-                1 + parseInt(week(endDate)) - parseInt(week(d)) :
-                53 - parseInt(week(d)) + parseInt(week(endDate))
+            var dist = (endDate.getFullYear() === d.getFullYear()) ?
+            1 + parseInt(week(endDate)) - parseInt(week(d)) :
+            53 - parseInt(week(d)) + parseInt(week(endDate))
 
-              return (53 - dist) * cellSize
-            })
-            .attr("y", function(d) { return day(d) * cellSize; })
-            .datum(format)
-
-          rect.append("title")
-            .text(function(d) { return d; })
+            return (53 - dist) * cellSize
+          })
+          .attr("y", function(d) { return day(d) * cellSize; })
+          .datum(format)
 
           rect.filter(function(d) { return d in data; })
-            .attr("class", "climbDay")
-            .style('fill', function(d) {
-              var ease = parseInt(data[d].metrics[0].ease * 10)
-              return color(ease)
-            })
-            .select("title")
-            .text(function(d) {
-              var metric = data[d].metrics[0]
-              var string =
-                metric.grade + ' ' +
-                metric.status + ' (' +
-                metric.type + ') on ' + d
-
-                return string
-            })
+          .attr("class", "climbDay")
+          .style('fill', function(d) {
+            var ease = parseInt(data[d].metrics[0].ease * 10)
+            return color(ease)
+          })
+          .on("mouseover", function(d) {
+            $(this).css({'opacity':0.8})
+            tip.show(d)
+          })
+          .on("mouseout", function(d) {
+            $(this).css({'opacity':1})
+            tip.hide(d)
+          })
 
 
           function applyStyle() {
@@ -141,34 +150,34 @@ angular.module('climbingMemo')
 
           function createLegend() {
             svg.append("text")
-              .attr("transform", "translate(0," + (2 + cellSize * 8) + ")")
-              .text('Summary of climbs over the last year')
+            .attr("transform", "translate(0," + (2 + cellSize * 8) + ")")
+            .text('Summary of climbs over the last year')
 
             // Difficulty legend
             var xPos = 490
             svg.append("text")
-              .attr("transform", "translate(" + xPos + "," + (2 + cellSize * 8) + ")")
-              .text('Difficulty: Less')
+            .attr("transform", "translate(" + xPos + "," + (2 + cellSize * 8) + ")")
+            .text('Difficulty: Less')
 
             var legendDays = [10,8,6,4,2,1]
             var rect = svg.selectAll(".legendDay")
-              .data(legendDays)
-              .enter().append("rect")
-              .attr("width", cellSize)
-              .attr("height", cellSize)
-              .attr("x", function(d) {
-                var numRect = legendDays.indexOf(d)
-                return xPos + 80 + cellSize * numRect + numRect * 2
-              })
-              .attr("y",  cellSize * 8 - 8)
-              .style("fill", function(d) {
-                return color(d)
-              })
+            .data(legendDays)
+            .enter().append("rect")
+            .attr("width", cellSize)
+            .attr("height", cellSize)
+            .attr("x", function(d) {
+              var numRect = legendDays.indexOf(d)
+              return xPos + 80 + cellSize * numRect + numRect * 2
+            })
+            .attr("y",  cellSize * 8 - 8)
+            .style("fill", function(d) {
+              return color(d)
+            })
 
             svg.append("text")
-              .attr("transform", "translate(" + (xPos + cellSize * 6 + 93) +
+            .attr("transform", "translate(" + (xPos + cellSize * 6 + 93) +
               "," + (2 + cellSize * 8) + ")")
-              .text('more')
+            .text('more')
           }
 
           createLegend()

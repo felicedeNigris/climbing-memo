@@ -468,6 +468,7 @@ module.exports = function(grunt) {
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/bootstrap-material-design/dist/js/material.js',
             'bower_components/d3/d3.js',
+            'bower_components/d3-tip/index.js',
             'bower_components/angular-google-maps/dist/angular-google-maps.js',
             'bower_components/lodash/lodash.min.js',
             'bower_components/angular/angular.js',
