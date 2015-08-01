@@ -1,12 +1,7 @@
 {
   "globals": {
     /* Charts */
-    "arrayGroupBy":         false,
-    "drawScatterPlot":      false,
-    "drawMapChart":         false,
-    "drawVerticalBar" :     false,
-    "drawCalendarHeatmap":  false,
-    "drawHorizontalBar":    false,
+    "d3":    false,
     /* Lodash */
     "_": false,
     /* JASMINE */
