@@ -109,8 +109,9 @@ angular.module('climbingMemo')
 
 
           function addBarChartData() {
-            if (data.length === 0)
+            if (data.length === 0) {
               return
+            }
 
             // Create rects
             svg.selectAll(".bar")
@@ -141,8 +142,9 @@ angular.module('climbingMemo')
           }
 
           function addAxes() {
-            if (data.length === 0)
+            if (data.length === 0) {
               return
+            }
 
             svg.append("g")
             .attr("class", "x axis")

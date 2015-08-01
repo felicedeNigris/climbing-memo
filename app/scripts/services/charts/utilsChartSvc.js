@@ -20,8 +20,9 @@ angular.module('climbingMemo')
       if (group.hasOwnProperty(field)) {
 
         var value = group[field]
-        if (!frequency.hasOwnProperty(value))
+        if (!frequency.hasOwnProperty(value)) {
           frequency[value] = 0
+        }
         frequency[value] += 1
 
         return value
@@ -48,8 +49,9 @@ angular.module('climbingMemo')
     for (var i=0 ; i < data.length ; i++) {
       var index = data[i][field]
 
-      if (typeof hashtable[index] === 'undefined')
+      if (typeof hashtable[index] === 'undefined') {
         hashtable[index] = []
+      }
 
       hashtable[index].push(data[i])
     }

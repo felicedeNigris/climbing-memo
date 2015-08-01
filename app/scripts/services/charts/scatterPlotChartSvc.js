@@ -24,8 +24,9 @@ angular.module('climbingMemo')
 
       // Calculate rating average
       var sumRating = 0
-      for (var i=0 ; i < sector.length ; i++)
+      for (var i=0 ; i < sector.length ; i++) {
         sumRating += parseInt(sector[i].rating) || 0
+      }
 
       var avgRating = parseFloat(sumRating) / sector.length
 

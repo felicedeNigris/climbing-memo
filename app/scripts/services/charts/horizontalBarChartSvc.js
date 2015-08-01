@@ -11,7 +11,7 @@ angular.module('climbingMemo')
   this.processData = function(rawData, type) {
 
     // Filter by Type
-    rawData = rawData.filter(function(d) { return d.type == type})
+    rawData = rawData.filter(function(d) { return d.type === type})
 
     // Group by Grade
     var grades = utilsChartSvc.arrayToHashtable(rawData,'grade')
