@@ -35,6 +35,26 @@ angular.module('climbingMemo')
   }
 
   /**
+   * Return svg color based on Route type
+   *
+   * @method typeColor
+   * @param {String} Route type
+   *
+   * @return {String} Svg color
+   */
+  this.typeColor = function(type) {
+    switch (type) {
+      case 'Sport lead':	return 'gold'
+      case 'Boulder':		return 'lightskyblue'
+      case 'Traditional':	return 'lightgreen'
+      case 'Multi-pitch':	return 'sandybrown'
+      case 'Top rope':	return 'lightgray'
+      default:			return 'lightgray'
+    }
+  }
+
+
+  /**
    * Create an array Hashtable of an object for a specific property name
    *
    * @method arrayToHashtable

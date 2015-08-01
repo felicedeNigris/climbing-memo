@@ -8,7 +8,7 @@
 * Service in the climbingMemo.
 */
 angular.module('climbingMemo')
-.service('treemapChartSvc', function() {
+.service('treemapChartSvc', function(utilsChartSvc) {
   /**
   * Pre-process data to be rendered on a Calendar Heatmap
   *
@@ -16,8 +16,30 @@ angular.module('climbingMemo')
   * @return {Array} Array indexed by dates
   */
   this.processData = function(rawData) {
-    var data = []
+
+    // Tree first level - Routes Types
+    var treeTypes = []
+    _.mapKeys(utilsChartSvc.arrayToHashtable(rawData, 'type'), function(value, type) {
+
+      // Tree second level - Routes Locations
+      var routesLocations = []
+      _.mapKeys(utilsChartSvc.arrayToHashtable(value, 'location'), function(value, location) {
+        routesLocations.push({
+          name: location,
+          count: value.length
+        })
+      })
+
+      treeTypes.push({
+        name: type,
+        children: routesLocations
+      })
+    })
+
+    var data = {}
+    data.name = 'Climbs'
+    data.children = treeTypes
+
     return data
   }
-
 })

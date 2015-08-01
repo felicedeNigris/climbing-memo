@@ -1,7 +1,7 @@
 'user strict'
 
 angular.module('climbingMemo')
-.directive('scatterPlotChart', function(scatterPlotChartSvc) {
+.directive('scatterPlotChart', function(scatterPlotChartSvc, utilsChartSvc) {
   // Private 5 digit chart ID
   var ID = _.random(10000, 99999)
 
@@ -52,17 +52,6 @@ angular.module('climbingMemo')
 
           var focus
 
-          var typeColor = function(type) {
-            switch (type) {
-              case 'Sport lead':	return 'gold'
-              case 'Boulder':		return 'lightskyblue'
-              case 'Traditional':	return 'lightgreen'
-              case 'Multi-pitch':	return 'sandybrown'
-              case 'Top rope':	return 'lightgray'
-              default :			return 'lightgray'
-            }
-          }
-
           //REMOVE SVG
           container.select("svg").remove()
 
@@ -92,9 +81,9 @@ angular.module('climbingMemo')
           .attr("r", 6)
           .attr("cx", function(d) { return xFocus(d.totalRoutes) })
           .attr("cy", function(d) { return yFocus(d.avgRating) })
-          .style("fill", function(d) { return typeColor(d.dominantType); })
+          .style("fill", function(d) { return utilsChartSvc.typeColor(d.dominantType); })
           .on("mousemove", function(d) {
-            div.style("background", typeColor(d.dominantType))
+            div.style("background", utilsChartSvc.typeColor(d.dominantType))
             div.style("border","1px solid black")
             div.transition()
             .duration(200)

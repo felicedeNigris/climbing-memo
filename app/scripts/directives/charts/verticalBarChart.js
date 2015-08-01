@@ -1,7 +1,7 @@
 'user strict'
 
 angular.module('climbingMemo')
-.directive('verticalBarChart', function(verticalBarChartSvc) {
+.directive('verticalBarChart', function(verticalBarChartSvc, utilsChartSvc) {
   // Private 5 digit chart ID
   var ID = _.random(10000, 99999)
 
@@ -49,17 +49,6 @@ angular.module('climbingMemo')
 
           var yScale = d3.scale.linear()
           .rangeRound([heightChart, 0])
-
-          var typeColor = function(type) {
-            switch (type) {
-              case 'Sport lead':	return 'gold'
-              case 'Boulder':		return 'lightskyblue'
-              case 'Traditional':	return 'lightgreen'
-              case 'Multi-pitch':	return 'sandybrown'
-              case 'Top rope':	return 'lightgray'
-              default :			return 'lightgray'
-            }
-          }
 
           var formatMonth = function(value) {
             var month = []
@@ -164,11 +153,11 @@ angular.module('climbingMemo')
           .attr("width", xScale.rangeBand())
           .attr("y", function(d) { return yScale(d.y1); })
           .attr("height", function(d) { return yScale(d.y0) - yScale(d.y1); })
-          .style("fill", function(d) { return typeColor(d.name) })
+          .style("fill", function(d) { return utilsChartSvc.typeColor(d.name) })
           .style("fill-opacity","0.6")
           .on("mousemove", function(d) {
 
-            div.style("background",typeColor(d.name))
+            div.style("background",utilsChartSvc.typeColor(d.name))
             div.style("border","1px solid black")
             div.transition().duration(200).style("opacity", 0.8)
             div.html(d.sum + ' ' + d.name)

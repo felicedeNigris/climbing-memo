@@ -1,7 +1,7 @@
 'user strict'
 
 angular.module('climbingMemo')
-.directive('horizontalBarChart', function(horizontalBarChartSvc) {
+.directive('horizontalBarChart', function(horizontalBarChartSvc, utilsChartSvc) {
   // Private 5 digit chart ID
   var ID = _.random(10000, 99999)
 
@@ -41,17 +41,6 @@ angular.module('climbingMemo')
         var heightBar = 40
 
         function my(container) {
-
-          var typeColor = function(type) {
-            switch (type) {
-              case 'Sport lead':	return 'gold'
-              case 'Boulder':		return 'lightskyblue'
-              case 'Traditional':	return 'lightgreen'
-              case 'Multi-pitch':	return 'sandybrown'
-              case 'Top rope':	return 'lightgray'
-              default :			return 'lightgray'
-            }
-          }
 
           setDimensions()
           setupAxis()
@@ -121,10 +110,10 @@ angular.module('climbingMemo')
             .attr("y", function(d) { return yScale(d.grade); })
             .attr("width", function(d) { return xScale(d.total) - xScale(-d.total) })
             .attr("height", yScale.rangeBand())
-            .style("fill", function(d) { return typeColor(d.name) })
+            .style("fill", function(d) { return utilsChartSvc.typeColor(d.name) })
             .on("mousemove", function(d) {
 
-              div.style("background",typeColor(d.name))
+              div.style("background",utilsChartSvc.typeColor(d.name))
               div.style("border","1px solid black")
               div.transition().duration(200).style("opacity", 0.8)
               div.html(d.grade + ' - ' + d.name)

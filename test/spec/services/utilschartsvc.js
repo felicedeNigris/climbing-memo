@@ -29,6 +29,17 @@ describe('Service: utilsChartSvc', function() {
 		})
 	})
 
+	describe('#typeColor(type)', function() {
+		it('should return the right color based on type', function() {
+      expect(utilsChartSvc.typeColor('Sport lead')).toMatch(/[a-z]+/)
+      expect(utilsChartSvc.typeColor('Boulder')).toMatch(/[a-z]+/)
+      expect(utilsChartSvc.typeColor('Traditional')).toMatch(/[a-z]+/)
+      expect(utilsChartSvc.typeColor('Multi-pitch')).toMatch(/[a-z]+/)
+      expect(utilsChartSvc.typeColor('Top rope')).toMatch(/[a-z]+/)
+      expect(utilsChartSvc.typeColor('')).toMatch(/[a-z]+/)
+		})
+	})
+
 	describe('#compareRouteGrade(a,b)', function() {
 		it('should return true if grade a greater than b', function() {
 
