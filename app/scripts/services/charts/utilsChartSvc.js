@@ -46,7 +46,7 @@ angular.module('climbingMemo')
     switch (type) {
       case 'Sport lead':	return 'gold'
       case 'Boulder':		return 'lightskyblue'
-      case 'Traditional':	return 'lightgreen'
+      case 'Traditional':	return 'forestgreen'
       case 'Multi-pitch':	return 'sandybrown'
       case 'Top rope':	return 'lightgray'
       default:			return 'lightgray'

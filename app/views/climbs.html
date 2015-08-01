@@ -59,7 +59,9 @@
 						<div ng-if="route.$edit"><input placeholder="Sector" typeahead="sector for sector in sectors | filter:$viewValue" typeahead-on-select="sectorPopulatePlaceholder($item,route)" class="form-control" type="text" ng-model="route.sector" ></div>
 					</td>
 					<td  class="hidden-xs">
-						<span ng-if="!route.$edit">{{route.type}}</span>
+            <span ng-if="!route.$edit">
+              <span class="label label-success" style="background-color:{{getTypeColor(route)}}"> {{route.type}} </span>
+            </span>
 						<div ng-if="route.$edit">
 							<select class="form-control" ng-model="route.type" style="width:80px">
 								<option>Sport lead</option>

@@ -36,6 +36,18 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
   }
 
   /**
+   * Get route color based on type
+   *
+   * @method getTypeColor
+   * @param {Object} Route
+   *
+   * @return {String} Css color
+   */
+  $scope.getTypeColor = function(route) {
+    return utilsChartSvc.typeColor(route.type)
+  }
+
+  /**
   * Create a route object in the scope using default values
   *
   * @method addRoute
