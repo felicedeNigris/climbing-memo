@@ -1,10 +1,13 @@
 language: node_js
 node_js:
-- "0.12"
-- "0.11"
-- "0.10"
-
+- '0.12'
+- '0.11'
+- '0.10'
 before_install: bundle install
-
 after_script:
 - cat ./coverage/report-lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+deploy:
+  provider: heroku
+  app: climbing-memo
+  api_key:
+    secure: a6qix3R7l9g91VSgcx02SQMUImncoBmNaPyu8Sx2exqwJA05P+n20OgTHXuGXkY7qbPKcgzdb+DvSU6JwA0BqgT4p4kciJTi/V2PqP2MLPheOY9wrqPjh3rhplo8f5Xcyyrg6xi00z0B9suVWxVJWLFIlUbsRjDT3sk7ndQpTYs=
