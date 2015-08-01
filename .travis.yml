@@ -7,4 +7,4 @@ node_js:
 before_install: bundle install
 
 after_script:
-- istanbul cover jasmine-node --captureExceptions spec/ && cat ./coverage/report-lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+- cat ./coverage/report-lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js
