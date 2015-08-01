@@ -40,7 +40,7 @@ angular.module('climbingMemo')
         function my(container) {
 
 
-          var margin = {top: 20, right: 25, bottom: 60, left: 50},
+          var margin = {top: 20, right: 20, bottom: 55, left: 30},
           widthChart = width - margin.left - margin.right,
           heightChart = height - margin.top - margin.bottom
 

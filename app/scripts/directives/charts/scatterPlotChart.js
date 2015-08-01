@@ -33,7 +33,7 @@ angular.module('climbingMemo')
 
         function my(container) {
 
-          var marginFocus = {top: 20, right: 25, bottom: 30, left: 50},
+          var marginFocus = {top: 20, right: 20, bottom: 55, left: 30},
           widthChart      = width - marginFocus.left - marginFocus.right,
           heightChart     = height - marginFocus.top - marginFocus.bottom
 
