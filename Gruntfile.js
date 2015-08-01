@@ -411,7 +411,6 @@ module.exports = function(grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
-            '.htaccess',
             '**/*.js',
             '**/*.html',
             'images/**/*.{webp}',
@@ -428,7 +427,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'bower_components',
           dest: '<%= yeoman.dist %>/bower_components',
-          src: ['**/*.js', '**/*.css', '**/*.woff2']
+          src: ['**/*.js', '**/*.css', '**/*.woff2', '**/*.woff', '**/*.ttf']
         }, {
           expand: true,
           cwd: '.tmp/images',
@@ -469,7 +468,7 @@ module.exports = function(grunt) {
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/bootstrap-material-design/dist/js/material.js',
             'bower_components/d3/d3.js',
-            'bower_components/gmaps/gmaps.js',
+            'bower_components/angular-google-maps/dist/angular-google-maps.js',
             'bower_components/lodash/lodash.min.js',
             'bower_components/angular/angular.js',
             'bower_components/angular-route/angular-route.js',
@@ -493,11 +492,11 @@ module.exports = function(grunt) {
           master: ['index.html']
         },
         src: [
-          'app/**/*.js',
-          'app/styles/**/*.css',
-          'app/views/**/*.html'
+          'scripts/**/*.js',
+          'styles/**/*.css',
+          'views/**/*.html'
         ],
-        dest: 'manifest.appcache'
+        dest: '<%= yeoman.dist %>/manifest.appcache'
       }
     },
 
