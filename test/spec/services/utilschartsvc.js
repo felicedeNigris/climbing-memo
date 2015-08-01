@@ -1,9 +1,15 @@
 'use strict'
 
-var assert = require("assert") // node.js core module
-var utils = require("../assets/js/utils.js").utils // assets utils
+describe('Service: utilsChartSvc', function() {
 
-describe('Climbing Utils', function() {
+  // load the service's module
+  beforeEach(module('climbingMemo'))
+
+  // instantiate service
+  var utilsChartSvc
+  beforeEach(inject(function(_utilsChartSvc_) {
+    utilsChartSvc = _utilsChartSvc_
+  }))
 
 	describe('#arrayToHashtable(data,field)', function() {
 		it('should create an array indexed by a property', function() {
@@ -19,7 +25,7 @@ describe('Climbing Utils', function() {
 			outputArray.locationA = [itemA]
 			outputArray.locationB = [itemB,itemC]
 
-			assert.deepEqual(outputArray, utils.arrayToHashtable(inputArray,'location'))
+			expect(_.isEqual(outputArray, utilsChartSvc.arrayToHashtable(inputArray,'location'))).toBe(true)
 		})
 	})
 
@@ -28,9 +34,11 @@ describe('Climbing Utils', function() {
 
 			var inputA = '5.8'
 			var inputB = '5.10a'
+			var inputC = '5.10b'
 
-			assert.equal(false, utils.compareRouteGrade(inputA,inputB))
-			assert.equal(true, utils.compareRouteGrade(inputB,inputA))
+			expect(utilsChartSvc.compareRouteGrade(inputA,inputB)).toBe(false)
+			expect(utilsChartSvc.compareRouteGrade(inputB,inputA)).toBe(true)
+			expect(utilsChartSvc.compareRouteGrade(inputC,inputB)).toBe(true)
 		})
 	})
 
@@ -45,9 +53,9 @@ describe('Climbing Utils', function() {
 			var inputArray = []
 			inputArray.push(itemA,itemB,itemC,itemD)
 
-			var outputArray = ['locationB','locationA']
+			var outputArray = ['locationA','locationB']
 
-			assert.deepEqual(outputArray, utils.arrayGroupBy(inputArray,'location'))
+			expect(_.isEqual(outputArray, utilsChartSvc.arrayGroupBy(inputArray,'location'))).toBe(true)
 		})
 	})
 })
