@@ -73,7 +73,7 @@ angular.module('climbingMemo')
           .offset([-10, 0])
           .html(function(d) {
             var html = ''
-            html += '<span style="color:'+utilsChartSvc.typeColor(d.dominantType)+'">'
+            html += '<span style="color:' + utilsChartSvc.typeColor(d.dominantType) + '">'
             html += d.dominantType + "</span> "
             html += d.sector + ' ' + d.avgRating.toFixed(1) + ' <i class="fa fa-star-o"></i>'
             html += " : <span style='color:red'>" + d.totalRoutes + "</span>"
@@ -88,7 +88,7 @@ angular.module('climbingMemo')
           .enter()
           .append("circle")
           .attr("class", "dot-usage")
-          .attr("r", 6)
+          .attr("r", 8)
           .attr("cx", function(d) { return xFocus(d.totalRoutes) })
           .attr("cy", function(d) { return yFocus(d.avgRating) })
           .style("fill", function(d) { return utilsChartSvc.typeColor(d.dominantType); })

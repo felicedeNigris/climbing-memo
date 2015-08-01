@@ -83,9 +83,9 @@ angular.module('climbingMemo')
             .offset([-10, 0])
             .html(function(d) {
               var html = ''
-              html += '<span style="color:'+utilsChartSvc.typeColor(d.parent.name)+'">'
-              html += d.parent.name+"</span> "
-              html += d.name+" : <span style='color:red'>" + d.count + "</span>"
+              html += '<span style="color:' + utilsChartSvc.typeColor(d.parent.name) + '">'
+              html += d.parent.name + "</span> "
+              html += d.name + " : <span style='color:red'>" + d.count + "</span>"
               return html
             })
 
@@ -137,12 +137,14 @@ angular.module('climbingMemo')
               return d.dx > d.w ? 1 : 0
             })
             .on("mouseover", function(d) {
-              if (!d.children)
+              if (!d.children) {
                 tip.show(d)
+              }
             })
             .on("mouseout", function(d) {
-              if (!d.children)
+              if (!d.children) {
                 tip.hide(d)
+              }
             })
 
             d3.select($window).on("click", function() { zoom(root) })

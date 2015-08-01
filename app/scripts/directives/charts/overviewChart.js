@@ -90,7 +90,7 @@ angular.module('climbingMemo')
           .html(function(d) {
             var metric = data[d].metrics[0]
             var html = ''
-            html += '<span style="color:'+utilsChartSvc.typeColor(metric.type)+'">'
+            html += '<span style="color:' + utilsChartSvc.typeColor(metric.type) + '">'
             html += metric.type + "</span> "
             html += metric.grade + ' ' + metric.status
             html +=" <span style='color:gray'>" + d + "</span>"

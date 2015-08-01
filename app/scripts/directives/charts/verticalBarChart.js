@@ -86,9 +86,9 @@ angular.module('climbingMemo')
           .offset([-10, 0])
           .html(function(d) {
             var html = ''
-            html += '<span style="color:'+utilsChartSvc.typeColor(d.name)+'">'
+            html += '<span style="color:' + utilsChartSvc.typeColor(d.name) + '">'
             html += d.name + "</span> "
-            html += " : <span style='color:red'>" + d.sum+ "</span>"
+            html += " : <span style='color:red'>" + d.sum + "</span>"
             return html
           })
 
@@ -163,7 +163,6 @@ angular.module('climbingMemo')
           .attr("y", function(d) { return yScale(d.y1); })
           .attr("height", function(d) { return yScale(d.y0) - yScale(d.y1); })
           .style("fill", function(d) { return utilsChartSvc.typeColor(d.name) })
-          .style("fill-opacity","0.6")
           .on("mouseover", function(d) {
             $(this).css({'opacity':0.8})
             tip.show(d)

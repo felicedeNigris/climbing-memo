@@ -2,12 +2,13 @@
   "globals": {
     /* Charts */
     "d3":    false,
+    "$": false,
     /* Lodash */
     "_": false,
     /* JASMINE */
     "inspect":     false,
-    "inject":     false,
-    "expect":       false,
+    "inject":      false,
+    "expect":      false,
     "describe":    false,
     "it":          false,
     "before":      false,
