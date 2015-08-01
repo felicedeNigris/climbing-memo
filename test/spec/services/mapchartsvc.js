@@ -1,18 +1,18 @@
-'use strict';
+'use strict'
 
-describe('Service: mapChartSvc', function () {
+describe('Service: mapChartSvc', function() {
 
   // load the service's module
-  beforeEach(module('climbingMemo'));
+  beforeEach(module('climbingMemo'))
 
   // instantiate service
-  var mapChartSvc;
-  beforeEach(inject(function (_mapChartSvc_) {
-    mapChartSvc = _mapChartSvc_;
-  }));
+  var mapChartSvc
+  beforeEach(inject(function(_mapChartSvc_) {
+    mapChartSvc = _mapChartSvc_
+  }))
 
-  it('should do something', function () {
-    expect(!!mapChartSvc).toBe(true);
-  });
+  it('should do something', function() {
+    expect(!!mapChartSvc).toBe(true)
+  })
 
-});
+})

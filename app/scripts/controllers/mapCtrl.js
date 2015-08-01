@@ -24,13 +24,13 @@ $rootScope, mapChartSvc) {
     var arrayLocations = mapChartSvc.getMapChartData(arrayRoutes)
 
     _.map(arrayLocations, function(site) {
-			var markerIcon = "climbing_gray.png";
+			var markerIcon = "climbing_gray.png"
 			switch (site.metrics[0].type) {
-				case 'Sport lead':	markerIcon = "climbing_yellow.png"; break;
-				case 'Boulder':		markerIcon = "climbing_blue.png"; break;
-				case 'Traditional':	markerIcon = "climbing_green.png"; break;
-				case 'Multi-pitch':	markerIcon = "climbing_orange.png"; break;
-				case 'Top rope':	markerIcon = "climbing_gray.png"; break;
+				case 'Sport lead':	markerIcon = "climbing_yellow.png"; break
+				case 'Boulder':		markerIcon = "climbing_blue.png"; break
+				case 'Traditional':	markerIcon = "climbing_green.png"; break
+				case 'Multi-pitch':	markerIcon = "climbing_orange.png"; break
+				case 'Top rope':	markerIcon = "climbing_gray.png"; break
 			}
       site.options = {
         icon: 'images/' + markerIcon

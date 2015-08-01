@@ -23,7 +23,7 @@ angular.module('climbingMemo')
 
     // Calculate metrics for sites
     var data = []
-    for (var key in locations){
+    for (var key in locations) {
 
       var routes = locations[key]
 
@@ -35,7 +35,7 @@ angular.module('climbingMemo')
           count: types[type].length
         })
       }
-      metrics.sort(function (a,b) { return a.count < b.count; })
+      metrics.sort(function(a,b) { return a.count < b.count; })
 
       data.push({
         name: key,

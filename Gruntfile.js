@@ -133,7 +133,7 @@ module.exports = function(grunt) {
       },
       test: {
         options: {
-          jshintrc: 'test/.jshintrc'
+          jshintrc: '.jshintrc'
         },
         src: ['test/spec/**/*.js']
       }
@@ -568,6 +568,8 @@ module.exports = function(grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
+    'jscs',
+    'jshint',
     'karma',
     'coveralls'
   ])
