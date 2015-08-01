@@ -16,7 +16,8 @@ module.exports = function(grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    coveralls: 'grunt-karma-coveralls'
   })
 
   // Configurable paths for the application
@@ -521,6 +522,14 @@ module.exports = function(grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    coveralls: {
+      options: {
+        coverageDir: 'coverage',
+        force: true,
+        recursive: true
+      }
     }
   })
 
@@ -559,7 +568,8 @@ module.exports = function(grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+    'coveralls'
   ])
 
   grunt.registerTask('build', [
