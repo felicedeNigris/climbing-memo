@@ -1,5 +1,6 @@
 node_modules
 dist
 .sass-cache
+coverage
 .tmp
 bower_components
