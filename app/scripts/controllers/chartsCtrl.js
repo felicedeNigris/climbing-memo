@@ -6,6 +6,7 @@ $rootScope, utilsChartSvc) {
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {
+    data = data || {}
     $localStorage.routes = data
     initController(data)
   })
