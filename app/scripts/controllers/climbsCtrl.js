@@ -66,6 +66,8 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
       '$date':$filter('date')(createdAt,'dd/MM/yyyy'),
       'createdAt': createdAt,
       'status':'Attempt',
+      'notes':
+      '```\nReminder:\n```\n\n----\n**Protection**\n\n----\n**Notes**\n\n----\n**Location**',
       'id': id
     }
   }
