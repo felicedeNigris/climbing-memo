@@ -41,7 +41,7 @@ angular.module('climbingMemo')
           // Process data
           var day = d3.time.format("%w"),
           week = d3.time.format("%U"),
-          format = d3.time.format("%d/%m/%Y")
+          format = d3.time.format("%m/%d/%Y")
 
           var color = function(ease) {
             var color = '#839ee2'

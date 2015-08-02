@@ -63,12 +63,14 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
     // Set default values
     $scope.routes[id] = {
       '$edit':true,
+      '$cancellable': true,
       '$visible':true,
-      '$date':$filter('date')(createdAt,'dd/MM/yyyy'),
+      '$date':$filter('date')(createdAt,'MM/dd/yyyy'),
       'createdAt': createdAt,
       'status':'Attempt',
       'notes':
-      '```\nReminder:\n```\n\n----\n**Protection**\n\n----\n**Notes**\n\n----\n**Location**',
+      '```\nReminder:\n```\n\n----\n**Description**\n\n> \n\n----\n**' +
+      'Protection**\n\n> \n\n----\n**Location**\n\n> \n\n----',
       'id': id
     }
   }
@@ -81,8 +83,6 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
   $scope.openDatepicker = function($event,route) {
     $event.preventDefault()
     $event.stopPropagation()
-    // TODO will do that later
-    // I'm working here
 
     $scope.routes[route.id].$datepicker = !route.$datepicker
   }
@@ -95,7 +95,7 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
   */
   $scope.saveRoute = function(route) {
     route.$edit = false
-    route.date = $filter('date')(route.$date,'dd/MM/yyyy')
+    route.date = $filter('date')(route.$date,'MM/dd/yyyy')
 
     var baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
 
@@ -119,6 +119,7 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
         routesSvc.addRoute(route)
         .success(function(data) {
           route.$id = data.name
+          route.$cancellable = false
           notificationService.success(route.name + ' saved')
         })
         .error(function() {
@@ -130,21 +131,34 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
   }
 
   /**
+   * Remove a route from the scope before it has been saved in the database
+   *
+   * @method cancelRoute
+   * @param {Object} Route
+   */
+  $scope.cancelRoute = function (route) {
+    delete $scope.routes[route.id]
+    notificationService.success('New route removed')
+  }
+
+  /**
    * Create a copy of an existing route and let the user edit it
    *
    * @method copyRoute
    */
   $scope.copyRoute = function(route) {
     var newRoute = JSON.parse(JSON.stringify(route)) // Clone
+    newRoute.$id = false
+    newRoute.$cancellable = true
     newRoute.createdAt = Date.now()
     newRoute.name= route.name + ' (Copy)'
-    newRoute.$date = $filter('date')(newRoute.createdAt,'dd/MM/yyyy')
+    newRoute.$date = $filter('date')(newRoute.createdAt,'MM/dd/yyyy')
     newRoute.$edit = true
 
-    routesSvc.addRoute(newRoute).success(function(data) {
-      newRoute.$id = data.name
-      $scope.routes[newRoute.$id] = newRoute
-    })
+    // Create incremental ID based on current date
+    var id = new Date(4000,0).getTime() - newRoute.createdAt
+    newRoute.id = id
+    $scope.routes[id] = newRoute
   }
 
   /**

@@ -2,6 +2,9 @@ body >.container {
   margin-top:70px;
 }
 
+blockquote {
+  font-size: inherit;
+}
 .label {
   cursor:pointer;
 }
@@ -46,6 +49,9 @@ h2 {
   }
 }
 
+.route-summary {
+  margin-top:10px;
+}
 .charts {
 
   @media screen and (max-width: 768px) {
