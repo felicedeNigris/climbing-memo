@@ -22,7 +22,7 @@ $rootScope, mapChartSvc) {
   // Init Controller
   var initController = function(routes) {
     var arrayRoutes = _.toArray(routes)
-    var arrayLocations = mapChartSvc.getMapChartData(arrayRoutes)
+    var arrayLocations = mapChartSvc.processData(arrayRoutes)
 
     _.map(arrayLocations, function(site) {
 			var markerIcon = "climbing_gray.png"

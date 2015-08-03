@@ -16,7 +16,7 @@ angular.module('climbingMemo')
   * @params {Array} Flat routes objects
   * @return {Array} Array of locations
   */
-  this.getMapChartData = function(rawData) {
+  this.processData = function(rawData) {
 
     // Create hashmap of sites
     var locations = utilsChartSvc.arrayToHashtable(rawData,'location')
