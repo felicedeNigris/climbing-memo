@@ -18,9 +18,9 @@ angular.module('climbingMemo')
 
       var route = rawData[i]
 
-      // Date format DD/MM/YYYY
+      // Date format MM/DD/YYYY
       var splitDate = route.date.split("/")
-      monthDate = splitDate[1] + splitDate[2]
+      monthDate = splitDate[0] + splitDate[2]
 
       // Month name
       if (!(monthDate in months)) {

@@ -136,7 +136,7 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
    * @method cancelRoute
    * @param {Object} Route
    */
-  $scope.cancelRoute = function (route) {
+  $scope.cancelRoute = function(route) {
     delete $scope.routes[route.id]
     notificationService.success('New route removed')
   }

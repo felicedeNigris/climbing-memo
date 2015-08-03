@@ -56,7 +56,7 @@ angular.module('climbingMemo')
           function setDimensions() {
             margin = {top: 30, right: 10, bottom: 10, left: 10}
             widthChart = width - margin.left - margin.right
-            heightChart = data.length * heightBar - margin.top - margin.bottom
+            heightChart = height - margin.top - margin.bottom
           }
 
 
