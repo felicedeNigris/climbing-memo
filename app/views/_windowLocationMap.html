@@ -1,6 +1,10 @@
 <div class="gm-pro-popup windowLocationMap">
   <b>{{parameter.name}}</b><br>
   <span ng-repeat="metric in parameter.metrics">
-    {{metric.type}} ({{metric.count}}) <br>
+    {{metric.rating}} <i class="fa fa-star"></i> {{metric.sector}} ({{metric.count}})<br>
   </span>
+  <br>
+  <a href="https://www.google.com/maps/dir/Current+Location/{{ parameter.coords.latitude }}, {{ parameter.coords.longitude }}" target="_blank">
+    <i class="fa fa-car"></i> Get directions
+  </a>
 </div>

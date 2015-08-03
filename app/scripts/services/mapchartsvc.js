@@ -28,11 +28,19 @@ angular.module('climbingMemo')
       var routes = locations[key]
 
       var metrics = []
-      var types = utilsChartSvc.arrayToHashtable(routes,'type')
-      for (var type in types) {
+      var sectors = utilsChartSvc.arrayToHashtable(routes,'sector')
+
+      // }, 0) / sectorsRating.length
+
+      for (var sector in sectors) {
+
         metrics.push({
-          type: type,
-          count: types[type].length
+          sector: sector,
+          count: sectors[sector].length,
+          type: utilsChartSvc.arrayGroupBy(sectors[sector], 'type')[0],
+          rating: (_.reduce(sectors[sector], function(result, n) {
+            return result += n.rating
+          }, 0) / sectors[sector].length).toFixed(1)
         })
       }
       metrics.sort(function(a,b) { return a.count < b.count; })
