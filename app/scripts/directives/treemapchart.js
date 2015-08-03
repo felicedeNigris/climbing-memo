@@ -109,8 +109,9 @@ angular.module('climbingMemo')
             .attr("width", function(d) { return Math.max(d.dx - 1,0); })
             .attr("height", function(d) { return Math.max(d.dy - 1,0); })
             .style("fill", function(d) {
-              if (!d.parent)
+              if (!d.parent) {
                 return "#f5f5f5"
+              }
               return utilsChartSvc.typeColor(d.parent.name)
             })
             .on("mouseover", function(d) {
