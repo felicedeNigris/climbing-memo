@@ -95,6 +95,7 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
   */
   $scope.saveRoute = function(route) {
     route.$edit = false
+    route.$cancellable = false
     route.date = $filter('date')(route.$date,'MM/dd/yyyy')
 
     var baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
@@ -119,7 +120,6 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
         routesSvc.addRoute(route)
         .success(function(data) {
           route.$id = data.name
-          route.$cancellable = false
           notificationService.success(route.name + ' saved')
         })
         .error(function() {
