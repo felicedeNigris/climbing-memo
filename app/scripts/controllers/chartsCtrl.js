@@ -26,8 +26,5 @@ $rootScope, utilsChartSvc) {
 
     $scope.routes = arrayRoutes
     $scope.horizontalBarType = arrayTypes[0]
-    $scope.metrics = {
-      favoriteType: arrayTypes[0]
-    }
   }
 })
