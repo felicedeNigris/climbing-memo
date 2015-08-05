@@ -1,6 +1,6 @@
 <div class="modal-header">
 
-  <button ng-if="route.$editNotes" class="pull-right btn btn-primary" ng-click="saveRoute(route)"><i class="fa fa-check"></i> Done</button>
+  <button ng-if="route.$editNotes" class="pull-right btn btn-success" ng-click="saveRoute(route)"><i class="fa fa-check"></i> Save</button>
   <button ng-if="!route.$editNotes" class="pull-right btn btn-success" ng-click="route.$editNotes = true"><i class="fa fa-pencil"></i> Notes</button>
 
   <h3 class="modal-title"><i class="fa fa-connectdevelop"></i> {{ route.name }}</h3>
@@ -65,5 +65,6 @@
 </div>
 
 <div class="modal-footer">
+  <button ng-if="route.$editNotes" class="btn btn-success" ng-click="saveRoute(route)"><i class="fa fa-check"></i> Save</button>
   <button class="btn btn-primary" ng-click="closeModal()"><i class="fa fa-times"></i> Close</button>
 </div>

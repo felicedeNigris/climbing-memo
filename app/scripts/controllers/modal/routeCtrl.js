@@ -1,7 +1,8 @@
 angular.module('climbingMemo')
 .controller('modalRouteCtrl', function($scope, $modalInstance, route,
-routesSvc, notificationService) {
+routesSvc, notificationService, routeNoteFormattingFilter) {
 
+  route.notes = routeNoteFormattingFilter(route.notes)
   $scope.route = route
 
   /**
