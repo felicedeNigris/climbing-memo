@@ -2,8 +2,19 @@
 <div class="panel panel-default climbs">
 	<div class="panel-body">
 
-		<button class="pull-right btn btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i> Add</button>
-		<h2><i class="fa fa-connectdevelop"></i> Climbs</h2>
+    <div class="row">
+
+      <div class="col-sm-6">
+      <h2>
+        <i class="fa fa-connectdevelop"></i> Climbs
+        <button class="btn btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i> Add</button>
+      </h2>
+      </div>
+
+      <div class="col-sm-6">
+        <routes-pagination items-per-page="itemsPerPage" routes="routes"></routes-pagination>
+      </div>
+    </div>
 
 		<table class="table table-condensed table-hover">
 			<thead>

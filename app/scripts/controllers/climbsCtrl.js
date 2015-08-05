@@ -4,6 +4,9 @@ angular.module('climbingMemo')
 .controller('climbsCtrl', function($scope, $filter, routesSvc, $http, $rootScope,
 $modal, notificationService, $localStorage, $log, utilsChartSvc) {
 
+  // Global init
+  $scope.itemsPerPage = 8
+
   // Get Data
   routesSvc.getRoutes().success(function(data) {
     data = data || {}
@@ -19,12 +22,21 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
     initController(data)
   })
 
+  $scope.$on('routesTableVisibility', function(event, visibleRoutes) {
+    $scope.routes = _.map($scope.routes, function (route) {
+      route.$visible = _.indexOf(visibleRoutes,route.id) !== -1
+      return route
+    })
+  })
+
   // Init Controller
   var initController = function(data) {
+    var count = 0
     _.map(data, function(route, key) {
-      route.$visible = true
+      route.$visible = count < $scope.itemsPerPage
       route.$date    = route.date
       route.$id      = key
+      count ++
     })
     $scope.routes = data
 
