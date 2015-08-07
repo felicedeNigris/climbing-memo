@@ -12,7 +12,16 @@
       </div>
 
       <div class="col-sm-6">
-        <routes-pagination items-per-page="itemsPerPage" routes="routes"></routes-pagination>
+        <routes-pagination class="" items-per-page="itemsPerPage" routes="routes"></routes-pagination>
+        <div class="form-inline pull-right" tooltip="{{ itemsPerPage }} rows visible">
+          <i class="fa fa-eye"></i>
+          <select ng-model="itemsPerPage"  class="form-control">
+            <option value="5" selected>  5</option>
+            <option value="8">           8</option>
+            <option value="15">          15</option>
+            <option value="20">          20</option>
+          </select>
+        </div>
       </div>
     </div>
 

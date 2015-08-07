@@ -5,7 +5,7 @@ angular.module('climbingMemo')
 $modal, notificationService, $localStorage, $log, utilsChartSvc) {
 
   // Global init
-  $scope.itemsPerPage = 8
+  $scope.itemsPerPage = 8 // Match the select box on views
 
   // Get Data
   routesSvc.getRoutes().success(function(data) {

@@ -22,6 +22,10 @@ angular.module('climbingMemo')
         initController(routes)
       })
 
+      $scope.$watch('itemsPerPage', function() {
+        $scope.pageChanged()
+      })
+
       var initController = function(routes) {
         routesArray = _.toArray(routes)
 
