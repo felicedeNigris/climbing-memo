@@ -35,7 +35,7 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
       route.$visible = count < $scope.itemsPerPage
       route.$date    = route.date
       route.$id      = key
-      count ++
+      count++
     })
     $scope.routes = data
 

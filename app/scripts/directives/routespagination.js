@@ -15,7 +15,7 @@ angular.module('climbingMemo')
       routes: '=',
       itemsPerPage: '='
     },
-    controller: function ($scope) {
+    controller: function($scope) {
       var routesArray = []
 
       $scope.$watch('routes', function(routes) {
