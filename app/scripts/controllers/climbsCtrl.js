@@ -23,10 +23,9 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
   })
 
   $scope.$on('routesTableVisibility', function(event, visibleRoutes) {
-    $scope.routes = _.map($scope.routes, function (route) {
-      route.$visible = _.indexOf(visibleRoutes,route.id) !== -1
-      return route
-    })
+    for (var id in $scope.routes) {
+      $scope.routes[id].$visible = _.indexOf(visibleRoutes,$scope.routes[id].id) !== -1
+    }
   })
 
   // Init Controller
@@ -160,6 +159,7 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
     var newRoute = JSON.parse(JSON.stringify(route)) // Clone
     newRoute.$id = false
     newRoute.$cancellable = true
+    newRoute.$visible = true
     newRoute.createdAt = Date.now()
     newRoute.name= route.name + ' (Copy)'
     newRoute.$date = $filter('date')(newRoute.createdAt,'MM/dd/yyyy')
