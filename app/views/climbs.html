@@ -2,28 +2,20 @@
 <div class="panel panel-default climbs">
 	<div class="panel-body">
 
-    <div class="row">
-
-      <div class="col-sm-6">
-      <h2>
-        <i class="fa fa-connectdevelop"></i> Climbs
-        <button class="btn btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i> Add</button>
-      </h2>
-      </div>
-
-      <div class="col-sm-6">
-        <routes-pagination class="" items-per-page="itemsPerPage" routes="routes"></routes-pagination>
-        <div class="form-inline pull-right" tooltip="{{ itemsPerPage }} rows visible">
-          <i class="fa fa-eye"></i>
-          <select ng-model="itemsPerPage"  class="form-control">
-            <option value="5" selected>  5</option>
-            <option value="8">           8</option>
-            <option value="15">          15</option>
-            <option value="20">          20</option>
-          </select>
-        </div>
-      </div>
+    <div class="form-inline pull-right" tooltip="{{ itemsPerPage }} rows visible">
+      <i class="fa fa-eye hidden-xs"></i>
+      <select ng-model="itemsPerPage"  class="form-control">
+        <option value="5" selected>  5</option>
+        <option value="8">           8</option>
+        <option value="15">          15</option>
+        <option value="20">          20</option>
+      </select>
     </div>
+
+    <h2>
+      <i class="fa fa-connectdevelop"></i> Climbs
+      <button class="btn btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i> Add</button>
+    </h2>
 
 		<table class="table table-condensed table-hover">
 			<thead>
@@ -120,5 +112,8 @@
 				</tr>
 			</tbody>
 		</table>
+
+    <routes-pagination class="pull-right" items-per-page="itemsPerPage" routes="routes"></routes-pagination>
+
 	</div>
 </div>
