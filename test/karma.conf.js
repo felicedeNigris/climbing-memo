@@ -56,7 +56,6 @@ module.exports = function(config) {
       'bower_components/pnotify/pnotify.nonblock.js',
       'bower_components/angular-pnotify/src/angular-pnotify.js',
       'bower_components/ng-appcache/dist/appcache.js',
-      'bower_components/ng-appcache/dist/appcache.min.js',
       'bower_components/ngstorage/ngStorage.js',
       'bower_components/angular-google-maps/dist/angular-google-maps.js',
       'bower_components/d3-tip/index.js',
