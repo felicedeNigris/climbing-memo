@@ -21,6 +21,7 @@ Demo
 
 Hosted demo is available on heroku at [climbing-memo.herokuapp.com](http://climbing-memo.herokuapp.com/)
 
+![App screenshot](http://goo.gl/kaM5Sw)
 
 Quick Start
 -----
