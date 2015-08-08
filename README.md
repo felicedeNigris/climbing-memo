@@ -28,7 +28,7 @@ Quick Start
 
 Make sure to have `npm`, `grunt` and `bower` installed.
 
-Create a [firebase account](https://www.firebase.com/) and configure your database in [/app.js](app/scripts/app.js#L30)
+Create a [firebase account](https://www.firebase.com/) and configure your database in [app.js](app/scripts/app.js#L30)
 
 
 ```sh
