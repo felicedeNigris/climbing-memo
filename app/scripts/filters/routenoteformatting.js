@@ -11,7 +11,7 @@
 angular.module('climbingMemo')
 .filter('routeNoteFormatting', function() {
   return function(input) {
-    return input ? input : '```\nReminder:\n```\n\n----\n**Description**\n\n> \n\n----\n**' +
+    return input ? input : '```\nReminder:\n```\n\n**Description**\n\n> \n\n----\n**' +
       'Protection**\n\n> \n\n----\n**Location**\n\n> \n\n----'
   }
 })
