@@ -9,34 +9,44 @@
 
 > Front-end application to visualize climbing data
 
-* Datatable of climbing areas
-* Scatter plot of attributes
-* Geolocation using Google map
+* Table of climbing routes
+* Markdown support for notes
+* Map of routes using Google Map API
+* Charts generated with D3.js
+* Offline mode (read only)
+* Responsive design
 
 Demo
 -----
 
 Hosted demo is available on heroku at [climbing-memo.herokuapp.com](http://climbing-memo.herokuapp.com/)
 
-Requierments
------
-
-* Install [nodejs](https://nodejs.org/)
-
 
 Quick Start
 -----
 
-```sh
-$ npm install
-$ npm start
-```
-Create a [firebase account](https://www.firebase.com/) and configure your app URL in [app/app.js](app/app.js#L16)
+Make sure to have `npm`, `grunt` and `bower` installed.
 
-Run tests
+Create a [firebase account](https://www.firebase.com/) and configure your database in [app/app.js](app/app.js#L16)
+
+
+```sh
+$ npm install && npm start
+```
+
+Developement
 -----
 
+To start a developement server `grunt serve` and to run unit-tests `grunt test`
 
-```sh
-$ npm test
-```
+**Technologies:**
+
+* Database:        Firebase
+* Deployement:     Travis + Heroku
+* Framework:       AngularJS
+* Generator:       Yeoman-angular
+* Style:           Sass + Bootstrap material design
+* Tests:           Karma + Jasmine + Coveralls
+* Validators:      Jshint + Jscs
+* Visualizations:  D3 + Angular Gmap
+* WebServer:       NodeJS & Grunt-http
