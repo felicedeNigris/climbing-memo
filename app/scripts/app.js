@@ -27,7 +27,7 @@ angular.module('climbingMemo')
 })
 
 angular.module('climbingMemo')
-.constant('DATABASE_URL', 'https://dazzling-heat-1886.firebaseio.com/')
+.constant('DATABASE_URL', 'https://climbing-memo.firebaseio.com')
 
 angular.module('climbingMemo')
 .config(function(uiGmapGoogleMapApiProvider) {
