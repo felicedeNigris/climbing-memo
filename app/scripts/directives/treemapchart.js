@@ -21,11 +21,12 @@ angular.module('climbingMemo')
       scope.$watch('routes', function(rawData) {
         rawData = rawData || []
 
-        var chart = getTreemap()
+        var chart = scope.getTreemap()
         .data(treemapChartSvc.processData(rawData))
         .width(element.parent().width())
         .height(300)
 
+        console.log(chart)
         d3.select('#chart-' + ID).call(chart)
       })
 
@@ -35,12 +36,12 @@ angular.module('climbingMemo')
       *
       * @return {Function} Callable object to create chart
       */
-      function getTreemap(data) {
-
+      scope.getTreemap = function(data) {
         data = []
         var width = 800
         var height = 600
 
+        /* istanbul ignore next */
         function my(container) {
 
           var w,h,xScale,yScale,root,node,treemap,svg,tip
