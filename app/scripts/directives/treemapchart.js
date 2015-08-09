@@ -26,7 +26,6 @@ angular.module('climbingMemo')
         .width(element.parent().width())
         .height(300)
 
-        console.log(chart)
         d3.select('#chart-' + ID).call(chart)
       })
 
