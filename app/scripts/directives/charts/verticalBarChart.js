@@ -17,7 +17,7 @@ angular.module('climbingMemo')
       scope.$watch('routes', function(rawData) {
         rawData = rawData || []
 
-        var chart = getVerticalBar()
+        var chart = scope.getVerticalBar()
         .data(verticalBarChartSvc.processData(rawData))
         .width(element.parent().width())
         .height(300)
@@ -31,12 +31,13 @@ angular.module('climbingMemo')
       *
       * @return {Function} Callable object to create chart
       */
-      function getVerticalBar(data) {
+      scope.getVerticalBar = function(data) {
 
         data = []
         var width = 800
         var height = 600
 
+        /* istanbul ignore next */
         function my(container) {
 
 
