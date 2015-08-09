@@ -19,7 +19,7 @@ angular.module('climbingMemo')
         rawData = rawData || []
         var type = scope.type || 'Sport Lead'
 
-        var chart = getHorizontalBar()
+        var chart = scope.getHorizontalBar()
         .data(horizontalBarChartSvc.processData(rawData, type))
         .width(element.parent().width())
         .height(300)
