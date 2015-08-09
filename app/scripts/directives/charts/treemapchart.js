@@ -97,7 +97,8 @@ angular.module('climbingMemo')
             .offset([-10, 0])
             .html(function(d) {
               var html = ''
-              html += '<span style="color:' + utilsChartSvc.typeColor(d.parent.name) + '">'
+              var color = utilsChartSvc.typeColor(d.parent ? d.parent.name : '')
+              html += '<span style="color:' + color + '">'
               html += d.parent.name + "</span> "
               html += d.name + " : <span style='color:red'>" + d.count + "</span>"
               return html

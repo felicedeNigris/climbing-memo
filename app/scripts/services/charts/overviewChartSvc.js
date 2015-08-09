@@ -28,7 +28,7 @@ angular.module('climbingMemo')
     }
 
     // Calculate metrics at dates for each climbing type
-    var data = []
+    var data = {}
     sortRouteGrade = function(a, b) {
       return !utilsChartSvc.compareRouteGrade(a.grade, b.grade)
     }
