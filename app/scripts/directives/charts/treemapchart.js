@@ -40,7 +40,6 @@ angular.module('climbingMemo')
         var width = 800
         var height = 600
 
-        /* istanbul ignore next */
         function my(container) {
 
           var w,h,xScale,yScale,root,node,treemap,svg,tip

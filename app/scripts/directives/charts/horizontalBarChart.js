@@ -40,7 +40,6 @@ angular.module('climbingMemo')
         var height = 600
         var heightBar = 40
 
-        /* istanbul ignore next */
         function my(container) {
 
           setDimensions()

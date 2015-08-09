@@ -36,7 +36,6 @@ angular.module('climbingMemo')
         var data = []
         var cellSize = 13
 
-        /* istanbul ignore next */
         function my(container) {
 
           // Process data

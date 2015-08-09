@@ -31,7 +31,6 @@ angular.module('climbingMemo')
         var width = 800
         var height = 600
 
-        /* istanbul ignore next */
         function my(container) {
 
           var marginFocus = {top: 20, right: 20, bottom: 55, left: 30},
