@@ -17,7 +17,7 @@ angular.module('climbingMemo')
       scope.$watch('routes', function(data) {
         data = data || []
 
-        var chart = getCalendarHeatmap()
+        var chart = scope.getCalendarHeatmap()
         .data(overviewChartSvc.processData(data))
         .cellSize(13)
 
@@ -30,12 +30,13 @@ angular.module('climbingMemo')
       *
       * @return {Function} Callable object to create chart
       */
-      function getCalendarHeatmap() {
+      scope.getCalendarHeatmap = function() {
 
         // Default values
         var data = []
         var cellSize = 13
 
+        /* istanbul ignore next */
         function my(container) {
 
           // Process data
