@@ -4,7 +4,7 @@
 // generator-karma 1.0.0
 
 module.exports = function(config) {
-  'use strict';
+  'use strict'
 
   config.set({
     // enable / disable watching file and executing tests whenever any file changes
@@ -21,8 +21,14 @@ module.exports = function(config) {
 
     reporters: ['progress', 'coverage'],
 
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'app',
+      moduleName: 'templates'
+    },
+
     preprocessors: {
-      'app/scripts/**/*.js': 'coverage'
+      'app/scripts/**/*.js': 'coverage',
+      'app/views/**/*.html': ['ng-html2js']
     },
 
     coverageReporter: {
@@ -62,8 +68,9 @@ module.exports = function(config) {
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
-      "test/mock/**/*.js",
-      "test/spec/**/*.js"
+      // "test/mock#<{(||)}>#*.js",
+      "test/spec/**/*.js",
+      'app/views/**/*.html'
     ],
 
     // list of files / patterns to exclude
@@ -87,7 +94,9 @@ module.exports = function(config) {
 
     // Which plugins to enable
     plugins: [
+      "karma-ng-html2js-preprocessor",
       "karma-phantomjs-launcher",
+      "karma-chrome-launcher",
       "karma-jasmine",
       "karma-coverage"
     ],
