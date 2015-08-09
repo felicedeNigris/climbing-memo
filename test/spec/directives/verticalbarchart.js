@@ -21,6 +21,16 @@ describe('Directive: verticalBarChart', function() {
     element = compile(element)(scope)
   }
 
+  it('should draw rectagles for each routes', function() {
+    var currentYear = new Date().getFullYear()
+    var routes= [
+      { "date": "05/12/" + currentYear, "type": "Top rope" },
+      { "date": "08/13/" + currentYear, "type": "Sport lead" }
+    ]
+    prepareDirective(routes)
+    expect(element.find('rect').length).toBe(2)
+  })
+
   it('should let you chain the configuration', function() {
     var routes = []
     prepareDirective(routes)
@@ -35,4 +45,25 @@ describe('Directive: verticalBarChart', function() {
     expect(chart.data().length).toBe(3)
   })
 
+  it('should draw axis when no data sent', function() {
+    prepareDirective([])
+
+    expect(element.find('svg').length).toBe(1)
+    expect(element.find('.x.axis').length).toBe(1)
+    expect(element.find('.y.axis').length).toBe(1)
+  })
+
+  it('should re-draw the chart when routes change', function() {
+    var routes = []
+    var currentYear = new Date().getFullYear()
+    prepareDirective(routes)
+
+    scope.routes = [
+      { "date": "05/12/" + currentYear, "type": "Top rope" },
+      { "date": "08/13/" + currentYear, "type": "Sport lead" }
+    ]
+    scope.$digest()
+
+    expect(element.find('rect').length).toBe(2)
+  })
 })

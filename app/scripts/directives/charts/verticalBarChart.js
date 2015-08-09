@@ -13,8 +13,22 @@ angular.module('climbingMemo')
     template: '<div id="chart-' + ID + '"></div>',
     link: function(scope, element, attrs) {
 
+      function initDirective() {
+        scope.renderChart(scope.routes)
+      }
+
       // Draw chart when routes change
       scope.$watch('routes', function(rawData) {
+        scope.renderChart(rawData)
+      })
+
+      /**
+      * @method renderChart
+      * Create the chart in the template div
+      *
+      * @param {Array} rawData
+      */
+      scope.renderChart = function(rawData) {
         rawData = rawData || []
 
         var chart = scope.getVerticalBar()
@@ -22,8 +36,8 @@ angular.module('climbingMemo')
         .width(element.parent().width())
         .height(300)
 
-        d3.select('#chart-' + ID).call(chart)
-      })
+        d3.select(element.find('#chart-' + ID)[0]).call(chart)
+      }
 
       /**
       * Create and return a Vertical Bar chart
@@ -32,12 +46,10 @@ angular.module('climbingMemo')
       * @return {Function} Callable object to create chart
       */
       scope.getVerticalBar = function() {
-
         var data = []
         var width = 800
         var height = 600
 
-        /* istanbul ignore next */
         function my(container) {
 
 
@@ -210,6 +222,8 @@ angular.module('climbingMemo')
         }
         return my
       }
+
+      initDirective()
     }
   }
 })
