@@ -17,7 +17,7 @@ angular.module('climbingMemo')
       scope.$watch('routes', function(rawData) {
         rawData = rawData || []
 
-        var chart = getScatterPlot()
+        var chart = scope.getScatterPlot()
         .data(scatterPlotChartSvc.processData(rawData))
         .width(element.parent().width())
         .height(300)
@@ -25,12 +25,13 @@ angular.module('climbingMemo')
         d3.select('#chart-' + ID).call(chart)
       })
 
-      function getScatterPlot() {
+      scope.getScatterPlot = function() {
 
         var data = []
         var width = 800
         var height = 600
 
+        /* istanbul ignore next */
         function my(container) {
 
           var marginFocus = {top: 20, right: 20, bottom: 55, left: 30},
