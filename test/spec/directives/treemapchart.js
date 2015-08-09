@@ -35,4 +35,28 @@ describe('Directive: treemapChart', function() {
     expect(chart.data().length).toBe(3)
   })
 
+  it('should draw rectangles for each routes locations', function() {
+    var routes = [
+      { "location": "Dogpatch, CA", "type": "Boulder" },
+      { "location": "Jamestown, CA", "type": "Sport lead" },
+      { "location": "Oakland, CA", "type": "Sport lead" },
+      { "location": "Jamestown, CA", "type": "Sport lead" }
+    ]
+    prepareDirective(routes)
+
+    expect(element.find('rect').length).toBe(3)
+  })
+
+  it('should re-draw the chart when routes change', function() {
+    var routes = []
+    prepareDirective(routes)
+
+    scope.routes = [
+      { "location": "Dogpatch, CA", "type": "Boulder" },
+      { "location": "Jamestown, CA", "type": "Sport lead" }
+    ]
+    scope.$digest()
+
+    expect(element.find('rect').length).toBe(2)
+  })
 })

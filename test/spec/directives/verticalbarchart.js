@@ -21,7 +21,7 @@ describe('Directive: verticalBarChart', function() {
     element = compile(element)(scope)
   }
 
-  it('should draw rectagles for each routes', function() {
+  it('should draw rectangles for each routes', function() {
     var currentYear = new Date().getFullYear()
     var routes= [
       { "date": "05/12/" + currentYear, "type": "Top rope" },
