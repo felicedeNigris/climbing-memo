@@ -25,9 +25,9 @@ angular.module('climbingMemo')
         d3.select('#chart-' + ID).call(chart)
       })
 
-      function getScatterPlot(data) {
+      function getScatterPlot() {
 
-        data = []
+        var data = []
         var width = 800
         var height = 600
 

@@ -33,9 +33,9 @@ angular.module('climbingMemo')
       *
       * @return {Function} Callable object to create chart
       */
-      scope.getHorizontalBar = function(data) {
+      scope.getHorizontalBar = function() {
 
-        data = []
+        var data = []
         var width = 800
         var height = 600
         var heightBar = 40

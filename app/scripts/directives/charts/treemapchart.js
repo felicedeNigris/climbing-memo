@@ -35,8 +35,8 @@ angular.module('climbingMemo')
       *
       * @return {Function} Callable object to create chart
       */
-      scope.getTreemap = function(data) {
-        data = []
+      scope.getTreemap = function() {
+        var data = []
         var width = 800
         var height = 600
 
