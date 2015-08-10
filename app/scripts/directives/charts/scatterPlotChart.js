@@ -13,8 +13,22 @@ angular.module('climbingMemo')
     template: '<div id="chart-' + ID + '"></div>',
     link: function(scope, element, attrs) {
 
+      function initDirective() {
+        scope.renderChart(scope.routes)
+      }
+
       // Draw chart when routes change
       scope.$watch('routes', function(rawData) {
+        scope.renderChart(rawData)
+      })
+
+      /**
+      * @method renderChart
+      * Create the chart in the template div
+      *
+      * @param {Array} rawData
+      */
+      scope.renderChart = function(rawData) {
         rawData = rawData || []
 
         var chart = scope.getScatterPlot()
@@ -22,11 +36,10 @@ angular.module('climbingMemo')
         .width(element.parent().width())
         .height(300)
 
-        d3.select('#chart-' + ID).call(chart)
-      })
+        d3.select(element.find('#chart-' + ID)[0]).call(chart)
+      }
 
       scope.getScatterPlot = function() {
-
         var data = []
         var width = 800
         var height = 600
@@ -102,11 +115,6 @@ angular.module('climbingMemo')
           })
 
           focus.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0," + heightChart + ")")
-          .call(xAxisFocus)
-
-          focus.append("g")
           .attr("class", "y axis")
           .call(yAxisFocus)
           .append("text")
@@ -162,6 +170,8 @@ angular.module('climbingMemo')
         }
         return my
       }
+
+      initDirective()
     }
   }
 })

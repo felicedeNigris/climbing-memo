@@ -24,7 +24,7 @@ describe('Directive: horizontalBarChart', function() {
     element = compile(element)(scope)
   }
 
-  it('should draw rectangles for each routes', function() {
+  it('should draw rectangles for each route grade', function() {
     var currentYear = new Date().getFullYear()
     var routes = [
       { "grade": "5.14a", "type": "Sport lead" },
@@ -65,7 +65,7 @@ describe('Directive: horizontalBarChart', function() {
   it('should re-draw the chart when routes change', function() {
     var routes = []
     var currentYear = new Date().getFullYear()
-  prepareDirective(routes, 'Sport lead')
+    prepareDirective(routes, 'Sport lead')
 
     scope.routes = [
       { "grade": "5.14a", "type": "Sport lead" },
