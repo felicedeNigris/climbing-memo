@@ -13,16 +13,30 @@ angular.module('climbingMemo')
     template: '<div id="chart-' + ID + '"></div>',
     link: function(scope, element, attrs) {
 
+      function initDirective() {
+        scope.renderChart(scope.routes)
+      }
+
       // Draw chart when routes change
-      scope.$watch('routes', function(data) {
-        data = data || []
+      scope.$watch('routes', function(rawData) {
+        scope.renderChart(rawData)
+      })
+
+      /**
+      * @method renderChart
+      * Create the chart in the template div
+      *
+      * @param {Array} rawData
+      */
+      scope.renderChart = function(rawData) {
+        rawData = rawData || []
 
         var chart = scope.getCalendarHeatmap()
-        .data(overviewChartSvc.processData(data))
+        .data(overviewChartSvc.processData(rawData))
         .cellSize(13)
 
-        d3.select('#chart-' + ID).call(chart)
-      })
+        d3.select(element.find('#chart-' + ID)[0]).call(chart)
+      }
 
       /**
       * Create and return a Calendar Heatmap chart
@@ -31,7 +45,6 @@ angular.module('climbingMemo')
       * @return {Function} Callable object to create chart
       */
       scope.getCalendarHeatmap = function() {
-
         // Default values
         var data = []
         var cellSize = 13
@@ -203,6 +216,8 @@ angular.module('climbingMemo')
 
         return my
       }
+
+      initDirective()
     }
   }
 })
