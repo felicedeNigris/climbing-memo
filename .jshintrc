@@ -2,7 +2,6 @@
   "globals": {
     /* Charts */
     "d3":    false,
-    "$": false,
     /* Lodash */
     "_": false,
     /* JASMINE */

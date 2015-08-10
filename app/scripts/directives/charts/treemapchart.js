@@ -98,7 +98,7 @@ angular.module('climbingMemo')
             .html(function(d) {
               var html = ''
               var parentName = d.parent ? d.parent.name : ''
-              html += '<span style="color:' + utilsChartSvc.typeColor(parentName)+ '">'
+              html += '<span style="color:' + utilsChartSvc.typeColor(parentName) + '">'
               html += parentName + "</span> "
               html += d.name + " : <span style='color:red'>" + d.count + "</span>"
               return html
@@ -131,13 +131,17 @@ angular.module('climbingMemo')
             })
             .on("mouseover", function(d) {
               if (!d.children) {
+                /* jshint ignore:start */
                 $(this).css({'opacity':0.8})
+                /* jshint ignore:end */
                 tip.show(d)
               }
             })
             .on("mouseout", function(d) {
               if (!d.children) {
+                /* jshint ignore:start */
                 $(this).css({'opacity':1})
+                /* jshint ignore:end */
                 tip.hide(d)
               }
             })

@@ -14,8 +14,22 @@ angular.module('climbingMemo')
     template: '<div id="chart-' + ID + '"></div>',
     link: function(scope, element, attrs) {
 
+      function initDirective() {
+        scope.renderChart(scope.routes)
+      }
+
       // Draw chart when routes change
       scope.$watch('routes', function(rawData) {
+        scope.renderChart(rawData)
+      })
+
+      /**
+      * @method renderChart
+      * Create the chart in the template div
+      *
+      * @param {Array} rawData
+      */
+      scope.renderChart = function(rawData) {
         rawData = rawData || []
         var type = scope.type || 'Sport Lead'
 
@@ -24,8 +38,8 @@ angular.module('climbingMemo')
         .width(element.parent().width())
         .height(300)
 
-        d3.select('#chart-' + ID).call(chart)
-      })
+        d3.select(element.find('#chart-' + ID)[0]).call(chart)
+      }
 
       /**
       * Create and return a horizontal Bar chart
@@ -34,7 +48,6 @@ angular.module('climbingMemo')
       * @return {Function} Callable object to create chart
       */
       scope.getHorizontalBar = function() {
-
         var data = []
         var width = 800
         var height = 600
@@ -107,10 +120,6 @@ angular.module('climbingMemo')
 
 
           function addBarChartData() {
-            if (data.length === 0) {
-              return
-            }
-
             // Create rects
             svg.selectAll(".bar")
             .data(data)
@@ -132,10 +141,6 @@ angular.module('climbingMemo')
           }
 
           function addAxes() {
-            if (data.length === 0) {
-              return
-            }
-
             svg.append("g")
             .attr("class", "x axis")
             .call(xAxis)
@@ -186,6 +191,8 @@ angular.module('climbingMemo')
         }
         return my
       }
+
+      initDirective()
     }
   }
 })
