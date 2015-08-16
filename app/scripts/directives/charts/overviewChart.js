@@ -97,7 +97,8 @@ angular.module('climbingMemo')
           .style("text-anchor", "middle")
           .text(function(d) { return d; })
 
-          var tip= d3.tip()
+          // Route tip (on heatmap)
+          var routeTip = d3.tip()
           .attr('class', 'd3-tip')
           .offset([-10, 0])
           .html(function(d) {
@@ -110,7 +111,17 @@ angular.module('climbingMemo')
             return html
           })
 
-          svg.call(tip)
+          svg.call(routeTip)
+
+          // legeng tip (climbing type)
+          var legendTip = d3.tip()
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(type) {
+            return '<span style="color:' + utilsChartSvc.typeColor(type) + '">' + type + '</span>'
+          })
+
+          svg.call(legendTip)
 
           var rect = svg.selectAll(".emptyDay")
           .data(function(d) { return d3.time.days(startDate, endDate); })
@@ -132,16 +143,15 @@ angular.module('climbingMemo')
           rect.filter(function(d) { return d in data; })
           .attr("class", "climbDay")
           .style('fill', function(d) {
-            var ease = parseInt(data[d].metrics[0].ease * 10)
-            return color(ease)
+            return utilsChartSvc.typeColor(data[d].metrics[0].type)
           })
           .on("mouseover", function(d) {
             $(this).css({'opacity':0.8})
-            tip.show(d)
+            routeTip.show(d)
           })
           .on("mouseout", function(d) {
             $(this).css({'opacity':1})
-            tip.hide(d)
+            routeTip.hide(d)
           })
 
 
@@ -167,12 +177,18 @@ angular.module('climbingMemo')
             .text('Summary of climbs over the last year')
 
             // Difficulty legend
-            var xPos = 490
+            var xPos = 515
             svg.append("text")
             .attr("transform", "translate(" + xPos + "," + (2 + cellSize * 8) + ")")
-            .text('Difficulty: Less')
+            .text('Types of climbs')
 
-            var legendDays = [10,8,6,4,2,1]
+            var legendDays = [
+              'Sport lead',
+              'Boulder',
+              'Traditional',
+              'Multi-pitch',
+              'Top rope'
+            ]
             var rect = svg.selectAll(".legendDay")
             .data(legendDays)
             .enter().append("rect")
@@ -180,17 +196,20 @@ angular.module('climbingMemo')
             .attr("height", cellSize)
             .attr("x", function(d) {
               var numRect = legendDays.indexOf(d)
-              return xPos + 80 + cellSize * numRect + numRect * 2
+              return xPos + 90 + cellSize * numRect + numRect * 2
             })
             .attr("y",  cellSize * 8 - 8)
             .style("fill", function(d) {
-              return color(d)
+              return utilsChartSvc.typeColor(d)
             })
-
-            svg.append("text")
-            .attr("transform", "translate(" + (xPos + cellSize * 6 + 93) +
-              "," + (2 + cellSize * 8) + ")")
-            .text('more')
+            .on("mouseover", function(d) {
+              $(this).css({'opacity':0.8})
+              legendTip.show(d)
+            })
+            .on("mouseout", function(d) {
+              $(this).css({'opacity':1})
+              legendTip.hide(d)
+            })
           }
 
           createLegend()
