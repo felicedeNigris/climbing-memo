@@ -8,18 +8,18 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
   $scope.itemsPerPage = 8 // Match the select box on views
 
   // Get Data
-  routesSvc.getRoutes().success(function(data) {
-    data = data || {}
+  routesSvc.getRoutes().then(function(result) {
+    var data = result.data || {}
     $localStorage.routes = data
-    initController(data)
+    $scope.initController(data)
   })
-  .error(function() {
+  .catch(function() {
     $log.log('Local Storage used - routes')
-    initController($localStorage.routes || [])
+    $scope.initController($localStorage.routes || [])
   })
 
   $rootScope.$on('routesUpdated', function(event, data) {
-    initController(data)
+    $scope.initController(data)
   })
 
   $scope.$on('routesTableVisibility', function(event, visibleRoutes) {
@@ -28,8 +28,13 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc) {
     }
   })
 
-  // Init Controller
-  var initController = function(data) {
+  /**
+  * Initialize controller with data
+  *
+  * @method initController
+  * @param {Object} Routes
+  */
+  $scope.initController = function(data) {
     var count = 0
     _.map(data, function(route, key) {
       route.$visible = count < $scope.itemsPerPage
