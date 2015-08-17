@@ -13,12 +13,23 @@ routesSvc, notificationService, routeNoteFormattingFilter) {
   $scope.saveRoute = function(route) {
     route.$editNotes = false
     routesSvc.updateRoute(route, route.$id)
-    .success(function() {
+    .then(function() {
       notificationService.success(route.name + ' - note saved')
     })
-    .error(function() {
+    .catch(function() {
       notificationService.error('Error while saving ' + route.name)
     })
+  }
+
+  /**
+  * Watch or Unwatch a route and save it
+  *
+  * @method toggleWatchRoute
+  * @param {Object} route: climbing route
+  */
+  $scope.toggleWatchRoute = function(route) {
+    route.watch = !route.watch
+    $scope.saveRoute(route)
   }
 
   /**

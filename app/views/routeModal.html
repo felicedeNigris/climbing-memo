@@ -1,9 +1,14 @@
 <div class="modal-header">
 
-  <button ng-if="route.$editNotes" class="pull-right btn btn-success" ng-click="saveRoute(route)"><i class="fa fa-check"></i> Save</button>
-  <button ng-if="!route.$editNotes" class="pull-right btn btn-success" ng-click="route.$editNotes = true"><i class="fa fa-pencil"></i> Notes</button>
+  <button class="btn pull-right btn-material-grey" ng-click="toggleWatchRoute(route)">
+    <span ng-show="route.watch"><i class="fa fa-eye-slash"></i> Un-watch</span>
+    <span ng-show="!route.watch"><i class="fa fa-eye"></i> Watch</span>
+  </button>
 
-  <h3 class="modal-title"><i class="fa fa-connectdevelop"></i> {{ route.name }}</h3>
+  <h3 class="modal-title">
+    <i class="fa fa-eye" ng-show="route.watch"></i>
+    {{ route.name }}
+  </h3>
 </div>
 
 <div class="modal-body">
@@ -66,5 +71,7 @@
 
 <div class="modal-footer">
   <button ng-if="route.$editNotes" class="btn btn-success" ng-click="saveRoute(route)"><i class="fa fa-check"></i> Save</button>
+  <button ng-if="!route.$editNotes" class="btn btn-success" ng-click="route.$editNotes = true"><i class="fa fa-pencil"></i> Notes</button>
+
   <button class="btn btn-primary" ng-click="closeModal()"><i class="fa fa-times"></i> Close</button>
 </div>

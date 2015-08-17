@@ -56,23 +56,6 @@ angular.module('climbingMemo')
           week = d3.time.format("%U"),
           format = d3.time.format("%m/%d/%Y")
 
-          var color = function(ease) {
-            var color = '#839ee2'
-            switch (ease) {
-              case 0: case 1: color = '#3460cf'
-                break
-              case 2: case 3: color = '#446cd3'
-                break
-              case 4:	case 5: color = '#5479d7'
-                break
-              case 6:	case 7: color = '#6485da'
-                break
-              case 8:	case 9: color = '#7392de'
-                break
-            }
-            return color
-          }
-
           container.select("svg").remove()
 
           var endDate = new Date()

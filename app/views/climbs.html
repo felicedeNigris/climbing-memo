@@ -35,9 +35,10 @@
 			<tbody>
 				<tr ng-repeat="route in routes" ng-if="route.$visible">
 					<td>
-						<span ng-if="!route.$edit">
+            <span ng-if="!route.$edit">
+              <i ng-class="{'fa fa-eye': route.watch}"></i>
               <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">
-                <i class="hidden-xs fa fa-file-text-o"></i> {{route.name}}
+                {{route.name}}
               </a>
 						</span>
 						<div ng-if="route.$edit"><input placeholder="Name" class="form-control" type="text" ng-model="route.name"></div>
