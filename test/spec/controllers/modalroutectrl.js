@@ -34,8 +34,9 @@ describe('Controller: modalRouteCtrl', function() {
 
   it("should save a route", function() {
     var route = { '$id': 'test' }
-    scope.saveRoute(route)
+    routesSvc.updateRoute.calls.reset()
 
+    scope.saveRoute(route)
     expect(routesSvc.updateRoute).toHaveBeenCalledWith({
       '$id': 'test',
       '$editNotes': false
@@ -54,7 +55,9 @@ describe('Controller: modalRouteCtrl', function() {
   })
 
   it("should close modal", function() {
+    modalInstance.dismiss.calls.reset()
     scope.closeModal()
+
     expect(modalInstance.dismiss).toHaveBeenCalledWith('cancel')
   })
 })
