@@ -1,8 +1,7 @@
 {
   "globals": {
-    /* Charts */
+    "moment": false,
     "d3":    false,
-    /* Lodash */
     "_": false,
     /* JASMINE */
     "inspect":     false,

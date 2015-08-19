@@ -1,0 +1,26 @@
+<div class="panel panel-default timeline">
+  <div class="panel-body">
+    <timeline>
+      <timeline-event ng-repeat="event in events">
+        <timeline-badge class="{{event.badgeClass}}">
+          <i class="glyphicon {{event.badgeIconClass}}"></i>
+        </timeline-badge>
+
+        <timeline-panel class="{{event.badgeClass}}">
+          <timeline-heading>
+          <h4>{{event.content.areaLocation}}</h4>
+          <small class="text-muted">
+            <i class="fa fa-calendar"></i> From {{event.content.start }} to {{event.content.end}}
+          </small>
+          </timeline-heading>
+
+          <div>
+            <a ng-repeat="route in event.content.routes">
+              <span ng-bind="route.name"></span> <br>
+            </a>
+          </div>
+        </timeline-panel>
+      </timeline-event>
+    </timeline>
+  </div>
+</div>

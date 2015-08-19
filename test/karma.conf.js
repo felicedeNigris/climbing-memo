@@ -66,6 +66,9 @@ module.exports = function(config) {
       'bower_components/angular-google-maps/dist/angular-google-maps.js',
       'bower_components/d3-tip/index.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/angular-sanitize/angular-sanitize.js',
+      'bower_components/angular-timeline/dist/angular-timeline.js',
+      'bower_components/moment/moment.js',
       // endbower
       "app/scripts/**/*.js",
       // "test/mock#<{(||)}>#*.js",

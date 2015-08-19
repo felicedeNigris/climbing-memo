@@ -1,7 +1,8 @@
 'use strict'
 
 angular.module('climbingMemo', ['ngRoute','ui.bootstrap','hc.marked',
-'jlareau.pnotify', 'ng-appcache', 'ngStorage', 'uiGmapgoogle-maps'])
+'jlareau.pnotify', 'ng-appcache', 'ngStorage', 'uiGmapgoogle-maps',
+'angular-timeline'])
 
 angular.module('climbingMemo')
 .config(function($routeProvider) {
@@ -12,6 +13,10 @@ angular.module('climbingMemo')
   .when('/climbs', {
     controller: 'climbsCtrl',
     templateUrl: 'views/climbs.html'
+  })
+  .when('/timeline', {
+    controller: 'TimelineCtrl',
+    templateUrl: 'views/timeline.html'
   })
   .when('/map', {
     controller: 'mapCtrl',
