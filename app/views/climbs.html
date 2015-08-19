@@ -14,7 +14,7 @@
 
     <h2>
       <i class="fa fa-connectdevelop"></i> Climbs
-      <button class="btn btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i> Add</button>
+      <button class="btn btn-fab btn-raised btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i></button>
     </h2>
 
 		<table class="table table-condensed table-hover">
@@ -103,12 +103,27 @@
 						<span ng-if="!route.$edit">{{route.location}}</span>
 						<div ng-if="route.$edit"><input placeholder="Location" class="form-control" type="text" ng-model="route.location" typeahead="location for location in locations | filter:$viewValue"></div>
 					</td>
-					<td style="width:90px" >
-						<a ng-if="!route.$edit" class="label label-info" ng-click="route.$edit = true">Edit</a>
-						<a ng-if="route.$edit" class="label label-primary" ng-click="saveRoute(route)">Done</a>
-            <a ng-if="!route.$edit" class="label label-success" ng-click="copyRoute(route)">Copy</a>
-            <a ng-if="route.$cancellable" class="label label-danger" ng-click="cancelRoute(route)">Cancel</a>
-            <a ng-if="!route.$edit" class="label label-danger hidden-xs" ng-click="deleteRoute(route)">Delete</a>
+					<td style="width:70px" class="actions">
+            <span ng-if="!route.$edit" ng-click="route.$edit = true" tooltip="Edit" tooltip-animation="false">
+              <i class="fa-lg fa fa-pencil text-info"></i>
+            </span>
+            <span ng-if="route.$edit" ng-click="saveRoute(route)" tooltip="Save" tooltip-animation="false">
+              <i class="fa-lg fa fa-check text-primary"></i>
+            </span>
+            <span ng-if="!route.$edit" ng-click="copyRoute(route)" tooltip="Copy" tooltip-animation="false">
+              <i class="fa-lg fa fa-files-o text-success"></i>
+            </span>
+            <span ng-if="route.$cancellable" ng-click="cancelRoute(route)" tooltip="Cancel" tooltip-animation="false">
+              <i class="fa-lg fa fa-times text-danger"></i>
+            </span>
+            <span ng-if="!route.$edit" class="hidden-xs" ng-click="deleteRoute(route)" tooltip="Delete" tooltip-animation="false">
+              <i class="fa-lg fa fa-trash text-danger"></i>
+            </span>
+						<!-- <a ng&#45;if="!route.$edit" class="label label&#45;info" ng&#45;click="route.$edit = true">Edit</a> -->
+						<!-- <a ng&#45;if="route.$edit" class="label label&#45;primary" ng&#45;click="saveRoute(route)">Done</a> -->
+            <!-- <a ng&#45;if="!route.$edit" class="label label&#45;success" ng&#45;click="copyRoute(route)">Copy</a> -->
+            <!-- <a ng&#45;if="route.$cancellable" class="label label&#45;danger" ng&#45;click="cancelRoute(route)">Cancel</a> -->
+            <!-- <a ng&#45;if="!route.$edit" class="label label&#45;danger hidden&#45;xs" ng&#45;click="deleteRoute(route)">Delete</a> -->
 					</td>
 				</tr>
 			</tbody>

@@ -5,8 +5,16 @@ body >.container {
 blockquote {
   font-size: inherit;
 }
-.label {
-  cursor:pointer;
+
+.climbs {
+  .actions {
+    a {
+      text-decoration: none;
+    }
+    i {
+      cursor: pointer;
+    }
+  }
 }
 
 h2 {
