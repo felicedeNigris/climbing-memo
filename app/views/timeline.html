@@ -2,22 +2,33 @@
   <div class="panel-body">
     <timeline>
       <timeline-event ng-repeat="event in events">
-        <timeline-badge class="{{event.badgeClass}}">
-          <i class="glyphicon {{event.badgeIconClass}}"></i>
+      <timeline-badge style="background-color:{{getTypeColor(event)}}"
+      tooltip="{{getBadgeTooltip(event)}}">
+          <i class="fa {{getBadgeIcon(event)}}"></i>
         </timeline-badge>
 
-        <timeline-panel class="{{event.badgeClass}}">
+        <timeline-panel>
           <timeline-heading>
-          <h4>{{event.content.areaLocation}}</h4>
+          <h4><i class="fa fa-map-marker"></i> {{event.content.areaLocation}}</h4>
+          <p>
           <small class="text-muted">
             <i class="fa fa-calendar"></i> From {{event.content.start }} to {{event.content.end}}
           </small>
+          </p>
           </timeline-heading>
 
-          <div>
-            <a ng-repeat="route in event.content.routes">
-              <span ng-bind="route.name"></span> <br>
-            </a>
+          <div ng-repeat="routes in event.content.sectors">
+            <p class="text-muted">
+            <i class="fa fa-map-signs"></i> {{ routes[0].sector }}
+            <span class="badge">{{ routes.length }}</span>
+            </p>
+            <span ng-repeat="route in routes">
+              <span class="text-muted">{{route.grade}}</span>
+              <i ng-class="{'fa fa-eye': route.watch}"></i>
+              <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">
+                {{route.name}}
+              </a><br>
+            </span>
           </div>
         </timeline-panel>
       </timeline-event>

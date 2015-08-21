@@ -8,7 +8,7 @@
 * Service in the climbingMemo.
 */
 angular.module('climbingMemo')
-.service('timelineSvc', function() {
+.service('timelineSvc', function(utilsChartSvc) {
 
   /**
   * Pre-process data to be rendered on a timeline
@@ -46,6 +46,19 @@ angular.module('climbingMemo')
       return result
     }, [])
 
+    // Group by sectors and sort
+    locations = _.map(locations, function(areaLocation) {
+      areaLocation.sectors = _.map(utilsChartSvc.arrayGroupBy(areaLocation.routes, 'sector'),
+      function(sector) {
+        return areaLocation.routes.filter(function(route) {
+          return route.sector == sector
+        }).sort(function(routeA, routeB){
+          return utilsChartSvc.compareRouteGrade(routeB.grade, routeA.grade)
+        })
+      })
+      return areaLocation
+    })
+
     // Calculate first/last date per locations
     locations = _.map(locations, function(areaLocation) {
       areaLocation.start = _.first(areaLocation.routes).date
@@ -55,13 +68,15 @@ angular.module('climbingMemo')
 
     // Generate output data
     var data = _.map(locations, function(areaLocation) {
+      var routeTypes = utilsChartSvc.arrayGroupBy(areaLocation.routes, 'type')
+      var routeRocks = utilsChartSvc.arrayGroupBy(areaLocation.routes, 'rock')
+      delete areaLocation.routes
       return {
-        badgeClass: 'info',
-        badgeIconClass: 'glyphicon-check',
+        mainType: _.first(routeTypes),
+        isIndoor: _.first(routeRocks) === 'Indoor',
         content: areaLocation
       }
     })
-    console.log(data)
 
     return data
   }
