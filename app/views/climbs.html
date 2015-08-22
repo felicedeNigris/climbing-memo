@@ -1,5 +1,9 @@
 <!-- Panel Data -->
-<div class="panel panel-default climbs">
+<div class="panel panel-success climbs">
+  <div class="panel-heading hidden-xs">
+    <h3 class="panel-title"><span class="fa fa-connectdevelop"></span> Climbs</h3>
+  </div>
+
 	<div class="panel-body">
 
     <div class="form-inline pull-right" tooltip="{{ itemsPerPage }} rows visible">
@@ -13,8 +17,7 @@
     </div>
 
     <h2>
-      <i class="fa fa-connectdevelop"></i> Climbs
-      <button class="btn btn-fab btn-raised btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i></button>
+      <button tooltip="Add route" class="btn btn-fab btn-raised btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i></button>
     </h2>
 
 		<table class="table table-condensed table-hover">
