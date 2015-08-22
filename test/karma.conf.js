@@ -69,6 +69,7 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-timeline/dist/angular-timeline.js',
       'bower_components/moment/moment.js',
+      'bower_components/angular-scroll-animate/dist/angular-scroll-animate.js',
       // endbower
       "app/scripts/**/*.js",
       // "test/mock#<{(||)}>#*.js",
