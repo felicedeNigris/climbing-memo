@@ -12,12 +12,12 @@ angular.module('climbingMemo')
 $localStorage, $log, $rootScope, utilsChartSvc, $modal) {
 
   // Get Data
-  routesSvc.getRoutes().success(function(data) {
+  routesSvc.getRoutes().then(function(data) {
     data = data || {}
     $localStorage.routes = data
     $scope.initController(data)
   })
-  .error(function() {
+  .catch(function() {
     $log.log('Local Storage used - routes')
     $scope.initController($localStorage.routes || [])
   })
@@ -41,7 +41,6 @@ $localStorage, $log, $rootScope, utilsChartSvc, $modal) {
 
   $scope.getBadgeTooltip = function(event) {
     return (event.isIndoor ? 'Indoor' : 'Outdoor') + ' ' + event.mainType
-    console.log(event.isIndoor)
   }
 
   $scope.getBadgeIcon = function(event) {

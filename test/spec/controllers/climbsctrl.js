@@ -9,7 +9,7 @@ describe('Controller: climbsCtrl', function() {
   * Initialize local variables for unit-test
   */
   var climbsCtrl, scope, routesSvc, deferred, utilsChartSvc,
-  notificationService, rootScope
+  notificationService, rootScope, modal
   // jscs:disable
   var dataStub = {
     1: {
@@ -53,6 +53,10 @@ describe('Controller: climbsCtrl', function() {
     spyOn(utilsChartSvc, 'arrayGroupBy').and.returnValue(['test'])
     spyOn(utilsChartSvc, 'typeColor').and.returnValue('green')
 
+    // modal stub
+    modal = { open:     function() {} }
+
+    spyOn(modal, 'open')
     // notificationService stub
     notificationService = {
       success:  function() {},
@@ -67,7 +71,7 @@ describe('Controller: climbsCtrl', function() {
       routesSvc: routesSvc,
       $http: $http,
       $rootScope: rootScope,
-      $modal: $modal,
+      $modal: modal,
       notificationService: notificationService,
       $localStorage: $localStorage,
       $log: $log,
@@ -148,6 +152,10 @@ describe('Controller: climbsCtrl', function() {
   })
 
   it("should #openRouteModal", function() {
+    modal.open.calls.reset()
+    scope.openRouteModal()
+
+    expect(modal.open).toHaveBeenCalled()
   })
 
   it("should catch event $on #routesUpdated", function() {
