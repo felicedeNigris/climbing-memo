@@ -12,7 +12,8 @@ angular.module('climbingMemo')
 $localStorage, $log, $rootScope, utilsChartSvc, $modal) {
 
   // Get Data
-  routesSvc.getRoutes().then(function(data) {
+  routesSvc.getRoutes().then(function(result) {
+    var data = result.data
     data = data || {}
     $localStorage.routes = data
     $scope.initController(data)
