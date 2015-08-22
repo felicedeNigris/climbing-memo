@@ -11,7 +11,7 @@ describe('Controller: TimelineCtrl', function() {
   // Initialize the controller and a mock scope
   beforeEach(inject(function($controller, $rootScope) {
     scope = $rootScope.$new()
-    TimelineCtrl = $controller('TimelinectrlCtrl', {
+    TimelineCtrl = $controller('TimelineCtrl', {
       $scope: scope
       // place here mocked dependencies
     })

@@ -17,18 +17,10 @@ angular.module('climbingMemo')
   * @return {Object} Tree of properties
   */
   this.processData = function(rawData) {
-    if (!rawData) {
-      return []
-    }
 
     // Sort by date
-    var routes = _.map(rawData, function(route) {
-      route.moment = moment(route.date, 'MM-DD-YYYY')
-      return route
-    })
-
-    routes.sort(function(a,b) {
-      return b.moment.unix() - a.moment.unix()
+    var routes = rawData.sort(function(a,b) {
+      return moment(b.date, 'MM-DD-YYYY').unix() -  moment(a.date, 'MM-DD-YYYY').unix()
     })
 
     // Group by Locations
@@ -52,7 +44,7 @@ angular.module('climbingMemo')
       function(sector) {
         return areaLocation.routes.filter(function(route) {
           return route.sector == sector
-        }).sort(function(routeA, routeB){
+        }).sort(function(routeA, routeB) {
           return utilsChartSvc.compareRouteGrade(routeB.grade, routeA.grade)
         })
       })
