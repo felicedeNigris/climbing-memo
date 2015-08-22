@@ -1,7 +1,10 @@
 <div class="gm-pro-popup windowLocationMap">
-  <b>{{parameter.name}}</b><br>
+  <h4><i class="fa fa-map-marker"></i> {{parameter.name}}</h4>
+
   <span ng-repeat="metric in parameter.metrics">
-    {{metric.rating}} <i class="fa fa-star"></i> {{metric.sector}} ({{metric.count}})<br>
+    <i class="fa fa-map-o"></i>
+    {{metric.rating}} <i class="fa fa-star"></i> {{metric.sector}}
+    <span class="badge">{{metric.count}}</span><br>
   </span>
   <br>
   <a href="https://www.google.com/maps/dir/Current+Location/{{ parameter.coords.latitude }}, {{ parameter.coords.longitude }}" target="_blank">
