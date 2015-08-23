@@ -9,6 +9,11 @@ angular.module('climbingMemo')
   * @return {Array} Array indexed by dates
   */
   this.processData = function(rawData) {
+    // Filter the last 12 months
+    rawData = rawData.filter(function(route) {
+      return moment().diff(moment(route.date, 'MM-DD-YYYY'),'months') < 12
+    })
+
     // Group by Month-Year
     var months = []
     var month

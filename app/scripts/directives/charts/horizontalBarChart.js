@@ -76,7 +76,7 @@ angular.module('climbingMemo')
           var xAxis, xScale, yScale, maxRoutes
 
           function setupAxis() {
-            maxRoutes = d3.max(data, function(d) { return d.total})
+            maxRoutes = d3.max(data, function(d) { return d.total}) || 0
 
             xScale = d3.scale.linear()
             .range([0, widthChart])

@@ -187,6 +187,7 @@ angular.module('climbingMemo')
             var t = svg.selectAll("g.cell").transition()
             .duration(d3.event.altKey ? 7500 : 750)
             .attr("transform", function(d) {
+              console.log(xScale(d.x))
               return "translate(" + xScale(d.x) + "," + yScale(d.y) + ")"
             })
 
