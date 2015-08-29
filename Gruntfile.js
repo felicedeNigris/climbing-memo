@@ -446,7 +446,6 @@ module.exports = function(grunt) {
         options: {
           basePath: '.',
           cache: [
-            'index.html',
             'fonts/glyphicons-halflings-regular.woff2',
             'fonts/glyphicons-halflings-regular.woff',
             'fonts/glyphicons-halflings-regular.ttf',
@@ -460,7 +459,7 @@ module.exports = function(grunt) {
           ],
           network: ['*'],
           fallback: ['/ /offline.html'],
-          exclude: ['manifest.appcache'],
+          exclude: [],
           preferOnline: true,
           verbose: true,
           timestamp: true,
@@ -559,7 +558,7 @@ module.exports = function(grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    // 'cdnify',
+    'cdnify',
     'cssmin',
     // 'uglify',
     // 'filerev',
