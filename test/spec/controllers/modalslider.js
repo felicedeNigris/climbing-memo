@@ -8,7 +8,8 @@ describe('Controller: ModalsliderCtrl', function() {
   var ModalsliderCtrl, scope, modalInstance
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function($controller, $rootScope) {
+  beforeEach(inject(function($controller, $rootScope, $log,
+  routeNoteFormattingFilter, $localStorage, routesSvc) {
     scope = $rootScope.$new()
 
     // modalInstance Stub
@@ -19,7 +20,12 @@ describe('Controller: ModalsliderCtrl', function() {
 
     ModalsliderCtrl = $controller('ModalsliderCtrl', {
       $scope:         scope,
-      $modalInstance:  modalInstance
+      $modalInstance:  modalInstance,
+      routesId: [],
+      $localStorage: $localStorage,
+      routesSvc: routesSvc,
+      $log: $log,
+      routeNoteFormattingFilter: routeNoteFormattingFilter
     })
   }))
 

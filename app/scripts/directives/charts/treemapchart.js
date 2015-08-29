@@ -185,7 +185,7 @@ $modal) {
               d.w = this.getComputedTextLength()
               return d.dx > d.w ? 1 : 0
             })
-            .on('click', function(d){
+            .on('click', function(d) {
               scope.openSliderModal(d.routesId)
             })
             .on("mouseover", function(d) {

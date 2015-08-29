@@ -36,8 +36,8 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter) {
       return _.indexOf(routesId, route.id) !== -1
     })
 
-    $scope.myInterval = 5000;
-    $scope.noWrapSlides = false;
+    $scope.myInterval = 5000
+    $scope.noWrapSlides = false
     $scope.slides = _.map(displayedRoutes, function(route) {
       route.notes = routeNoteFormattingFilter(route.notes)
       return {

@@ -16,36 +16,48 @@ describe('Service: verticalBarChartSvc', function() {
       var currentYear = new Date().getFullYear()
 
       var inputArray = [
-        { "date": "05/12/" + currentYear, "type": "Top rope" },
-        { "date": "08/02/" + currentYear, "type": "Boulder" },
-        { "date": "08/02/" + currentYear, "type": "Sport lead" },
-        { "date": "08/01/" + currentYear, "type": "Sport lead" },
-        { "date": "01/02/" + currentYear, "type": "Sport lead" },
-        { "date": "08/13/" + currentYear, "type": "Sport lead" },
-        { "date": "05/02/" + currentYear, "type": "Sport lead" }
+        {"id": 1, "date": "05/12/" + currentYear, "type": "Top rope" },
+        {"id": 2, "date": "08/02/" + currentYear, "type": "Boulder" },
+        {"id": 3, "date": "08/02/" + currentYear, "type": "Sport lead" },
+        {"id": 4, "date": "08/01/" + currentYear, "type": "Sport lead" },
+        {"id": 5, "date": "01/02/" + currentYear, "type": "Sport lead" },
+        {"id": 6, "date": "08/13/" + currentYear, "type": "Sport lead" },
+        {"id": 7, "date": "05/02/" + currentYear, "type": "Sport lead" }
       ]
-      var outputArray = [
+      var expectedOutput = [
         {
           "date": "05" + currentYear,
           "type": [
-            { "name": "Top rope", "sum": 1, "y0": 0, "y1": 1 },
-            { "name": "Sport lead", "sum": 1, "y0": 1, "y1": 2 }
+            {
+            "name": "Top rope", "sum": 1, "y0": 0, "y1": 1, "routesId": [1]
+            },
+            {
+            "name": "Sport lead", "sum": 1, "y0": 1, "y1": 2, "routesId": [7]
+            }
           ]
         },
         {
           "date": "08" + currentYear,
           "type": [
-            { "name": "Boulder", "sum": 1, "y0": 0, "y1": 1 },
-            { "name": "Sport lead", "sum": 3, "y0": 1, "y1": 4 }
+            {
+            "name": "Boulder", "sum": 1, "y0": 0, "y1": 1, "routesId": [2]
+            },
+            {
+            "name": "Sport lead", "sum": 3, "y0": 1, "y1": 4, "routesId": [3, 4, 6]
+            }
           ]
         },
         {
           "date": "01" + currentYear,
-          "type": [{ "name": "Sport lead", "sum": 1, "y0": 0, "y1": 1 }]
+          "type": [{
+          "name": "Sport lead", "sum": 1, "y0": 0, "y1": 1, "routesId": [5]
+          }]
         }
       ]
 
-      expect(_.isEqual(outputArray, verticalBarChartSvc.processData(inputArray))).toBe(true)
+      var output = verticalBarChartSvc.processData(inputArray)
+
+      expect(JSON.stringify(output) === JSON.stringify(expectedOutput)).toBe(true)
     })
   })
 
