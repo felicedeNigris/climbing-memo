@@ -64,7 +64,6 @@
     <script src="bower_components/pnotify/pnotify.history.js"></script>
     <script src="bower_components/pnotify/pnotify.nonblock.js"></script>
     <script src="bower_components/angular-pnotify/src/angular-pnotify.js"></script>
-    <script src="bower_components/ng-appcache/dist/appcache.js"></script>
     <script src="bower_components/ngstorage/ngStorage.js"></script>
     <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
     <script src="bower_components/d3-tip/index.js"></script>
@@ -108,5 +107,15 @@
     <script src="scripts/services/timeline.js"></script>
     <script src="scripts/controllers/modalslider.js"></script>
     <!-- endbuild -->
+    <script>
+      // Check if a new cache is available on page load.
+      window.addEventListener('load', function(e) {
+        window.applicationCache.addEventListener('updateready', function(e) {
+          if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+              window.location.reload();
+          }
+        }, false);
+      }, false);
+    </script>
   </body>
 </html>

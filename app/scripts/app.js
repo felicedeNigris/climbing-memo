@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('climbingMemo', ['ngRoute','ui.bootstrap','hc.marked',
-'jlareau.pnotify', 'ng-appcache', 'ngStorage', 'uiGmapgoogle-maps',
+'jlareau.pnotify', 'ngStorage', 'uiGmapgoogle-maps',
 'angular-timeline', 'angular-scroll-animate'])
 
 angular.module('climbingMemo')

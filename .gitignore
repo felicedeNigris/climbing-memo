@@ -4,3 +4,5 @@ dist
 coverage
 .tmp
 bower_components
+npm-debug.log
+manifest.appcache

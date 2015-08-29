@@ -447,38 +447,20 @@ module.exports = function(grunt) {
           basePath: '.',
           cache: [
             'index.html',
-            'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2',
-            'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
-            'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf',
-            'bower_components/components-font-awesome/fonts/fontawesome-webfont.ttf?v=4.3.0',
-            'bower_components/components-font-awesome/fonts/fontawesome-webfont.woff?v=4.3.0',
-            'bower_components/components-font-awesome/fonts/fontawesome-webfont.woff2?v=4.3.0',
-            'bower_components/bootstrap/dist/css/bootstrap.css',
-            'bower_components/components-font-awesome/css/font-awesome.css',
-            'bower_components/pnotify/pnotify.core.css',
-            'bower_components/pnotify/pnotify.buttons.css',
-            'bower_components/jquery/dist/jquery.js',
-            'bower_components/bootstrap/dist/js/bootstrap.js',
-            'bower_components/bootstrap-material-design/dist/js/material.js',
-            'bower_components/d3/d3.js',
-            'bower_components/d3-tip/index.js',
-            'bower_components/angular-google-maps/dist/angular-google-maps.js',
-            'bower_components/lodash/lodash.min.js',
-            'bower_components/angular/angular.js',
-            'bower_components/angular-route/angular-route.js',
-            'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-            'bower_components/marked/lib/marked.js',
-            'bower_components/angular-marked/angular-marked.js',
-            'bower_components/pnotify/pnotify.core.js',
-            'bower_components/pnotify/pnotify.confirm.js',
-            'bower_components/pnotify/pnotify.buttons.js',
-            'bower_components/angular-pnotify/src/angular-pnotify.js',
-            'bower_components/ngstorage/ngStorage.js',
-            'bower_components/ng-appcache/dist/appcache.js'
+            'fonts/glyphicons-halflings-regular.woff2',
+            'fonts/glyphicons-halflings-regular.woff',
+            'fonts/glyphicons-halflings-regular.ttf',
+            'fonts/fontawesome-webfont.ttf?v=4.4.0',
+            'fonts/fontawesome-webfont.woff?v=4.4.0',
+            'fonts/fontawesome-webfont.woff2?v=4.4.0',
+            'styles/main.css',
+            'styles/vendor.css',
+            'scripts/vendor.js ',
+            'scripts/scripts.js'
           ],
           network: ['*'],
           fallback: ['/ /offline.html'],
-          exclude: [],
+          exclude: ['manifest.appcache'],
           preferOnline: true,
           verbose: true,
           timestamp: true,
@@ -490,7 +472,7 @@ module.exports = function(grunt) {
           'styles/**/*.css',
           'views/**/*.html'
         ],
-        dest: '<%= yeoman.dist %>/manifest.appcache'
+        dest: 'manifest.appcache'
       }
     },
 
@@ -577,12 +559,13 @@ module.exports = function(grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
-    'cdnify',
+    // 'cdnify',
     'cssmin',
     // 'uglify',
     // 'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'manifest'
   ])
 
   grunt.registerTask('default', [
