@@ -446,6 +446,7 @@ module.exports = function(grunt) {
         options: {
           basePath: '.',
           cache: [
+            'index.html',
             'fonts/glyphicons-halflings-regular.woff2',
             'fonts/glyphicons-halflings-regular.woff',
             'fonts/glyphicons-halflings-regular.ttf',
@@ -459,11 +460,12 @@ module.exports = function(grunt) {
           ],
           network: ['*'],
           fallback: ['/ /offline.html'],
-          exclude: [],
+          exclude: ['manifest.appcache'],
           preferOnline: true,
           verbose: true,
           timestamp: true,
-          hash: true
+          hash: true,
+          master: ['index.html']
         },
         src: [
           'scripts/**/*.js',
