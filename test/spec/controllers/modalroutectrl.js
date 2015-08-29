@@ -10,12 +10,15 @@ describe('Controller: modalRouteCtrl', function() {
   // Initialize the controller and a mock scope
   beforeEach(inject(function($controller, $rootScope, $q,
   notificationService, routeNoteFormattingFilter) {
-
     scope = $rootScope.$new()
+
+    // modalInstance Stub
     modalInstance = {
       dismiss: function() {}
     }
     spyOn(modalInstance, 'dismiss')
+
+    // routesSvc Stub
     routesSvc = {
       updateRoute: function() {}
     }
@@ -23,12 +26,12 @@ describe('Controller: modalRouteCtrl', function() {
     spyOn(routesSvc, 'updateRoute').and.returnValue(deferred.promise)
 
     modalRouteCtrl = $controller('modalRouteCtrl', {
-      $scope: scope,
-      $modalInstance: modalInstance,
-      routesSvc: routesSvc,
-      route: {},
-      notificationService: notificationService,
-      routeNoteFormattingFilter: routeNoteFormattingFilter
+      $scope:                     scope,
+      $modalInstance:             modalInstance,
+      routesSvc:                  routesSvc,
+      route:                      {},
+      notificationService:        notificationService,
+      routeNoteFormattingFilter:  routeNoteFormattingFilter
     })
   }))
 

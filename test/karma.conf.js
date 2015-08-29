@@ -16,7 +16,7 @@ module.exports = function(config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     // as well as any additional frameworks (requirejs/chai/sinon/...)
     frameworks: [
-      "jasmine"
+      'jasmine'
     ],
 
     reporters: ['progress', 'coverage'],
@@ -71,9 +71,9 @@ module.exports = function(config) {
       'bower_components/moment/moment.js',
       'bower_components/angular-scroll-animate/dist/angular-scroll-animate.js',
       // endbower
-      "app/scripts/**/*.js",
-      // "test/mock#<{(||)}>#*.js",
-      "test/spec/**/*.js",
+      'app/scripts/**/*.js',
+      // 'test/mock#<{(||)}>#*.js',
+      'test/spec/**/*.js',
       'app/views/**/*.html'
     ],
 
@@ -93,16 +93,16 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      "PhantomJS"
+      'PhantomJS'
     ],
 
     // Which plugins to enable
     plugins: [
-      "karma-ng-html2js-preprocessor",
-      "karma-phantomjs-launcher",
-      "karma-chrome-launcher",
-      "karma-jasmine",
-      "karma-coverage"
+      'karma-ng-html2js-preprocessor',
+      'karma-phantomjs-launcher',
+      'karma-chrome-launcher',
+      'karma-jasmine',
+      'karma-coverage'
     ],
 
     // Continuous Integration mode

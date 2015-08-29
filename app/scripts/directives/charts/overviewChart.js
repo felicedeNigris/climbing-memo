@@ -1,7 +1,7 @@
 'user strict'
 
 angular.module('climbingMemo')
-.directive('overviewChart', function(overviewChartSvc, utilsChartSvc) {
+.directive('overviewChart', function(overviewChartSvc, $modal, utilsChartSvc) {
   // Private 5 digit chart ID
   var ID = _.random(10000, 99999)
 
@@ -21,6 +21,24 @@ angular.module('climbingMemo')
       scope.$watch('routes', function(rawData) {
         scope.renderChart(rawData)
       })
+
+      /**
+      * Open a modal to display routes card
+      *
+      * @method openSliderModal
+      */
+      scope.openSliderModal = function(routes) {
+        $modal.open({
+          templateUrl: 'views/sliderModal.html',
+          controller: 'ModalsliderCtrl',
+          size: 'lg',
+          resolve: {
+            routes: function() {
+              return routes
+            }
+          }
+        })
+      }
 
       /**
       * @method renderChart
@@ -127,6 +145,10 @@ angular.module('climbingMemo')
           .attr("class", "climbDay")
           .style('fill', function(d) {
             return utilsChartSvc.typeColor(data[d].metrics[0].type)
+          })
+          .style('cursor', 'pointer')
+          .on('click', function(d) {
+            scope.openSliderModal(data[d].metrics)
           })
           .on("mouseover", function(d) {
             $(this).css({'opacity':0.8})
