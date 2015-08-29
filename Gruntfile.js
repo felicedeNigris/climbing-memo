@@ -307,15 +307,15 @@ module.exports = function(grunt) {
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles#<{(||)}>#*.css'
-    //       ]
-    //     }
-    //   }
-    // },
+    cssmin: {
+      dist: {
+        files: {
+          '<%= yeoman.dist %>/styles/main.css': [
+            '.tmp/styles/**/*.css'
+          ]
+        }
+      }
+    },
     // uglify: {
     //   dist: {
     //     files: {
@@ -325,10 +325,10 @@ module.exports = function(grunt) {
     //     }
     //   }
     // },
-    // concat: {
-    //   dist: {}
-    // },
-    //
+    concat: {
+      dist: {}
+    },
+
     imagemin: {
       dist: {
         files: [{
@@ -417,18 +417,6 @@ module.exports = function(grunt) {
             'styles/fonts/**/*.*'
           ]
         }, {
-          // FIXME style copy to fix build
-          expand: true,
-          cwd: '.tmp/styles',
-          dest: '<%= yeoman.dist %>/styles',
-          src: ['**/*.css']
-        }, {
-          // FIXME bower_components copy to fix build
-          expand: true,
-          cwd: 'bower_components',
-          dest: '<%= yeoman.dist %>/bower_components',
-          src: ['**/*.js', '**/*.css', '**/*.woff2', '**/*.woff', '**/*.ttf']
-        }, {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
@@ -436,6 +424,11 @@ module.exports = function(grunt) {
         }, {
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: 'bower_components/components-font-awesome',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
         }]
@@ -577,7 +570,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
-    // 'useminPrepare',
+    'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
     'ngtemplates',
@@ -585,10 +578,10 @@ module.exports = function(grunt) {
     'ngAnnotate',
     'copy:dist',
     'cdnify',
-    // 'cssmin',
+    'cssmin',
     // 'uglify',
     // 'filerev',
-    // 'usemin',
+    'usemin',
     'htmlmin'
   ])
 
