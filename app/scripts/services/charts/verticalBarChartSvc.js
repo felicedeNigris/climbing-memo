@@ -43,11 +43,13 @@ angular.module('climbingMemo')
           name: route.type,
           sum: 0,
           y0: 0,
-          y1: 0
+          y1: 0,
+          routesId: []
         }
       }
 
       month.type[route.type].sum += 1
+      month.type[route.type].routesId.push(route.id)
 
     }
 
