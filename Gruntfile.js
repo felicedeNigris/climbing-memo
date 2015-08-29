@@ -463,8 +463,7 @@ module.exports = function(grunt) {
           preferOnline: true,
           verbose: true,
           timestamp: true,
-          hash: true,
-          master: ['index.html']
+          hash: true
         },
         src: [
           'scripts/**/*.js',
