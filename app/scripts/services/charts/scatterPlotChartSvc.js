@@ -34,7 +34,8 @@ angular.module('climbingMemo')
         sector: key,
         avgRating:  avgRating,
         dominantType: types[0],
-        totalRoutes: sector.length
+        totalRoutes: sector.length,
+        routesId: _.pluck(sector, 'id')
       })
     }
 
