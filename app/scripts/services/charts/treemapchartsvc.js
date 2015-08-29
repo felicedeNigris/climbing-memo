@@ -26,7 +26,8 @@ angular.module('climbingMemo')
       _.mapKeys(utilsChartSvc.arrayToHashtable(value, 'location'), function(value, location) {
         routesLocations.push({
           name: location,
-          count: value.length
+          count: value.length,
+          routesId: _.pluck(value, 'id')
         })
       })
 

@@ -7,7 +7,8 @@
 * # treemapChart
 */
 angular.module('climbingMemo')
-.directive('treemapChart', function(treemapChartSvc, utilsChartSvc, $window) {
+.directive('treemapChart', function(treemapChartSvc, utilsChartSvc, $window,
+$modal) {
   // Private 5 digit chart ID
   var ID = _.random(10000, 99999)
 
@@ -25,6 +26,24 @@ angular.module('climbingMemo')
       scope.$watch('routes', function(rawData) {
         scope.renderChart(rawData)
       })
+
+      /**
+      * Open a modal to display routes card
+      *
+      * @method openSliderModal
+      */
+      scope.openSliderModal = function(routesId) {
+        $modal.open({
+          templateUrl: 'views/sliderModal.html',
+          controller: 'ModalsliderCtrl',
+          size: 'lg',
+          resolve: {
+            routesId: function() {
+              return routesId
+            }
+          }
+        })
+      }
 
       /**
       * @method renderChart
@@ -57,7 +76,7 @@ angular.module('climbingMemo')
 
         function my(container) {
 
-          var w,h,xScale,yScale,root,node,treemap,svg,tip
+          var w,h,xScale,yScale,root,node,treemap,svg,tip,tipZoom
 
           setConfig()
           addTreeMap()
@@ -104,6 +123,16 @@ angular.module('climbingMemo')
               return html
             })
 
+            tipZoom = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+              var html = ''
+              html += d.name + ' - Zoom '
+              return html
+            })
+
+            svg.call(tipZoom)
             svg.call(tip)
           }
 
@@ -118,11 +147,11 @@ angular.module('climbingMemo')
             .enter().append("svg:g")
             .attr("class", "cell")
             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-            .on("click", function(d) { return zoom(node == d.parent ? root : d.parent); })
 
             cell.append("svg:rect")
             .attr("width", function(d) { return Math.max(d.dx - 1,0); })
             .attr("height", function(d) { return Math.max(d.dy - 1,0); })
+            .on("click", function(d) { return zoom(node == d.parent ? root : d.parent); })
             .style("fill", function(d) {
               if (!d.parent) {
                 return "#f5f5f5"
@@ -134,7 +163,7 @@ angular.module('climbingMemo')
                 /* jshint ignore:start */
                 $(this).css({'opacity':0.8})
                 /* jshint ignore:end */
-                tip.show(d)
+                tipZoom.show(d)
               }
             })
             .on("mouseout", function(d) {
@@ -142,7 +171,7 @@ angular.module('climbingMemo')
                 /* jshint ignore:start */
                 $(this).css({'opacity':1})
                 /* jshint ignore:end */
-                tip.hide(d)
+                tipZoom.hide(d)
               }
             })
 
@@ -156,6 +185,9 @@ angular.module('climbingMemo')
               d.w = this.getComputedTextLength()
               return d.dx > d.w ? 1 : 0
             })
+            .on('click', function(d){
+              scope.openSliderModal(d.routesId)
+            })
             .on("mouseover", function(d) {
               if (!d.children) {
                 tip.show(d)
@@ -166,13 +198,10 @@ angular.module('climbingMemo')
                 tip.hide(d)
               }
             })
-
-            d3.select($window).on("click", function() { zoom(root) })
           }
 
           function applyStyle() {
             svg.selectAll('text').style({
-              'font-size': '11px',
               'cursor': 'pointer'
             })
 
@@ -187,7 +216,6 @@ angular.module('climbingMemo')
             var t = svg.selectAll("g.cell").transition()
             .duration(d3.event.altKey ? 7500 : 750)
             .attr("transform", function(d) {
-              console.log(xScale(d.x))
               return "translate(" + xScale(d.x) + "," + yScale(d.y) + ")"
             })
 
