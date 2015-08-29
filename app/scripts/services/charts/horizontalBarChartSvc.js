@@ -22,7 +22,8 @@ angular.module('climbingMemo')
       data.push({
         name: type,
         grade: grade,
-        total: grades[grade].length
+        total: grades[grade].length,
+        routesId: _.pluck(grades[grade], 'id')
       })
     }
 
