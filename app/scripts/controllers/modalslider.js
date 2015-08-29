@@ -8,7 +8,8 @@
 * Controller of the climbingMemo
 */
 angular.module('climbingMemo')
-.controller('ModalsliderCtrl', function($scope, $modalInstance, routes) {
+.controller('ModalsliderCtrl', function($scope, $modalInstance, routesId,
+$localStorage, routesSvc, $log, routeNoteFormattingFilter) {
 
   /**
   * Close the modal
@@ -19,23 +20,29 @@ angular.module('climbingMemo')
     $modalInstance.dismiss('cancel')
   }
 
-  $scope.initController = function() {
+  routesSvc.getRoutes().then(function(result) {
+    var data = result.data || {}
+    $localStorage.routes = data
+    $scope.initController(data)
+  })
+  .catch(function() {
+    $log.log('Local Storage used - routes')
+    $scope.initController($localStorage.routes || [])
+  })
+
+  $scope.initController = function(routes) {
+
+    var displayedRoutes = _.filter(routes, function(route) {
+      return _.indexOf(routesId, route.id) !== -1
+    })
+
     $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
-    // $scope.slides = routes || []
-    var slides = $scope.slides = [];
-    $scope.addSlide = function() {
-      var newWidth = 600 + slides.length + 1;
-      slides.push({
-        image: '//placekitten.com/' + newWidth + '/300',
-        text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-          ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-      });
-    };
-    for (var i=0; i< routes.length ; i++) {
-      $scope.addSlide();
-    }
+    $scope.slides = _.map(displayedRoutes, function(route) {
+      route.notes = routeNoteFormattingFilter(route.notes)
+      return {
+        content: route
+      }
+    })
   }
-
-  $scope.initController()
 })

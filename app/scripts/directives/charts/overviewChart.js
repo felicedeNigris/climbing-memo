@@ -27,14 +27,14 @@ angular.module('climbingMemo')
       *
       * @method openSliderModal
       */
-      scope.openSliderModal = function(routes) {
+      scope.openSliderModal = function(routesId) {
         $modal.open({
           templateUrl: 'views/sliderModal.html',
           controller: 'ModalsliderCtrl',
           size: 'lg',
           resolve: {
-            routes: function() {
-              return routes
+            routesId: function() {
+              return routesId
             }
           }
         })
@@ -148,7 +148,7 @@ angular.module('climbingMemo')
           })
           .style('cursor', 'pointer')
           .on('click', function(d) {
-            scope.openSliderModal(data[d].metrics)
+            scope.openSliderModal(_.pluck(data[d].metrics, 'id'))
           })
           .on("mouseover", function(d) {
             $(this).css({'opacity':0.8})

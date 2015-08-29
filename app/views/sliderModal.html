@@ -2,14 +2,18 @@
   <div class="modal-header"></div>
 
   <div class="modal-body">
-    <div style="height: 305px">
+    <div>
       <carousel interval="myInterval" no-wrap="noWrapSlides">
       <slide ng-repeat="slide in slides" active="slide.active">
-      <img ng-src="{{slide.image}}" style="margin:auto;">
-      <div class="carousel-caption">
-        <h4>Slide {{$index}}</h4>
-        <p>{{slide.text}}</p>
-      </div>
+        <h2>{{slide.content.name}}</h2>
+
+        <route-summary route="slide.content"></route-summary>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div marked="slide.content.notes" style="min-height:100px"></div>
+          </div>
+        </div>
       </slide>
       </carousel>
     </div>

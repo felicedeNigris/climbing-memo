@@ -54,6 +54,7 @@ angular.module('climbingMemo')
         }
 
         metrics.push({
+          id: hardestRoute.id,
           type: hardestRoute.type,
           grade: hardestRoute.grade,
           status: hardestRoute.status,
