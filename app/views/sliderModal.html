@@ -33,6 +33,9 @@
                     <span ng-repeat="t in getTimes(slide.content.rating) track by $index">
                       <i class="fa fa-star"></i>
                     </span>
+                    <span ng-repeat="t in getTimes(5-slide.content.rating) track by $index">
+                      <i class="fa fa-star-o"></i>
+                    </span>
                   </div>
                 </div>
               </div>
