@@ -9,7 +9,7 @@
 */
 angular.module('climbingMemo')
 .controller('ModalsliderCtrl', function($scope, $modalInstance, routesId,
-$localStorage, routesSvc, $log, routeNoteFormattingFilter) {
+$localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
 
   /**
   * Close the modal
@@ -36,7 +36,7 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter) {
       return _.indexOf(routesId, route.id) !== -1
     })
 
-    $scope.myInterval = 5000
+    $scope.myInterval = 0
     $scope.noWrapSlides = false
     $scope.slides = _.map(displayedRoutes, function(route) {
       route.notes = routeNoteFormattingFilter(route.notes)
@@ -44,5 +44,29 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter) {
         content: route
       }
     })
+  }
+
+  $scope.getIconStatus = function(route) {
+    return route.status === 'Attempt' ? 'fa-times' : 'fa-check'
+  }
+
+  $scope.getIconRock = function(route) {
+    return route.rock === 'Indoor' ? 'fa-home' : 'fa-sun-o'
+  }
+
+  $scope.getTimes = function(n) {
+    return new Array(n)
+  }
+
+  /**
+   * Get route color based on type
+   *
+   * @method getTypeColor
+   * @param {Object} Route
+   *
+   * @return {String} Css color
+   */
+  $scope.getTypeColor = function(route) {
+    return utilsChartSvc.typeColor(route.type)
   }
 })

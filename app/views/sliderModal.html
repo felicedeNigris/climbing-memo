@@ -5,21 +5,55 @@
     <div>
       <carousel interval="myInterval" no-wrap="noWrapSlides">
       <slide ng-repeat="slide in slides" active="slide.active">
-        <h2>{{slide.content.name}}</h2>
 
-        <route-summary route="slide.content"></route-summary>
+      <div class="card-container">
+          <div class="card">
+            <div class="front">
+              <div class="content">
+                <div class="main">
+                  <span class="fa-stack fa-3x">
+                    <i class="fa fa-circle fa-stack-2x" style="color:{{getTypeColor(slide.content)}}"></i>
+                    <i class="fa {{getIconRock(slide.content)}} fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <h3 class="name">
+                    <i class="fa fa-eye" ng-show="slide.content.watch"></i>
+                    {{ slide.content.name }}
+                  </h3>
+                  <p class="profession">- {{ slide.content.grade }} -</p>
 
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div marked="slide.content.notes" style="min-height:100px"></div>
-          </div>
-        </div>
-      </slide>
-      </carousel>
+                  <h5><i class="fa fa-map-marker fa-fw text-muted"></i> {{slide.content.location}}</h5>
+                  <h5><i class="fa fa-map-o fa-fw text-muted"></i> {{slide.content.sector}}</h5>
+                  <h5><i class="fa fa-calendar-o fa-fw text-muted"></i> {{slide.content.date}}</h5>
+                  <h5><i class="fa {{getIconRock(slide.content)}} fa-fw text-muted"></i> {{slide.content.rock}} </h5>
+                  <h5><i class="fa {{getIconStatus(slide.content)}} fa-fw text-muted"></i> {{slide.content.status}} </h5>
+
+                </div>
+                <div class="footer">
+                  <div class="rating">
+                    <span ng-repeat="t in getTimes(slide.content.rating) track by $index">
+                      <i class="fa fa-star"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- end front panel -->
+            <div class="back">
+              <div class="content">
+                <div class="main">
+                  <div marked="slide.content.notes"></div>
+                </div>
+              </div>
+            </div> <!-- end back panel -->
+          </div> <!-- end card -->
+        </div> <!-- end card-container -->
+
+
+        </slide>
+        </carousel>
+      </div>
     </div>
-  </div>
 
-  <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="closeModal()"><i class="fa fa-times"></i> Close</button>
-  </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="closeModal()"><i class="fa fa-times"></i> Close</button>
+    </div>
 </div>

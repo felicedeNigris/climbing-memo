@@ -55,12 +55,12 @@ $localStorage, $log, $rootScope, utilsChartSvc, $modal) {
   */
   $scope.openRouteModal = function(route) {
     $modal.open({
-      templateUrl: 'views/routeModal.html',
-      controller: 'modalRouteCtrl',
-      size: 'lg',
+      templateUrl: 'views/sliderModal.html',
+      controller: 'ModalsliderCtrl',
+      size: 'md',
       resolve: {
-        route: function() {
-          return route
+        routesId: function() {
+          return [route.id]
         }
       }
     })

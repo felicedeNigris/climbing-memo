@@ -33,7 +33,7 @@ $modal) {
         $modal.open({
           templateUrl: 'views/sliderModal.html',
           controller: 'ModalsliderCtrl',
-          size: 'lg',
+          size: 'md',
           resolve: {
             routesId: function() {
               return routesId
