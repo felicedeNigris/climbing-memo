@@ -37,7 +37,6 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
   * @param {Array} routes
   */
   $scope.initController = function(routes) {
-
     var displayedRoutes = _.filter(routes, function(route) {
       return _.indexOf(routesId, route.id) !== -1
     })
@@ -72,6 +71,17 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
   */
   $scope.getIconRock = function(route) {
     return route.rock === 'Indoor' ? 'fa-home' : 'fa-sun-o'
+  }
+
+  /**
+  * Get Indoor label based on route rock
+  *
+  * @method getIndoorLabel
+  * @param {Object} route
+  * @return {String}
+  */
+  $scope.getIndoorLabel = function(route) {
+    return route.rock === 'Indoor' ? 'Indoor' : 'Outdoor'
   }
 
   /**

@@ -78,6 +78,14 @@ describe('Controller: ModalsliderCtrl', function() {
     expect(iconB).toMatch('fa-sun-o')
   })
 
+  it("should #getIndoorLabel", function() {
+    var iconA = scope.getIndoorLabel({rock: 'Indoor'})
+    var iconB = scope.getIndoorLabel({rock: 'Other'})
+
+    expect(iconA).toMatch('Indoor')
+    expect(iconB).toMatch('Outdoor')
+  })
+
   it("should #getTimes", function() {
     expect(scope.getTimes(5).length).toBe(5)
   })
