@@ -49,9 +49,11 @@ $localStorage, $log, $rootScope, utilsChartSvc, $modal) {
   }
 
   /**
-  * Open a modal to display route details
+  * Open a modal to display routes details
   *
   * @method openRouteModal
+  * @param {Object} route - First route to display
+  * @param {Array} routes - All routes in slider
   */
   $scope.openRouteModal = function(route, routes) {
     $modal.open({

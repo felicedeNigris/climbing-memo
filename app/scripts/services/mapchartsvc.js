@@ -36,6 +36,7 @@ angular.module('climbingMemo')
 
         metrics.push({
           sector: sector,
+          routesId: _.pluck(sectors[sector], 'id'),
           count: sectors[sector].length,
           type: utilsChartSvc.arrayGroupBy(sectors[sector], 'type')[0],
           rating: (_.reduce(sectors[sector], function(result, n) {
