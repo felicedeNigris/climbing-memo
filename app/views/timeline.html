@@ -29,7 +29,7 @@
             <span ng-repeat="route in routes">
               <span class="text-muted">{{route.grade}}</span>
               <i ng-class="{'fa fa-eye': route.watch}"></i>
-              <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">
+              <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route, routes)">
                 {{route.name}}
               </a><br>
             </span>

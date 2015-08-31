@@ -37,8 +37,10 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
   * @param {Array} routes
   */
   $scope.initController = function(routes) {
-    var displayedRoutes = _.filter(routes, function(route) {
-      return _.indexOf(routesId, route.id) !== -1
+    var displayedRoutes = _.map(routesId, function(id) {
+      return _.find(routes, function(route) {
+        return route.id === id
+      })
     })
 
     $scope.myInterval = 0
