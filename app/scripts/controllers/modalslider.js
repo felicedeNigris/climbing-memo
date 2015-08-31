@@ -58,6 +58,13 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
     return new Array(n)
   }
 
+  $scope.flipCard = function() {
+    var activeSlide = _.first($scope.slides.filter(function(slide) {
+      return slide.active
+    }))
+    activeSlide.$hover = !activeSlide.$hover
+  }
+
   /**
    * Get route color based on type
    *

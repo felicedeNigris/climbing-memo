@@ -65,7 +65,10 @@ h2 {
   }
   .carousel-indicators li {
     border: 0;
-    background-color: none;
+    background-color: transparent;
+  }
+  .carousel-indicators .active {
+    background-color: transparent;
   }
 }
 

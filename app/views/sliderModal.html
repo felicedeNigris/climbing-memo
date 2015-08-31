@@ -1,12 +1,10 @@
 <div class="slider-modal">
-  <div class="modal-header"></div>
-
   <div class="modal-body">
     <div>
       <carousel interval="myInterval" no-wrap="noWrapSlides">
       <slide ng-repeat="slide in slides" active="slide.active">
 
-      <div class="card-container">
+      <div class="card-container manual-flip" ng-class="{hover: slide.$hover}">
           <div class="card">
             <div class="front">
               <div class="content">
@@ -29,13 +27,15 @@
 
                 </div>
                 <div class="footer">
-                  <div class="rating">
-                    <span ng-repeat="t in getTimes(slide.content.rating) track by $index">
-                      <i class="fa fa-star"></i>
-                    </span>
-                    <span ng-repeat="t in getTimes(5-slide.content.rating) track by $index">
-                      <i class="fa fa-star-o"></i>
-                    </span>
+                  <div class="row">
+                    <div class="rating">
+                      <span ng-repeat="t in getTimes(slide.content.rating) track by $index">
+                        <i class="fa fa-star"></i>
+                      </span>
+                      <span class="hidden-xs" ng-repeat="t in getTimes(5-slide.content.rating) track by $index">
+                        <i class="fa fa-star-o"></i>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -57,6 +57,7 @@
     </div>
 
     <div class="modal-footer">
+      <button class="btn btn-success" ng-click="flipCard()"><i class="fa fa-undo fa-flip-vertical"></i> Flip</button>
       <button class="btn btn-primary" ng-click="closeModal()"><i class="fa fa-times"></i> Close</button>
     </div>
 </div>
