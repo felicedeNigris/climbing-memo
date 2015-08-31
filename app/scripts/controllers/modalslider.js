@@ -30,6 +30,12 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
     $scope.initController($localStorage.routes || [])
   })
 
+  /**
+  * Create slider based on routesId
+  *
+  * @method initController
+  * @param {Array} routes
+  */
   $scope.initController = function(routes) {
 
     var displayedRoutes = _.filter(routes, function(route) {
@@ -46,18 +52,44 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
     })
   }
 
+  /**
+  * Get icon based on route status
+  *
+  * @method getIconStatus
+  * @param {Object} route
+  * @return {String}
+  */
   $scope.getIconStatus = function(route) {
     return route.status === 'Attempt' ? 'fa-times' : 'fa-check'
   }
 
+  /**
+  * Get icon based on route rock
+  *
+  * @method getIconRock
+  * @param {Object} route
+  * @return {String}
+  */
   $scope.getIconRock = function(route) {
     return route.rock === 'Indoor' ? 'fa-home' : 'fa-sun-o'
   }
 
+  /**
+  * Create an array of size N
+  *
+  * @method getTimes
+  * @param {Integer} n
+  * @return {Array}
+  */
   $scope.getTimes = function(n) {
     return new Array(n)
   }
 
+  /**
+  * Flip the active slide
+  *
+  * @method flipCard
+  */
   $scope.flipCard = function() {
     var activeSlide = _.first($scope.slides.filter(function(slide) {
       return slide.active
@@ -66,13 +98,13 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
   }
 
   /**
-   * Get route color based on type
-   *
-   * @method getTypeColor
-   * @param {Object} Route
-   *
-   * @return {String} Css color
-   */
+  * Get route color based on type
+  *
+  * @method getTypeColor
+  * @param {Object} Route
+  *
+  * @return {String} Css color
+  */
   $scope.getTypeColor = function(route) {
     return utilsChartSvc.typeColor(route.type)
   }
