@@ -4,6 +4,14 @@
   </div>
 
   <div class="panel-body">
+    <p class="text-center">
+      <button tooltip="Add new route"
+              class="btn btn-fab btn-raised btn-success"
+              ng-click="addRoute()">
+        <i class="fa fa-plus"></i>
+      </button>
+    </p>
+
     <timeline>
       <timeline-event ng-repeat="event in events">
       <timeline-badge style="background-color:{{getTypeColor(event)}}"

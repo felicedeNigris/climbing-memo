@@ -29,21 +29,35 @@ $localStorage, $log, $rootScope, utilsChartSvc, $modal) {
 
 
   /**
-   * Get route color based on type
-   *
-   * @method getTypeColor
-   * @param {Object} Route
-   *
-   * @return {String} Css color
-   */
+  * Get route color based on type
+  *
+  * @method getTypeColor
+  * @param {Object} Route
+  *
+  * @return {String} Css color
+  */
   $scope.getTypeColor = function(event) {
     return utilsChartSvc.typeColor(event.mainType)
   }
 
+  /**
+  * Get tooltip text based on rock type
+  *
+  * @method getBadgeTooltip
+  * @param {Boolean} event
+  * @return {String}
+  */
   $scope.getBadgeTooltip = function(event) {
     return (event.isIndoor ? 'Indoor' : 'Outdoor') + ' ' + event.mainType
   }
 
+  /**
+  * Get icon based on rock type
+  *
+  * @method getBadgeIcon
+  * @param {Boolean} event
+  * @return {String}
+  */
   $scope.getBadgeIcon = function(event) {
     return 'fa ' + (event.isIndoor ? 'fa-home' : 'fa-sun-o')
   }
@@ -69,6 +83,19 @@ $localStorage, $log, $rootScope, utilsChartSvc, $modal) {
           )
         }
       }
+    })
+  }
+
+  /**
+  * Open a modal to add a route
+  *
+  * @method addRoute
+  */
+  $scope.addRoute = function() {
+    $modal.open({
+      templateUrl: 'views/_modalAddRoute.html',
+      controller: 'ModaladdrouteCtrl',
+      size: 'md'
     })
   }
 
