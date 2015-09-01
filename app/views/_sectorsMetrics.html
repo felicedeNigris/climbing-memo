@@ -1,0 +1,8 @@
+<span ng-repeat="metric in metrics">
+  <i class="fa fa-map-o"></i>
+  {{metric.rating}} <i class="fa fa-star"></i>
+  <a style="cursor:pointer" title="Routes Details" ng-click="openRoutesModal(metric.routesId)">
+    {{metric.sector}}
+  </a>
+  <span class="badge">{{metric.count}}</span><br>
+</span>

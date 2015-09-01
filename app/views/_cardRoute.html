@@ -1,0 +1,43 @@
+<div class="card" >
+  <div class="front">
+    <div class="content">
+      <div class="main">
+        <span class="fa-stack fa-3x" tooltip="{{getIndoorLabel(route)}} {{route.type}}" tooltip-placement="bottom">
+          <i class="fa fa-circle fa-stack-2x" style="color:{{getTypeColor(route)}}"></i>
+          <i class="fa {{getIconRock(route)}} fa-stack-1x fa-inverse"></i>
+        </span>
+        <h3 class="name">
+          <i class="fa fa-eye" ng-show="route.watch"></i>
+          {{ route.name }}
+        </h3>
+        <p class="profession">- {{ route.grade }} -</p>
+
+        <h5><i class="fa fa-map-marker fa-fw text-muted"></i> {{route.location}}</h5>
+        <h5><i class="fa fa-map-o fa-fw text-muted"></i> {{route.sector}}</h5>
+        <h5><i class="fa fa-calendar-o fa-fw text-muted"></i> {{route.date}}</h5>
+        <h5><i class="fa {{getIconRock(route)}} fa-fw text-muted"></i> {{route.rock}} </h5>
+        <h5><i class="fa {{getIconStatus(route)}} fa-fw text-muted"></i> {{route.status}} </h5>
+
+      </div>
+      <div class="footer">
+        <div class="row">
+          <div class="rating">
+            <span ng-repeat="t in getTimes(route.rating) track by $index">
+              <i class="fa fa-star"></i>
+            </span>
+            <span class="hidden-xs" ng-repeat="t in getTimes(5 - route.rating) track by $index">
+              <i class="fa fa-star-o"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- end front panel -->
+  <div class="back">
+    <div class="content">
+      <div class="main">
+        <div marked="route.notes"></div>
+      </div>
+    </div>
+  </div> <!-- end back panel -->
+</div> <!-- end card -->
