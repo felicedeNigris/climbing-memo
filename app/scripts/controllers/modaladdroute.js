@@ -52,13 +52,13 @@ notificationService, $http, $filter, $rootScope, $log) {
   }
 
   /**
-  * Save route It will calculate the lat long
+  * Save route - it will calculate the lat long
   *
   * @method saveRoute
   */
   $scope.saveRoute = function() {
-    var route = $scope.route
-    route.date = $filter('date')(route.$date,'MM/dd/yyyy')
+    var route = JSON.parse(JSON.stringify($scope.route)) // Clone
+    route.date= $filter('date')(route.date,'MM/dd/yyyy')
 
     var baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
 
@@ -67,7 +67,6 @@ notificationService, $http, $filter, $rootScope, $log) {
         route.latitude = data.results[0].geometry.location.lat
         route.longitude = data.results[0].geometry.location.lng
       }
-
 
       routesSvc.addRoute(route)
       .success(function(data) {
@@ -79,7 +78,9 @@ notificationService, $http, $filter, $rootScope, $log) {
       .error(function() {
         notificationService.error('Error while saving ' + route.name)
       })
+
     })
+    $scope.closeModal()
   }
 
   var routes = {}
