@@ -28,16 +28,27 @@ routesSvc, $http) {
         route.longitude = data.results[0].geometry.location.lng
       }
 
-      routesSvc.addRoute(route)
-      .success(function(data) {
-        notificationService.success(route.name + ' saved')
-        route.$id = data.name
-        routes[route.$id] = route
-        $rootScope.$broadcast('routesUpdated', routes)
-      })
-      .error(function() {
-        notificationService.error('Error while saving ' + route.name)
-      })
+      if (route.id) { // Update route
+        routesSvc.updateRoute(route, route.id)
+        .success(function() {
+          notificationService.success(route.name + ' saved')
+          $rootScope.$broadcast('routesUpdated', routes)
+        })
+        .error(function() {
+          notificationService.error('Error while saving ' + route.name)
+        })
+      } else { // Create new route
+        routesSvc.addRoute(route)
+        .success(function(data) {
+          notificationService.success(route.name + ' saved')
+          route.id = data.name
+          routes[route.id] = route
+          $rootScope.$broadcast('routesUpdated', routes)
+        })
+        .error(function() {
+          notificationService.error('Error while saving ' + route.name)
+        })
+      }
 
     })
   }

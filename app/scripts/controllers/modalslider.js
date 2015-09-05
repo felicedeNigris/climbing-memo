@@ -9,7 +9,8 @@
 */
 angular.module('climbingMemo')
 .controller('ModalsliderCtrl', function($scope, $modalInstance, routesId,
-$localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
+$localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc,
+utilsRouteSvc) {
 
   /**
   * Close the modal
@@ -20,10 +21,11 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
     $modalInstance.dismiss('cancel')
   }
 
+  var routes = {}
   routesSvc.getRoutes().then(function(result) {
-    var data = result.data || {}
-    $localStorage.routes = data
-    $scope.initController(data)
+    routes = result.data || {}
+    $localStorage.routes = routes
+    $scope.initController(routes)
   })
   .catch(function() {
     $log.log('Local Storage used - routes')
@@ -66,6 +68,8 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
   }
   $scope.saveRoute = function(route) {
     route.$editMode = false
+    utilsRouteSvc.saveRoute(route, routes)
+    $scope.closeModal()
   }
   $scope.cancelEdit = function(route) {
     route.$editMode = false
