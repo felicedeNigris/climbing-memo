@@ -1,3 +1,25 @@
+<div class="card-header">
+  <div class="text-center actions">
+    <span tooltip="Edit"
+          ng-click="editRoute(route)"
+          tooltip-placement="bottom"
+          tooltip-animation="false">
+      <i class="fa fa-pencil text-info fa-lg"></i>
+    </span>
+    <!-- <span tooltip="Copy" -->
+    <!--       ng&#45;click="copyRoute(route)" -->
+    <!--       tooltip&#45;placement="bottom" -->
+    <!--       tooltip&#45;animation="false"> -->
+    <!--   <i class="fa fa&#45;files&#45;o text&#45;success fa&#45;lg"></i> -->
+    <!-- </span> -->
+    <span tooltip="Delete"
+          ng-click="deleteRoute(route)"
+          tooltip-placement="bottom"
+          tooltip-animation="false">
+      <i class="fa fa-trash text-danger fa-lg"></i>
+    </span>
+</div>
+
 <div class="card" >
   <div class="front">
     <div class="content">
@@ -10,17 +32,8 @@
           <i class="fa fa-eye" ng-show="route.watch"></i>
           {{ route.name }}
         </h3>
-        <p class="profession">- {{ route.grade }} -</p>
-
-        <h5><i class="fa fa-map-marker fa-fw text-muted"></i> {{route.location}}</h5>
-        <h5><i class="fa fa-map-o fa-fw text-muted"></i> {{route.sector}}</h5>
-        <h5><i class="fa fa-calendar-o fa-fw text-muted"></i> {{route.date}}</h5>
-        <h5><i class="fa {{getIconRock(route)}} fa-fw text-muted"></i> {{route.rock}} </h5>
-        <h5><i class="fa {{getIconStatus(route)}} fa-fw text-muted"></i> {{route.status}} </h5>
-
-      </div>
-      <div class="footer">
-        <div class="row">
+        <div class="header">
+          <span>- {{ route.grade }} -</span>
           <div class="rating">
             <span ng-repeat="t in getTimes(route.rating) track by $index">
               <i class="fa fa-star"></i>
@@ -30,6 +43,13 @@
             </span>
           </div>
         </div>
+
+        <h5><i class="fa fa-map-marker fa-fw text-muted"></i> {{route.location}}</h5>
+        <h5><i class="fa fa-map-o fa-fw text-muted"></i> {{route.sector}}</h5>
+        <h5><i class="fa fa-calendar-o fa-fw text-muted"></i> {{route.date}}</h5>
+        <h5><i class="fa {{getIconRock(route)}} fa-fw text-muted"></i> {{route.rock}} </h5>
+        <h5><i class="fa {{getIconStatus(route)}} fa-fw text-muted"></i> {{route.status}} </h5>
+
       </div>
     </div>
   </div> <!-- end front panel -->

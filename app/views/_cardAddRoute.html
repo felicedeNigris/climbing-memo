@@ -1,0 +1,159 @@
+<div class="card-header">
+  <div class="text-center actions">
+    <span tooltip="Save"
+          ng-click="saveRoute(route)"
+          tooltip-placement="bottom"
+          tooltip-animation="false">
+      <i class="fa fa-check text-success fa-lg"></i>
+    </span>
+    <span tooltip="Cancel"
+          ng-click="cancelEdit(route)"
+          tooltip-placement="bottom"
+          tooltip-animation="false">
+      <i class="fa fa-times text-danger fa-lg"></i>
+    </span>
+  </div>
+</div>
+
+<div class="card" >
+  <div class="front">
+    <div class="content">
+      <div class="main">
+        <span class="fa-stack fa-3x">
+          <i class="fa fa-circle fa-stack-2x" style="color:{{getTypeColor(route)}}"></i>
+          <i class="fa {{getIconRock(route)}} fa-stack-1x fa-inverse"></i>
+        </span>
+        <p>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="fa fa-pencil fa-fw text-muted"></i>
+          </div>
+          <input placeholder="Name" class="form-control" type="text" ng-model="route.name">
+        </div>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="fa fa-user fa-fw text-muted"></i>
+          </div>
+          <input placeholder="Grade" class="form-control" type="text" ng-model="route.grade">
+        </div>
+        <rating ng-model="route.rating"
+                state-on="'fa fa-star fa-lg'"
+                state-off="'fa fa-star-o fa-lg'"></rating>
+        </p>
+
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="fa {{getIconStatus(route)}} fa-fw text-muted"></i>
+          </div>
+            <select class="form-control" ng-model="route.status">
+              <option>Attempt</option>
+              <option>Redpoint</option>
+              <option>Flash</option>
+              <option>Onsight</option>
+            </select>
+        </div>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="fa fa-calendar-o fa-fw text-muted"></i>
+          </div>
+          <input type="date" class="form-control" ng-model="route.$date">
+        </div>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="fa fa-map-o fa-fw text-muted"></i>
+          </div>
+            <input placeholder="Sector"
+                   typeahead="sector for sector in sectors | filter:$viewValue"
+                   typeahead-on-select="sectorPopulatePlaceholder($item,route)"
+                   class="form-control"
+                   type="text"
+                   ng-model="route.sector">
+        </div>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="fa fa-connectdevelop fa-fw text-muted"></i>
+          </div>
+          <select class="form-control" ng-model="route.type">
+            <option>Sport lead</option>
+            <option>Boulder</option>
+            <option>Traditional</option>
+            <option>Multi-pitch</option>
+            <option>Top rope</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="fa {{getIconRock(route)}} fa-fw text-muted"></i>
+          </div>
+          <select class="form-control" ng-model="route.rock">
+            <option>Granite</option>
+            <option>Sandstone</option>
+            <option>Limestone</option>
+            <option>Indoor</option>
+            <option>Conglomerate</option>
+            <option>Basalt</option>
+            <option>Volcanic</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="fa fa-map-marker fa-fw text-muted"></i>
+          </div>
+            <input placeholder="Location"
+                   class="form-control"
+                   type="text"
+                   ng-model="route.location"
+                   typeahead="location for location in locations | filter:$viewValue">
+        </div>
+
+      </div>
+    </div>
+  </div> <!-- end front panel -->
+  <div class="back">
+    <div class="content">
+      <div class="main">
+        <tabset type="pills">
+        <tab>
+        <tab-heading>
+        <span style="cursor:pointer"><i class="fa fa-pencil"></i> <span class="hidden-xs">Markdown</span></span>
+        </tab-heading>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <textarea rows="13" class="form-control" ng-model="route.notes"></textarea>
+          </div>
+        </div>
+        </tab>
+
+        <tab>
+        <tab-heading>
+        <span style="cursor:pointer"><i class="fa fa-search"></i> <span class="hidden-xs">Preview</span></span>
+        </tab-heading>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div marked="route.notes"></div>
+          </div>
+        </div>
+        </tab>
+
+        <tab>
+        <tab-heading>
+        <span style="cursor:pointer"><i class="fa fa-question-circle"></i> <span class="hidden-xs">Help</span></span>
+        </tab-heading>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="hidden-xs hidden-sm" ng-include
+              src="'views/markdownReference.html'"></div>
+            <div class="visible-xs visible-sm" ng-include
+              src="'views/_markdownReferenceSummary.html'"></div>
+          </div>
+        </div>
+        </tab>
+
+        </tabset>
+      </div>
+    </div>
+  </div> <!-- end back panel -->
+</div> <!-- end card -->

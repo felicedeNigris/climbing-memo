@@ -10,14 +10,14 @@
 angular.module('climbingMemo')
 .controller('ModaladdrouteCtrl', function($modalInstance, $scope,
 routeNoteFormattingFilter, $localStorage, utilsChartSvc, routesSvc,
-notificationService, $http, $filter, $rootScope, $log) {
+utilsRouteSvc, $rootScope, $log) {
 
   /**
   * Close the modal
   *
   * @method closeModal
   */
-  $scope.closeModal = function() {
+  $scope.cancelEdit = function() {
     $modalInstance.dismiss('cancel')
   }
 
@@ -57,30 +57,8 @@ notificationService, $http, $filter, $rootScope, $log) {
   * @method saveRoute
   */
   $scope.saveRoute = function() {
-    var route = JSON.parse(JSON.stringify($scope.route)) // Clone
-    route.date= $filter('date')(route.date,'MM/dd/yyyy')
-
-    var baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
-
-    $http.get(baseUrl + encodeURIComponent(route.location)).success(function(data) {
-      if (data.status !== 'ZERO_RESULTS') {
-        route.latitude = data.results[0].geometry.location.lat
-        route.longitude = data.results[0].geometry.location.lng
-      }
-
-      routesSvc.addRoute(route)
-      .success(function(data) {
-        notificationService.success(route.name + ' saved')
-        route.$id = data.name
-        routes[route.$id] = route
-        $rootScope.$broadcast('routesUpdated', routes)
-      })
-      .error(function() {
-        notificationService.error('Error while saving ' + route.name)
-      })
-
-    })
-    $scope.closeModal()
+    utilsRouteSvc.saveRoute($scope.route, routes)
+    $scope.cancelEdit()
   }
 
   var routes = {}
@@ -88,11 +66,10 @@ notificationService, $http, $filter, $rootScope, $log) {
     routes = data
     var route = {}
     route.notes = routeNoteFormattingFilter()
-    route.date = new Date()
+    route.$date = new Date()
     route.status = 'Attempt'
 
-    // FIXME Use $rootScope instead of local storage
-    var arrayRoutes    = _.toArray($localStorage.routes)
+    var arrayRoutes    = _.toArray(routes)
     $scope.locations = utilsChartSvc.arrayGroupBy(arrayRoutes,"location")
     $scope.sectors = utilsChartSvc.arrayGroupBy(arrayRoutes,"sector")
 
@@ -109,4 +86,63 @@ notificationService, $http, $filter, $rootScope, $log) {
     $log.log('Local Storage used - routes')
     $scope.initController($localStorage.routes || [])
   })
+
+  //  ____             _                 _   _ _   _ _
+  // |  _ \ ___  _   _| |_ ___          | | | | |_(_) |___
+  // | |_) / _ \| | | | __/ _ \  _____  | | | | __| | / __|
+  // |  _ < (_) | |_| | ||  __/ |_____| | |_| | |_| | \__ \
+  // |_| \_\___/ \__,_|\__\___|          \___/ \__|_|_|___/
+  //
+  // TODO - Abstrat in it's own service
+
+  /**
+  * get icon based on route status
+  *
+  * @method geticonstatus
+  * @param {object} route
+  * @return {string}
+  */
+  $scope.getIconStatus = function(route) {
+    if (!(route && route.status)) {
+      return 'fa-connectdevelop'
+    }
+    return route.status === 'Attempt' ? 'fa-times' : 'fa-check'
+  }
+
+  /**
+  * get icon based on route rock
+  *
+  * @method geticonrock
+  * @param {object} route
+  * @return {string}
+  */
+  $scope.getIconRock = function(route) {
+    if (!(route && route.rock)) {
+      return 'fa-connectdevelop'
+    }
+    return route.rock === 'Indoor' ? 'fa-home' : 'fa-sun-o'
+  }
+
+  /**
+  * get indoor label based on route rock
+  *
+  * @method getindoorlabel
+  * @param {object} route
+  * @return {string}
+  */
+  $scope.getIndoorLabel = function(route) {
+    return route.rock === 'Indoor' ? 'indoor' : 'outdoor'
+  }
+
+  /**
+  * get route color based on type
+  *
+  * @method gettypecolor
+  * @param {object} route
+  *
+  * @return {string} css color
+  */
+  $scope.getTypeColor = function(route) {
+    return utilsChartSvc.typeColor(route ? route.type : '')
+  }
 })

@@ -53,6 +53,55 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
     })
   }
 
+  $scope.editRoute = function(route) {
+    route.$date = new Date(route.date)
+    route.$editMode = true
+  }
+
+  $scope.deleteRoute = function(route) {
+    route.$editMode = false
+  }
+  $scope.copyRoute = function(route) {
+    route.$editMode = true
+  }
+  $scope.saveRoute = function(route) {
+    route.$editMode = false
+  }
+  $scope.cancelEdit = function(route) {
+    route.$editMode = false
+  }
+
+  /**
+  * Create an array of size N
+  *
+  * @method getTimes
+  * @param {Integer} n
+  * @return {Array}
+  */
+  $scope.getTimes = function(n) {
+    return new Array(n)
+  }
+
+  /**
+  * Flip the active slide
+  *
+  * @method flipCard
+  */
+  $scope.flipCard = function() {
+    var activeSlide = _.first($scope.slides.filter(function(slide) {
+      return slide.active
+    }))
+    activeSlide.$hover = !activeSlide.$hover
+  }
+
+  //  ____             _                 _   _ _   _ _
+  // |  _ \ ___  _   _| |_ ___          | | | | |_(_) |___
+  // | |_) / _ \| | | | __/ _ \  _____  | | | | __| | / __|
+  // |  _ < (_) | |_| | ||  __/ |_____| | |_| | |_| | \__ \
+  // |_| \_\___/ \__,_|\__\___|          \___/ \__|_|_|___/
+  //
+  // TODO - Abstrat in it's own service
+
   /**
   * Get icon based on route status
   *
@@ -84,29 +133,6 @@ $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc) {
   */
   $scope.getIndoorLabel = function(route) {
     return route.rock === 'Indoor' ? 'Indoor' : 'Outdoor'
-  }
-
-  /**
-  * Create an array of size N
-  *
-  * @method getTimes
-  * @param {Integer} n
-  * @return {Array}
-  */
-  $scope.getTimes = function(n) {
-    return new Array(n)
-  }
-
-  /**
-  * Flip the active slide
-  *
-  * @method flipCard
-  */
-  $scope.flipCard = function() {
-    var activeSlide = _.first($scope.slides.filter(function(slide) {
-      return slide.active
-    }))
-    activeSlide.$hover = !activeSlide.$hover
   }
 
   /**
