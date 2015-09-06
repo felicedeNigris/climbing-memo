@@ -63,6 +63,9 @@ utilsRouteSvc) {
   $scope.deleteRoute = function(route) {
     route.$editMode = false
     utilsRouteSvc.deleteRoute(route, routes)
+    .then(function(message) { $log.info(message) })
+    .catch(function(message) { $log.error(message) })
+
     $scope.closeModal()
   }
 
@@ -73,6 +76,9 @@ utilsRouteSvc) {
   $scope.saveRoute = function(route) {
     route.$editMode = false
     utilsRouteSvc.saveRoute(route, routes)
+    .then(function(message) { $log.info(message) })
+    .catch(function(message) { $log.error(message) })
+
     $scope.closeModal()
   }
 

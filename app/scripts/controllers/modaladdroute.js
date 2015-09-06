@@ -58,6 +58,9 @@ utilsRouteSvc, $rootScope, $log) {
   */
   $scope.saveRoute = function() {
     utilsRouteSvc.saveRoute($scope.route, routes)
+    .then(function(message) { $log.info(message) })
+    .catch(function(message) { $log.error(message) })
+
     $scope.cancelEdit()
   }
 
