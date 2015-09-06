@@ -62,15 +62,20 @@ utilsRouteSvc) {
 
   $scope.deleteRoute = function(route) {
     route.$editMode = false
+    utilsRouteSvc.deleteRoute(route, routes)
+    $scope.closeModal()
   }
+
   $scope.copyRoute = function(route) {
     route.$editMode = true
   }
+
   $scope.saveRoute = function(route) {
     route.$editMode = false
     utilsRouteSvc.saveRoute(route, routes)
     $scope.closeModal()
   }
+
   $scope.cancelEdit = function(route) {
     route.$editMode = false
   }

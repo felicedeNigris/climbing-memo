@@ -15,6 +15,8 @@ routesSvc, $http) {
   * TODO return promise
   *
   * @method saveRoute
+  * @param {Object} route
+  * @param {Object} routes - list all of routes
   */
   this.saveRoute = function(route, routes) {
     route = JSON.parse(JSON.stringify(route)) // Clone
@@ -42,6 +44,8 @@ routesSvc, $http) {
         .success(function(data) {
           notificationService.success(route.name + ' saved')
           route.id = data.name
+          routesSvc.updateRoute(route, route.id)
+
           routes[route.id] = route
           $rootScope.$broadcast('routesUpdated', routes)
         })
@@ -50,6 +54,28 @@ routesSvc, $http) {
         })
       }
 
+    })
+  }
+
+  /**
+  * Delete a route
+  * TODO return promise
+  *
+  * @method deleteRoute
+  * @param {Object} route
+  * @param {Object} routes - list all of routes
+  */
+
+  this.deleteRoute = function(route, routes) {
+    debugger
+    routesSvc.deleteRoute(route.id)
+    .success(function() {
+      notificationService.success(route.name + ' deleted')
+      delete routes[route.id]
+      $rootScope.$broadcast('routesUpdated', routes)
+    })
+    .error(function() {
+      notificationService.error('Error while deleting ' + route.name)
     })
   }
 });
