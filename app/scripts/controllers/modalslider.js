@@ -10,7 +10,7 @@
 angular.module('climbingMemo')
 .controller('ModalsliderCtrl', function($scope, $modalInstance, routesId,
 $localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsChartSvc,
-utilsRouteSvc) {
+utilsRouteSvc, $filter, $rootScope) {
 
   /**
   * Close the modal
@@ -69,12 +69,17 @@ utilsRouteSvc) {
     $scope.closeModal()
   }
 
-  $scope.copyRoute = function(route) {
-    route.$editMode = true
-  }
+  /**
+   * TODO
+   */
+  // $scope.copyRoute = function(route) {
+  //   route.id = false // Will create new route
+  //   route.$editMode = true
+  // }
 
   $scope.saveRoute = function(route) {
     route.$editMode = false
+
     utilsRouteSvc.saveRoute(route, routes)
     .then(function(message) { $log.info(message) })
     .catch(function(message) { $log.error(message) })
@@ -84,6 +89,7 @@ utilsRouteSvc) {
 
   $scope.cancelEdit = function(route) {
     route.$editMode = false
+    $scope.closeModal()
   }
 
   /**
