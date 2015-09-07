@@ -53,8 +53,6 @@ angular.module('climbingMemo')
 
     }
 
-    // Sort by type sum TODO
-
     // Calculate y0 & y1 per type
     for (monthDate in months) {
 

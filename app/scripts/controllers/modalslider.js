@@ -125,56 +125,8 @@ utilsRouteSvc, $filter, $rootScope) {
     activeSlide.$hover = !activeSlide.$hover
   }
 
-  //  ____             _                 _   _ _   _ _
-  // |  _ \ ___  _   _| |_ ___          | | | | |_(_) |___
-  // | |_) / _ \| | | | __/ _ \  _____  | | | | __| | / __|
-  // |  _ < (_) | |_| | ||  __/ |_____| | |_| | |_| | \__ \
-  // |_| \_\___/ \__,_|\__\___|          \___/ \__|_|_|___/
-  //
-  // TODO - Abstrat in it's own service
-
-  /**
-  * Get icon based on route status
-  *
-  * @method getIconStatus
-  * @param {Object} route
-  * @return {String}
-  */
-  $scope.getIconStatus = function(route) {
-    return route.status === 'Attempt' ? 'fa-times' : 'fa-check'
-  }
-
-  /**
-  * Get icon based on route rock
-  *
-  * @method getIconRock
-  * @param {Object} route
-  * @return {String}
-  */
-  $scope.getIconRock = function(route) {
-    return route.rock === 'Indoor' ? 'fa-home' : 'fa-sun-o'
-  }
-
-  /**
-  * Get Indoor label based on route rock
-  *
-  * @method getIndoorLabel
-  * @param {Object} route
-  * @return {String}
-  */
-  $scope.getIndoorLabel = function(route) {
-    return route.rock === 'Indoor' ? 'Indoor' : 'Outdoor'
-  }
-
-  /**
-  * Get route color based on type
-  *
-  * @method getTypeColor
-  * @param {Object} Route
-  *
-  * @return {String} Css color
-  */
-  $scope.getTypeColor = function(route) {
-    return utilsChartSvc.typeColor(route.type)
-  }
+  $scope.getIconStatus  = function(route) { return utilsRouteSvc.getIconStatus(route) }
+  $scope.getIconRock    = function(route) { return utilsRouteSvc.getIconRock(route) }
+  $scope.getIndoorLabel = function(route) { return utilsRouteSvc.getIndoorLabel(route) }
+  $scope.getTypeColor   = function(route) { return utilsRouteSvc.getTypeColor(route) }
 })

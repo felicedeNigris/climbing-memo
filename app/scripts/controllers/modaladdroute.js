@@ -92,62 +92,8 @@ utilsRouteSvc, $rootScope, $log) {
     $scope.initController($localStorage.routes || [])
   })
 
-  //  ____             _                 _   _ _   _ _
-  // |  _ \ ___  _   _| |_ ___          | | | | |_(_) |___
-  // | |_) / _ \| | | | __/ _ \  _____  | | | | __| | / __|
-  // |  _ < (_) | |_| | ||  __/ |_____| | |_| | |_| | \__ \
-  // |_| \_\___/ \__,_|\__\___|          \___/ \__|_|_|___/
-  //
-  // TODO - Abstrat in it's own service
-
-  /**
-  * get icon based on route status
-  *
-  * @method geticonstatus
-  * @param {object} route
-  * @return {string}
-  */
-  $scope.getIconStatus = function(route) {
-    if (!(route && route.status)) {
-      return 'fa-connectdevelop'
-    }
-    return route.status === 'Attempt' ? 'fa-times' : 'fa-check'
-  }
-
-  /**
-  * get icon based on route rock
-  *
-  * @method geticonrock
-  * @param {object} route
-  * @return {string}
-  */
-  $scope.getIconRock = function(route) {
-    if (!(route && route.rock)) {
-      return 'fa-connectdevelop'
-    }
-    return route.rock === 'Indoor' ? 'fa-home' : 'fa-sun-o'
-  }
-
-  /**
-  * get indoor label based on route rock
-  *
-  * @method getindoorlabel
-  * @param {object} route
-  * @return {string}
-  */
-  $scope.getIndoorLabel = function(route) {
-    return route.rock === 'Indoor' ? 'indoor' : 'outdoor'
-  }
-
-  /**
-  * get route color based on type
-  *
-  * @method gettypecolor
-  * @param {object} route
-  *
-  * @return {string} css color
-  */
-  $scope.getTypeColor = function(route) {
-    return utilsChartSvc.typeColor(route ? route.type : '')
-  }
+  $scope.getIconStatus  = function(route) { return utilsRouteSvc.getIconStatus(route) }
+  $scope.getIconRock    = function(route) { return utilsRouteSvc.getIconRock(route) }
+  $scope.getIndoorLabel = function(route) { return utilsRouteSvc.getIndoorLabel(route) }
+  $scope.getTypeColor   = function(route) { return utilsRouteSvc.getTypeColor(route) }
 })
