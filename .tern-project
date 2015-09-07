@@ -1,0 +1,11 @@
+{
+  "libs": [
+    "underscore",
+    "ecma5",
+    "jquery",
+    "browser"
+  ],
+  "plugins": {
+    "angular": "./app/scripts"
+  }
+}
