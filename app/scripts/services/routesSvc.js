@@ -2,21 +2,24 @@
 
 angular.module('climbingMemo')
 .factory('routesSvc', function routeSvc($http, DATABASE_URL) {
-
   var urlBase = DATABASE_URL + 'routes'
+  var routeFactory = {}
 
-  var cleanObjectProperties = function(object) {
+  /**
+  * Remove properties starting with "$" sign
+  *
+  * @param {Object} object
+  * @return {Object}
+  */
+  routeFactory.cleanObjectProperties = function(object) {
     var cleanedObject = JSON.parse(JSON.stringify(object)) // Clone
 
-    // Remove properties starting with "$"
     _.keys(cleanedObject)
     .filter(function(key) { return key.match(/^\$/) })
     .forEach(function(key) { delete cleanedObject[key] })
 
     return cleanedObject
   }
-
-  var routeFactory = {}
 
   routeFactory.getRoute = function(id) {
     return $http.get(urlBase + '/' + id + '.json')
@@ -27,7 +30,7 @@ angular.module('climbingMemo')
   }
 
   routeFactory.addRoute = function(route) {
-    var cleanedRoute = cleanObjectProperties(route)
+    var cleanedRoute = routeFactory.cleanObjectProperties(route)
 
     return $http.post(urlBase + '/.json', cleanedRoute)
   }
@@ -37,7 +40,7 @@ angular.module('climbingMemo')
   }
 
   routeFactory.updateRoute = function(route, id) {
-    var cleanedRoute = cleanObjectProperties(route)
+    var cleanedRoute = routeFactory.cleanObjectProperties(route)
 
     return $http.patch(urlBase + '/' +  id + '.json', cleanedRoute)
   }

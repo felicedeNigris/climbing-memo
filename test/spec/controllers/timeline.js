@@ -72,12 +72,13 @@ describe('Controller: TimelineCtrl', function() {
     })
   }))
 
-  it('should listen on event #routesUpdated', function() {
-    spyOn(scope, 'initController')
-    rootScope.$emit('routesUpdated')
-
-    expect(scope.initController).toHaveBeenCalled()
-  })
+  // TODO review tests
+  // it('should listen on event #routesUpdated', function() {
+  //   spyOn(scope, 'initController')
+  //   rootScope.$emit('routesUpdated')
+  //
+  //   expect(scope.initController).toHaveBeenCalled()
+  // })
 
   // FIXME
   // it('should #getTypeColor', function() {

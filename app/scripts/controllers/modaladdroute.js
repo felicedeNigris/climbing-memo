@@ -12,6 +12,18 @@ angular.module('climbingMemo')
 routeNoteFormattingFilter, $localStorage, utilsChartSvc,
 utilsRouteSvc, $rootScope, $log) {
 
+  // Get Data
+  utilsRouteSvc.getRoutes().then(function(data) {
+    $scope.initController(data)
+  })
+
+  // Watch Update event
+  $rootScope.$on('routesUpdated', function() {
+    utilsRouteSvc.getRoutes().then(function(data) {
+      $scope.initController(data)
+    })
+  })
+
   /**
   * Close the modal
   *
@@ -59,32 +71,24 @@ utilsRouteSvc, $rootScope, $log) {
   $scope.saveRoute = function() {
     utilsRouteSvc.saveRoute($scope.route)
     .then(function(routeId) {
-      routes[routeId] = $scope.route
-      $rootScope.$broadcast('routesUpdated', routes)
+      $rootScope.$broadcast('routesUpdated', routeId)
     })
 
     $scope.cancelEdit()
   }
 
-  var routes = {}
   $scope.initController = function(data) {
-    routes = data
     var route = {}
     route.notes = routeNoteFormattingFilter()
     route.$date = new Date()
     route.status = 'Attempt'
 
-    var arrayRoutes    = _.toArray(routes)
+    var arrayRoutes    = _.toArray(data)
     $scope.locations = utilsChartSvc.arrayGroupBy(arrayRoutes,"location")
     $scope.sectors = utilsChartSvc.arrayGroupBy(arrayRoutes,"sector")
 
     $scope.route = route
   }
-
-  // Get Data
-  utilsRouteSvc.getRoutes().then(function(data) {
-    $scope.initController(data)
-  })
 
   $scope.getIconStatus  = function(route) { return utilsRouteSvc.getIconStatus(route) }
   $scope.getIconRock    = function(route) { return utilsRouteSvc.getIconRock(route) }

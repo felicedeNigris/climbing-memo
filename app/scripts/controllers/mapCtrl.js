@@ -9,8 +9,11 @@ $rootScope, mapChartSvc, utilsRouteSvc) {
     $scope.initController(data)
   })
 
-  $rootScope.$on('routesUpdated', function(event, data) {
-    $scope.initController(data)
+  // Watch Update event
+  $rootScope.$on('routesUpdated', function() {
+    utilsRouteSvc.getRoutes().then(function(data) {
+      $scope.initController(data)
+    })
   })
 
   // Init Controller

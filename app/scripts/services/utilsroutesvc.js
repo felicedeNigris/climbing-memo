@@ -11,9 +11,10 @@ angular.module('climbingMemo')
 .service('utilsRouteSvc', function($filter, notificationService, $rootScope,
 routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
 
+  var cachedRoutes = null
+
   /**
   * Get routes - from firebase or localStorage
-  * TODO Cache routes
   *
   * @method getRoutes
   * @return {Object} - Promise
@@ -21,16 +22,22 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
   this.getRoutes = function() {
     var deferred = $q.defer()
 
-    routesSvc.getRoutes().then(function(result) {
-      var data = result.data
-      data = data || {}
-      $localStorage.routes = data
-      deferred.resolve(data)
-    })
-    .catch(function() {
-      $log.log('Local Storage used - routes')
-      deferred.resolve($localStorage.routes || [])
-    })
+    if (cachedRoutes) { // Use Cache
+      deferred.resolve(cachedRoutes)
+    } else { // Query network
+      routesSvc.getRoutes().then(function(result) {
+        var data = result.data
+        data = data || {}
+        $localStorage.routes = data
+        cachedRoutes = data
+        deferred.resolve(data)
+      })
+      .catch(function() { // Use LocalStorage
+        $log.log('Local Storage used - routes')
+        cachedRoutes = $localStorage.routes
+        deferred.resolve($localStorage.routes || [])
+      })
+    }
 
     return deferred.promise
   }
@@ -42,11 +49,11 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
   * @param {Object} route
   * @return {Object} promise - resolve as id or false
   */
-  this.saveRoute = function(route) {
+  this.saveRoute = function(sourceRoute) {
     var deferred = $q.defer()
 
-    route = JSON.parse(JSON.stringify(route)) // Clone
-    route.date= $filter('date')(route.date,'MM/dd/yyyy')
+    var route = JSON.parse(JSON.stringify(sourceRoute)) // Clone
+    route.date = $filter('date')(route.$date,'MM/dd/yyyy')
 
     var baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
 
@@ -61,8 +68,10 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
       if (route.id) { // Update route
         routesSvc.updateRoute(route, route.id)
         .then(function() {
-          deferred.resolve(route.id)
+          cachedRoutes = cachedRoutes || {}
+          cachedRoutes[route.id] = routesSvc.cleanObjectProperties(route)
           notificationService.success(route.name + ' saved')
+          deferred.resolve(route.id)
         })
         .catch(function() {
           deferred.reject(false)
@@ -74,6 +83,14 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
           notificationService.success(route.name + ' saved')
           route.id = result.data.name
           routesSvc.updateRoute(route, route.id)
+
+          if (angular.isDefined(route.$copy)) {
+            sourceRoute = route.$copy // Revert source route
+            cachedRoutes[sourceRoute.id] = routesSvc.cleanObjectProperties(sourceRoute)
+          }
+
+          cachedRoutes = cachedRoutes || {}
+          cachedRoutes[route.id] = routesSvc.cleanObjectProperties(route)
           deferred.resolve(route.id)
         })
         .catch(function() {
@@ -101,6 +118,9 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
     routesSvc.deleteRoute(route.id)
     .then(function() {
       notificationService.success(route.name + ' deleted')
+      if (cachedRoutes) { // Update Cache
+        delete cachedRoutes[route.id]
+      }
       deferred.resolve(route.id)
     })
     .catch(function() {

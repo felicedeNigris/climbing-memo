@@ -22,10 +22,8 @@ $filter, $rootScope) {
   }
 
   // Get Data
-  var routes = {}
   utilsRouteSvc.getRoutes().then(function(data) {
-    routes = data
-    $scope.initController(routes)
+    $scope.initController(data)
   })
 
   /**
@@ -60,8 +58,7 @@ $filter, $rootScope) {
     route.$editMode = false
     utilsRouteSvc.deleteRoute(route)
     .then(function(routeId) {
-      delete routes[routeId]
-      $rootScope.$broadcast('routesUpdated', routes)
+      $rootScope.$broadcast('routesUpdated', routeId)
     })
 
     $scope.closeModal()
@@ -78,16 +75,7 @@ $filter, $rootScope) {
 
     utilsRouteSvc.saveRoute(route)
     .then(function(routeId) {
-      if (angular.isDefined(route.$copy)) {
-        var tmp = route.$copy
-        delete route.$copy
-        route.id = routeId
-        routes[routeId] = JSON.parse(JSON.stringify(route)) // New route
-        routes[tmp.id] = tmp // Model route
-      } else {
-        routes[route.id] = route
-      }
-      $rootScope.$broadcast('routesUpdated', routes)
+      $rootScope.$broadcast('routesUpdated', routeId)
     })
 
     $scope.closeModal()
