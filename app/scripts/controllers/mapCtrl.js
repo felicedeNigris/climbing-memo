@@ -5,12 +5,12 @@ angular.module('climbingMemo')
 $rootScope, mapChartSvc) {
 
   // Get Data
-  routesSvc.getRoutes().success(function(data) {
-    data = data || {}
+  routesSvc.getRoutes().then(function(result) {
+    var data = result.data || {}
     $localStorage.routes = data
     initController(data)
   })
-  .error(function() {
+  .catch(function() {
     $scope.offline = true
     $log.log('Map Offline mode')
   })
@@ -39,7 +39,6 @@ $rootScope, mapChartSvc) {
       return site
     })
 
-    console.log(arrayLocations)
     $scope.locations = arrayLocations
     $scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 8 }
   }

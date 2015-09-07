@@ -5,12 +5,12 @@ angular.module('climbingMemo')
 $rootScope, utilsChartSvc) {
 
   // Get Data
-  routesSvc.getRoutes().success(function(data) {
-    data = data || {}
+  routesSvc.getRoutes().then(function(result) {
+    var data = result.data || {}
     $localStorage.routes = data
     initController(data)
   })
-  .error(function() {
+  .catch(function() {
     $log.log('Local Storage used - routes')
     initController($localStorage.routes || [])
   })
