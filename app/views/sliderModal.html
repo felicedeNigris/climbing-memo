@@ -8,8 +8,8 @@
            ng-class="{hover: slide.$hover}"
            ng-init="route = slide.content">
 
-           <ng-include ng-hide="route.$editMode" src="'views/_cardRoute.html'"></ng-include>
-           <ng-include ng-hide="!route.$editMode" src="'views/_cardAddRoute.html'"></ng-include>
+           <ng-include ng-if="!route.$editMode" src="'views/_cardRoute.html'"></ng-include>
+           <ng-include ng-if="route.$editMode" src="'views/_cardAddRoute.html'"></ng-include>
       </div>
 
       </slide>
