@@ -16,9 +16,9 @@
       </select>
     </div>
 
-    <h2>
+    <p>
       <button tooltip="Add route" class="btn btn-fab btn-raised btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i></button>
-    </h2>
+    </p>
 
 		<table class="table table-condensed table-hover">
 			<thead>
@@ -32,101 +32,39 @@
           <th class="hidden-xs">Type</th>
           <th class="hidden-xs">Rock</th>
           <th class="hidden-xs">Location</th>
-          <th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="route in routes" ng-if="route.$visible">
 					<td>
-            <span ng-if="!route.$edit">
-              <i ng-class="{'fa fa-eye': route.watch}"></i>
-              <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">
-                {{route.name}}
-              </a>
-						</span>
-						<div ng-if="route.$edit"><input placeholder="Name" class="form-control" type="text" ng-model="route.name"></div>
+            <i ng-class="{'fa fa-eye': route.watch}"></i>
+            <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">
+              {{route.name}}
+            </a>
 					</td>
 					<td>
-						<span ng-if="!route.$edit">{{route.grade}}</span>
-						<div ng-if="route.$edit"><input placeholder="Grade" class="form-control" type="text" ng-model="route.grade" ></div>
+						<span>{{route.grade}}</span>
 					</td>
 					<td class="hidden-xs hidden-sm">
-						<span ng-if="!route.$edit"><rating readonly="true" ng-model="route.rating"></rating></span>
-						<div ng-if="route.$edit" style="min-width:80px"><rating ng-model="route.rating"></rating></div>
+						<rating readonly="true" ng-model="route.rating"></rating>
 					</td>
-					<td  class="">
-						<span ng-if="!route.$edit">{{route.status}}</span>
-						<div ng-if="route.$edit">
-							<select class="form-control" ng-model="route.status" style="width:80px">
-								<option>Attempt</option>
-								<option>Redpoint</option>
-								<option>Flash</option>
-								<option>Onsight</option>
-							</select>
-						</div>
+					<td class="">
+						<span>{{route.status}}</span>
 					</td>
 					<td  class="hidden-xs">
-						<span ng-if="!route.$edit">{{route.date}}</span>
-						<div ng-if="route.$edit"><input type="text" class="form-control" ng-model="route.$date" datepicker-popup='EEE MMM dd y' is-open="route.$datepicker" ng-click="openDatepicker($event,route)">
-						</div>
+						<span>{{route.date}}</span>
 					</td>
 					<td  class="hidden-xs">
-						<span ng-if="!route.$edit">{{route.sector}}</span>
-						<div ng-if="route.$edit"><input placeholder="Sector" typeahead="sector for sector in sectors | filter:$viewValue" typeahead-on-select="sectorPopulatePlaceholder($item,route)" class="form-control" type="text" ng-model="route.sector" ></div>
+						<span>{{route.sector}}</span>
 					</td>
 					<td  class="hidden-xs">
-            <span ng-if="!route.$edit">
-              <span class="label label-success" style="background-color:{{getTypeColor(route)}}"> {{route.type}} </span>
-            </span>
-						<div ng-if="route.$edit">
-							<select class="form-control" ng-model="route.type" style="width:80px">
-								<option>Sport lead</option>
-								<option>Boulder</option>
-								<option>Traditional</option>
-								<option>Multi-pitch</option>
-								<option>Top rope</option>
-							</select>
-						</div>
+            <span class="label label-success" style="background-color:{{getTypeColor(route)}}"> {{route.type}} </span>
 					</td>
 					<td  class="hidden-xs">
-						<span ng-if="!route.$edit">{{route.rock}}</span>
-						<div ng-if="route.$edit">
-							<select class="form-control" ng-model="route.rock" style="width:80px">
-								<option>Granite</option>
-								<option>Sandstone</option>
-								<option>Limestone</option>
-								<option>Indoor</option>
-								<option>Conglomerate</option>
-								<option>Basalt</option>
-								<option>Volcanic</option>
-							</select>
-						</div>
+						<span>{{route.rock}}</span>
 					</td>
 					<td  class="hidden-xs">
-						<span ng-if="!route.$edit">{{route.location}}</span>
-						<div ng-if="route.$edit"><input placeholder="Location" class="form-control" type="text" ng-model="route.location" typeahead="location for location in locations | filter:$viewValue"></div>
-					</td>
-					<td style="width:70px" class="actions">
-            <span ng-if="!route.$edit" ng-click="route.$edit = true" tooltip="Edit" tooltip-animation="false">
-              <i class="fa-lg fa fa-pencil text-info"></i>
-            </span>
-            <span ng-if="route.$edit" ng-click="saveRoute(route)" tooltip="Save" tooltip-animation="false">
-              <i class="fa-lg fa fa-check text-primary"></i>
-            </span>
-            <span ng-if="!route.$edit" ng-click="copyRoute(route)" tooltip="Copy" tooltip-animation="false">
-              <i class="fa-lg fa fa-files-o text-success"></i>
-            </span>
-            <span ng-if="route.$cancellable" ng-click="cancelRoute(route)" tooltip="Cancel" tooltip-animation="false">
-              <i class="fa-lg fa fa-times text-danger"></i>
-            </span>
-            <span ng-if="!route.$edit" class="hidden-xs" ng-click="deleteRoute(route)" tooltip="Delete" tooltip-animation="false">
-              <i class="fa-lg fa fa-trash text-danger"></i>
-            </span>
-						<!-- <a ng&#45;if="!route.$edit" class="label label&#45;info" ng&#45;click="route.$edit = true">Edit</a> -->
-						<!-- <a ng&#45;if="route.$edit" class="label label&#45;primary" ng&#45;click="saveRoute(route)">Done</a> -->
-            <!-- <a ng&#45;if="!route.$edit" class="label label&#45;success" ng&#45;click="copyRoute(route)">Copy</a> -->
-            <!-- <a ng&#45;if="route.$cancellable" class="label label&#45;danger" ng&#45;click="cancelRoute(route)">Cancel</a> -->
-            <!-- <a ng&#45;if="!route.$edit" class="label label&#45;danger hidden&#45;xs" ng&#45;click="deleteRoute(route)">Delete</a> -->
+						<span>{{route.location}}</span>
 					</td>
 				</tr>
 			</tbody>

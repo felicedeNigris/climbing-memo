@@ -1,8 +1,8 @@
 'use strict'
 
 angular.module('climbingMemo')
-.controller('climbsCtrl', function($scope, $filter, routesSvc, $http, $rootScope,
-$modal, notificationService, $localStorage, $log, utilsChartSvc, utilsRouteSvc) {
+.controller('climbsCtrl', function($scope, $rootScope, $modal, utilsChartSvc,
+utilsRouteSvc) {
 
   // Global init
   $scope.itemsPerPage = 8 // Match the select box on views
@@ -64,149 +64,11 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc, utilsRouteSvc) 
   * @method addRoute
   */
   $scope.addRoute = function() {
-
-    var createdAt = Date.now()
-
-    // Create incremental ID based on current date
-    var id = new Date(4000,0).getTime() - createdAt
-
-    // Set default values
-    $scope.routes[id] = {
-      '$edit':true,
-      '$cancellable': true,
-      '$visible':true,
-      '$date':$filter('date')(createdAt,'MM/dd/yyyy'),
-      'createdAt': createdAt,
-      'status':'Attempt',
-      'notes': '',
-      'id': id
-    }
-  }
-
-  /**
-  * Open datepicker when click on an edited route
-  *
-  * @method openDatepicker
-  */
-  $scope.openDatepicker = function($event,route) {
-    $event.preventDefault()
-    $event.stopPropagation()
-
-    $scope.routes[route.id].$datepicker = !route.$datepicker
-  }
-
-  /**
-  * Save or Create new route when click on done button. It will calculate the
-  * lat long and re-init the controller.
-  *
-  * @method saveRoute
-  */
-  $scope.saveRoute = function(route) {
-    route.$edit = false
-    route.$cancellable = false
-    route.date = $filter('date')(route.$date,'MM/dd/yyyy')
-
-    var baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address='
-
-    $http.get(baseUrl + encodeURIComponent(route.location)).success(function(data) {
-      if (data.status !== 'ZERO_RESULTS') {
-        route.latitude = data.results[0].geometry.location.lat
-        route.longitude = data.results[0].geometry.location.lng
-      }
-
-      $rootScope.$broadcast('routesUpdated', $scope.routes)
-
-      if (route.$id) { // Update route
-        routesSvc.updateRoute(route, route.$id)
-        .success(function() {
-          notificationService.success(route.name + ' saved')
-        })
-        .error(function() {
-          notificationService.error('Error while saving ' + route.name)
-        })
-      } else { // Create new route
-        routesSvc.addRoute(route)
-        .success(function(data) {
-          route.$id = data.name
-          notificationService.success(route.name + ' saved')
-        })
-        .error(function() {
-          notificationService.error('Error while saving ' + route.name)
-        })
-
-      }
+    $modal.open({
+      templateUrl: 'views/_modalAddRoute.html',
+      controller: 'ModaladdrouteCtrl',
+      size: 'md'
     })
-  }
-
-  /**
-   * Remove a route from the scope before it has been saved in the database
-   *
-   * @method cancelRoute
-   * @param {Object} Route
-   */
-  $scope.cancelRoute = function(route) {
-    delete $scope.routes[route.id]
-    notificationService.success('New route removed')
-  }
-
-  /**
-   * Create a copy of an existing route and let the user edit it
-   *
-   * @method copyRoute
-   */
-  $scope.copyRoute = function(route) {
-    var newRoute = JSON.parse(JSON.stringify(route)) // Clone
-    newRoute.$id = false
-    newRoute.$cancellable = true
-    newRoute.$visible = true
-    newRoute.createdAt = Date.now()
-    newRoute.name= route.name + ' (Copy)'
-    newRoute.$date = $filter('date')(newRoute.createdAt,'MM/dd/yyyy')
-    newRoute.$edit = true
-
-    // Create incremental ID based on current date
-    var id = new Date(4000,0).getTime() - newRoute.createdAt
-    newRoute.id = id
-    $scope.routes[id] = newRoute
-  }
-
-  /**
-  * Delete route from the scope object and re-init controller
-  *
-  * @method deleteRoute
-  */
-  $scope.deleteRoute = function(route) {
-    delete $scope.routes[route.$id]
-    $rootScope.$broadcast('routesUpdated', $scope.routes)
-
-    routesSvc.deleteRoute(route.$id)
-    .success(function() {
-      notificationService.success(route.name + ' deleted')
-    })
-    .error(function() {
-      notificationService.error('Error while deleting ' + route.name)
-    })
-
-  }
-
-  /**
-  * Populate smart default values when a sector is selected
-  *
-  * @method sectorPopulatePlaceholder
-  */
-  $scope.sectorPopulatePlaceholder = function(item,route) {
-
-    var arrayRoutes = _.toArray($scope.routes)
-    arrayRoutes = arrayRoutes.filter(function(n) { return n.sector === item })
-
-    var properties = ['type','rock','location']
-
-    for (var i=0 ; i < properties.length ; i++) {
-      var property = properties[i]
-      if (!route.hasOwnProperty(property)) {
-        route[property] = utilsChartSvc.arrayGroupBy(arrayRoutes,property)[0]
-      }
-    }
   }
 
   /**
@@ -216,12 +78,16 @@ $modal, notificationService, $localStorage, $log, utilsChartSvc, utilsRouteSvc) 
   */
   $scope.openRouteModal = function(route) {
     $modal.open({
-      templateUrl: 'views/routeModal.html',
-      controller: 'modalRouteCtrl',
-      size: 'lg',
+      templateUrl: 'views/sliderModal.html',
+      controller: 'ModalsliderCtrl',
+      size: 'md',
       resolve: {
-        route: function() {
-          return route
+        routesId: function() {
+          var routesId = _.pluck($scope.routes, 'id')
+          var routeIndex = _.indexOf(routesId, route.id)
+          return _.slice(routesId, routeIndex, routesId.length).concat(
+            _.slice(routesId, 0, routeIndex)
+          )
         }
       }
     })
