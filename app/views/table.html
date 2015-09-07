@@ -6,21 +6,11 @@
 
 	<div class="panel-body">
 
-    <div class="form-inline pull-right" tooltip="{{ itemsPerPage }} rows visible">
-      <i class="fa fa-eye hidden-xs"></i>
-      <select ng-model="itemsPerPage"  class="form-control">
-        <option value="5" selected>  5</option>
-        <option value="8">           8</option>
-        <option value="15">          15</option>
-        <option value="20">          20</option>
-      </select>
-    </div>
-
     <p>
       <button tooltip="Add route" class="btn btn-fab btn-raised btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i></button>
     </p>
 
-		<table class="table table-condensed table-hover">
+		<table data-datatable="ng" data-dt-options="dtOptions" class="table table-condensed table-hover">
 			<thead>
 				<tr>
           <th class="">Name</th>
@@ -35,7 +25,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="route in routes" ng-if="route.$visible">
+				<tr ng-repeat="route in routes" >
 					<td>
             <i ng-class="{'fa fa-eye': route.watch}"></i>
             <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">
@@ -69,8 +59,6 @@
 				</tr>
 			</tbody>
 		</table>
-
-    <routes-pagination class="pull-right" items-per-page="itemsPerPage" routes="routes"></routes-pagination>
 
 	</div>
 </div>

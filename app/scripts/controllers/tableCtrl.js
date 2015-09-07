@@ -2,27 +2,40 @@
 
 angular.module('climbingMemo')
 .controller('tableCtrl', function($scope, $rootScope, $modal, utilsChartSvc,
-utilsRouteSvc) {
+utilsRouteSvc, DTOptionsBuilder) {
 
-  // Global init
-  $scope.itemsPerPage = 8 // Match the select box on views
 
   // Get Data
   utilsRouteSvc.getRoutes().then(function(data) {
     $scope.initController(data)
   })
 
+  $scope.dtOptions = DTOptionsBuilder
+    .newOptions()
+    .withBootstrap()
+    .withOption('sDom', "<'no-row'" +
+      "<'col-xs-4 hidden-xs'l><'col-xs-8'f>r>" + // Header
+      "t" + // Table
+      "<'no-row'<'col-xs-4 hidden-xs'i><'col-xs-8'p>>" // Footer
+    )
+    .withOption('oLanguage', {
+      'sLengthMenu': '<i class="fa hidden-xs fa-eye"></i> _MENU_',
+      'sSearch': '<i class="fa hidden-xs fa-search"></i>',
+      'sSearchPlaceholder': 'Filter routes',
+      // 'sInfo': 'Total <b>_TOTAL_</b>',
+      // 'sInfoEmpty': 'Total <b>_TOTAL_</b></span>',
+      'sEmptyTable': 'No climbing routes found',
+      'oPaginate': {
+        'sNext': '<i class="fa fa-angle-right"></i>',
+        'sPrevious': '<i class="fa fa-angle-left"></i>'
+      }
+    })
+
   // Watch Update event
   $rootScope.$on('routesUpdated', function() {
     utilsRouteSvc.getRoutes().then(function(data) {
       $scope.initController(data)
     })
-  })
-
-  $scope.$on('routesTableVisibility', function(event, visibleRoutes) {
-    for (var id in $scope.routes) {
-      $scope.routes[id].$visible = _.indexOf(visibleRoutes,$scope.routes[id].id) !== -1
-    }
   })
 
   /**
@@ -34,7 +47,6 @@ utilsRouteSvc) {
   $scope.initController = function(data) {
     var count = 0
     _.map(data, function(route, key) {
-      route.$visible = count < $scope.itemsPerPage
       route.$date    = route.date
       route.$id      = key
       count++
