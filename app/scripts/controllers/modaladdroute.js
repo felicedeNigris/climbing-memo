@@ -57,9 +57,11 @@ utilsRouteSvc, $rootScope, $log) {
   * @method saveRoute
   */
   $scope.saveRoute = function() {
-    utilsRouteSvc.saveRoute($scope.route, routes)
-    .then(function(message) { $log.info(message) })
-    .catch(function(message) { $log.error(message) })
+    utilsRouteSvc.saveRoute($scope.route)
+    .then(function(routeId) {
+      routes[routeId] = $scope.route
+      $rootScope.$broadcast('routesUpdated', routes)
+    })
 
     $scope.cancelEdit()
   }

@@ -62,27 +62,37 @@ utilsRouteSvc, $filter, $rootScope) {
 
   $scope.deleteRoute = function(route) {
     route.$editMode = false
-    utilsRouteSvc.deleteRoute(route, routes)
-    .then(function(message) { $log.info(message) })
-    .catch(function(message) { $log.error(message) })
+    utilsRouteSvc.deleteRoute(route)
+    .then(function(routeId) {
+      delete routes[routeId]
+      $rootScope.$broadcast('routesUpdated', routes)
+    })
 
     $scope.closeModal()
   }
 
-  /**
-   * TODO
-   */
-  // $scope.copyRoute = function(route) {
-  //   route.id = false // Will create new route
-  //   route.$editMode = true
-  // }
+  $scope.copyRoute = function(route) {
+    route.$copy = JSON.parse(JSON.stringify(route)) // Clone
+    route.id = false // Will create new route
+    $scope.editRoute(route)
+  }
 
   $scope.saveRoute = function(route) {
     route.$editMode = false
 
-    utilsRouteSvc.saveRoute(route, routes)
-    .then(function(message) { $log.info(message) })
-    .catch(function(message) { $log.error(message) })
+    utilsRouteSvc.saveRoute(route)
+    .then(function(routeId) {
+      if (angular.isDefined(route.$copy)) {
+        var tmp = route.$copy
+        delete route.$copy
+        route.id = routeId
+        routes[routeId] = JSON.parse(JSON.stringify(route)) // New route
+        routes[tmp.id] = tmp // Model route
+      } else {
+        routes[route.id] = route
+      }
+      $rootScope.$broadcast('routesUpdated', routes)
+    })
 
     $scope.closeModal()
   }

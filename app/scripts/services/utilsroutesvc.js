@@ -15,10 +15,9 @@ routesSvc, $http, $q) {
   *
   * @method saveRoute
   * @param {Object} route
-  * @param {Object} routes - list all of routes
-  * @return {Object} promise
+  * @return {Object} promise - resolve as id or false
   */
-  this.saveRoute = function(route, routes) {
+  this.saveRoute = function(route) {
     var deferred = $q.defer()
 
     route = JSON.parse(JSON.stringify(route)) // Clone
@@ -37,12 +36,11 @@ routesSvc, $http, $q) {
       if (route.id) { // Update route
         routesSvc.updateRoute(route, route.id)
         .then(function() {
-          deferred.resolve('#saveRoute - Success: update route ' + route.id)
+          deferred.resolve(route.id)
           notificationService.success(route.name + ' saved')
-          $rootScope.$broadcast('routesUpdated', routes)
         })
         .catch(function() {
-          deferred.reject('#saveRoute - Error: update route ' + route.id)
+          deferred.reject(false)
           notificationService.error('Error while saving ' + route.name)
         })
       } else { // Create new route
@@ -51,19 +49,16 @@ routesSvc, $http, $q) {
           notificationService.success(route.name + ' saved')
           route.id = result.data.name
           routesSvc.updateRoute(route, route.id)
-          deferred.resolve('#saveRoute - Success: add new route')
-
-          routes[route.id] = route
-          $rootScope.$broadcast('routesUpdated', routes)
+          deferred.resolve(route.id)
         })
         .catch(function() {
-          deferred.reject('#saveRoute - Error: add new route')
+          deferred.reject(false)
           notificationService.error('Error while saving ' + route.name)
         })
       }
     })
     .catch(function() {
-      deferred.reject('#saveRoute - Error: google map api')
+      deferred.reject(false)
     })
 
     return deferred.promise
@@ -71,26 +66,21 @@ routesSvc, $http, $q) {
 
   /**
   * Delete a route
-  *
   * @method deleteRoute
   * @param {Object} route
-  * @param {Object} routes - list all of routes
-  * @return {Object} promise
+  * @return {Object} promise - route id or false
   */
 
-  this.deleteRoute = function(route, routes) {
+  this.deleteRoute = function(route) {
     var deferred = $q.defer()
 
     routesSvc.deleteRoute(route.id)
     .then(function() {
       notificationService.success(route.name + ' deleted')
-      deferred.resolve('#deleteRoute - Success: ' + route.id)
-
-      delete routes[route.id]
-      $rootScope.$broadcast('routesUpdated', routes)
+      deferred.resolve(route.id)
     })
     .catch(function() {
-      deferred.reject('#deleteRoute - Error: ' + route.id)
+      deferred.reject(false)
       notificationService.error('Error while deleting ' + route.name)
     })
 
