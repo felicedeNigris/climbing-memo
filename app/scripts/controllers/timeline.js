@@ -8,7 +8,7 @@
 * Controller of the climbingMemo
 */
 angular.module('climbingMemo')
-.controller('TimelineCtrl', function($scope, timelineSvc, routesSvc,
+.controller('TimelineCtrl', function($scope, timelineSvc,
 $localStorage, $log, $rootScope, $modal, utilsRouteSvc) {
 
   // Get Data

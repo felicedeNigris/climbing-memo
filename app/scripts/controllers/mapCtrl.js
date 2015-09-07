@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('climbingMemo')
-.controller('mapCtrl', function(routesSvc, $localStorage, $log, $scope,
+.controller('mapCtrl', function($localStorage, $log, $scope,
 $rootScope, mapChartSvc, utilsRouteSvc) {
 
   // Get Data

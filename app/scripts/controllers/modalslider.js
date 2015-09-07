@@ -9,7 +9,7 @@
 */
 angular.module('climbingMemo')
 .controller('ModalsliderCtrl', function($scope, $modalInstance, routesId,
-$localStorage, routesSvc, $log, routeNoteFormattingFilter, utilsRouteSvc,
+$localStorage, $log, routeNoteFormattingFilter, utilsRouteSvc,
 $filter, $rootScope) {
 
   /**
