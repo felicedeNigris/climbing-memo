@@ -1,6 +1,6 @@
 'use strict'
 
-describe('Controller: climbsCtrl', function() {
+describe('Controller: tableCtrl', function() {
 
   // load the controller's module
   beforeEach(module('climbingMemo'))
@@ -8,7 +8,7 @@ describe('Controller: climbsCtrl', function() {
   /**
   * Initialize local variables for unit-test
   */
-  var climbsCtrl, scope, routesSvc, deferred, utilsChartSvc,
+  var tableCtrl, scope, routesSvc, deferred, utilsChartSvc,
   notificationService, rootScope, modal
   // jscs:disable
   var dataStub = {
@@ -65,7 +65,7 @@ describe('Controller: climbsCtrl', function() {
     spyOn(notificationService, 'success')
     spyOn(notificationService, 'error')
 
-    climbsCtrl = $controller('climbsCtrl', {
+    tableCtrl = $controller('tableCtrl', {
       $scope: scope,
       $filter: $filter,
       routesSvc: routesSvc,

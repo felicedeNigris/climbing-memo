@@ -8,11 +8,11 @@ angular.module('climbingMemo')
 .config(function($routeProvider) {
   $routeProvider
   .when('/', {
-    redirectTo: '/climbs'
+    redirectTo: '/timeline'
   })
-  .when('/climbs', {
-    controller: 'climbsCtrl',
-    templateUrl: 'views/climbs.html'
+  .when('/table', {
+    controller: 'tableCtrl',
+    templateUrl: 'views/table.html'
   })
   .when('/timeline', {
     controller: 'TimelineCtrl',

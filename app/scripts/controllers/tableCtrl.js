@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('climbingMemo')
-.controller('climbsCtrl', function($scope, $rootScope, $modal, utilsChartSvc,
+.controller('tableCtrl', function($scope, $rootScope, $modal, utilsChartSvc,
 utilsRouteSvc) {
 
   // Global init
