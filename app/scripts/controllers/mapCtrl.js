@@ -2,25 +2,21 @@
 
 angular.module('climbingMemo')
 .controller('mapCtrl', function(routesSvc, $localStorage, $log, $scope,
-$rootScope, mapChartSvc) {
+$rootScope, mapChartSvc, utilsRouteSvc) {
 
   // Get Data
-  routesSvc.getRoutes().then(function(result) {
-    var data = result.data || {}
-    $localStorage.routes = data
-    initController(data)
-  })
-  .catch(function() {
-    $scope.offline = true
-    $log.log('Map Offline mode')
+  utilsRouteSvc.getRoutes().then(function(data) {
+    $scope.initController(data)
   })
 
   $rootScope.$on('routesUpdated', function(event, data) {
-    initController(data)
+    $scope.initController(data)
   })
 
   // Init Controller
-  var initController = function(routes) {
+  $scope.initController = function(routes) {
+    $scope.offline = !$rootScope.online
+
     var arrayRoutes = _.toArray(routes)
     var arrayLocations = mapChartSvc.processData(arrayRoutes)
 

@@ -2,20 +2,14 @@
 
 angular.module('climbingMemo')
 .controller('climbsCtrl', function($scope, $filter, routesSvc, $http, $rootScope,
-$modal, notificationService, $localStorage, $log, utilsChartSvc) {
+$modal, notificationService, $localStorage, $log, utilsChartSvc, utilsRouteSvc) {
 
   // Global init
   $scope.itemsPerPage = 8 // Match the select box on views
 
   // Get Data
-  routesSvc.getRoutes().then(function(result) {
-    var data = result.data || {}
-    $localStorage.routes = data
+  utilsRouteSvc.getRoutes().then(function(data) {
     $scope.initController(data)
-  })
-  .catch(function() {
-    $log.log('Local Storage used - routes')
-    $scope.initController($localStorage.routes || [])
   })
 
   $rootScope.$on('routesUpdated', function(event, data) {

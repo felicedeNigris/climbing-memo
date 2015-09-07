@@ -82,14 +82,8 @@ utilsRouteSvc, $rootScope, $log) {
   }
 
   // Get Data
-  routesSvc.getRoutes().then(function(result) {
-    var data = result.data || {}
-    $localStorage.routes = data
+  utilsRouteSvc.getRoutes().then(function(data) {
     $scope.initController(data)
-  })
-  .catch(function() {
-    $log.log('Local Storage used - routes')
-    $scope.initController($localStorage.routes || [])
   })
 
   $scope.getIconStatus  = function(route) { return utilsRouteSvc.getIconStatus(route) }

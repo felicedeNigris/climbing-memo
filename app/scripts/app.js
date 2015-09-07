@@ -41,3 +41,18 @@ angular.module('climbingMemo')
     libraries: 'weather,geometry,visualization'
   })
 })
+
+angular.module('climbingMemo')
+.run(function($window, $rootScope) {
+  $rootScope.online = navigator.onLine // jshint ignore:line
+  $window.addEventListener("offline", function() {
+    $rootScope.$apply(function() {
+      $rootScope.online = false
+    })
+  }, false)
+  $window.addEventListener("online", function() {
+    $rootScope.$apply(function() {
+      $rootScope.online = true
+    })
+  }, false)
+})

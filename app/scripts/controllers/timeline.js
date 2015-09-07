@@ -9,18 +9,11 @@
 */
 angular.module('climbingMemo')
 .controller('TimelineCtrl', function($scope, timelineSvc, routesSvc,
-$localStorage, $log, $rootScope, utilsChartSvc, $modal) {
+$localStorage, $log, $rootScope, $modal, utilsRouteSvc) {
 
   // Get Data
-  routesSvc.getRoutes().then(function(result) {
-    var data = result.data
-    data = data || {}
-    $localStorage.routes = data
+  utilsRouteSvc.getRoutes().then(function(data) {
     $scope.initController(data)
-  })
-  .catch(function() {
-    $log.log('Local Storage used - routes')
-    $scope.initController($localStorage.routes || [])
   })
 
   $rootScope.$on('routesUpdated', function(event, data) {
@@ -37,7 +30,7 @@ $localStorage, $log, $rootScope, utilsChartSvc, $modal) {
   * @return {String} Css color
   */
   $scope.getTypeColor = function(event) {
-    return utilsChartSvc.typeColor(event.mainType)
+    return utilsRouteSvc.getTypeColor({type: event.mainType})
   }
 
   /**

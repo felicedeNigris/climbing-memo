@@ -9,7 +9,32 @@
 */
 angular.module('climbingMemo')
 .service('utilsRouteSvc', function($filter, notificationService, $rootScope,
-routesSvc, $http, $q, utilsChartSvc) {
+routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
+
+  /**
+  * Get routes - from firebase or localStorage
+  * TODO Cache routes
+  *
+  * @method getRoutes
+  * @return {Object} - Promise
+  */
+  this.getRoutes = function() {
+    var deferred = $q.defer()
+
+    routesSvc.getRoutes().then(function(result) {
+      var data = result.data
+      data = data || {}
+      $localStorage.routes = data
+      deferred.resolve(data)
+    })
+    .catch(function() {
+      $log.log('Local Storage used - routes')
+      deferred.resolve($localStorage.routes || [])
+    })
+
+    return deferred.promise
+  }
+
   /**
   * Save route - it will calculate the lat long
   *

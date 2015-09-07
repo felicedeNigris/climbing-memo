@@ -2,25 +2,19 @@
 
 angular.module('climbingMemo')
 .controller('chartsCtrl', function($scope, routesSvc, $localStorage, $log,
-$rootScope, utilsChartSvc) {
+$rootScope, utilsChartSvc, utilsRouteSvc) {
 
   // Get Data
-  routesSvc.getRoutes().then(function(result) {
-    var data = result.data || {}
-    $localStorage.routes = data
-    initController(data)
-  })
-  .catch(function() {
-    $log.log('Local Storage used - routes')
-    initController($localStorage.routes || [])
+  utilsRouteSvc.getRoutes().then(function(data) {
+    $scope.initController(data)
   })
 
   $rootScope.$on('routesUpdated', function(event, data) {
-    initController(data)
+    $scope.initController(data)
   })
 
   // Init Controller
-  var initController = function(data) {
+  $scope.initController = function(data) {
     var arrayRoutes = _.toArray(data)
     var arrayTypes = utilsChartSvc.arrayGroupBy(arrayRoutes,"type")
 
