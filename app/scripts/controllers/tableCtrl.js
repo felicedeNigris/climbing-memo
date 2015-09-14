@@ -99,13 +99,6 @@ utilsRouteSvc, DTOptionsBuilder) {
       resolve: {
         routesId: function() {
           return [route.id]
-
-          // TODO load all routes visible in table
-          // var routesId = _.pluck($scope.routes, 'id')
-          // var routeIndex = _.indexOf(routesId, route.id)
-          // return _.slice(routesId, routeIndex, routesId.length).concat(
-          //   _.slice(routesId, 0, routeIndex)
-          // )
         }
       }
     })
