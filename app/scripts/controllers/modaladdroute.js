@@ -9,8 +9,9 @@
 */
 angular.module('climbingMemo')
 .controller('ModaladdrouteCtrl', function($modalInstance, $scope,
-routeNoteFormattingFilter, $localStorage, utilsChartSvc,
-utilsRouteSvc, $rootScope, $log) {
+routeNoteFormattingFilter, utilsChartSvc, utilsRouteSvc, $rootScope, $log) {
+  // Private buffer for all routes
+  var arrayRoutes = []
 
   // Get Data
   utilsRouteSvc.getRoutes().then(function(data) {
@@ -27,14 +28,14 @@ utilsRouteSvc, $rootScope, $log) {
   /**
   * Close the modal
   *
-  * @method closeModal
+  * @method cancelEdit
   */
   $scope.cancelEdit = function() {
     $modalInstance.dismiss('cancel')
   }
 
   /**
-  * Flip the active slide
+  * Flip the card by simulating mouse hover
   *
   * @method flipCard
   */
@@ -49,7 +50,7 @@ utilsRouteSvc, $rootScope, $log) {
   */
   $scope.sectorPopulatePlaceholder = function() {
 
-    var arrayRoutes = _.toArray($localStorage.routes).filter(function(n) {
+    var filteredArrayRoutes = arrayRoutes.filter(function(n) {
       return n.sector === $scope.route.sector
     })
 
@@ -58,7 +59,7 @@ utilsRouteSvc, $rootScope, $log) {
     for (var i=0 ; i < properties.length ; i++) {
       var property = properties[i]
       if (!$scope.route.hasOwnProperty(property)) {
-        $scope.route[property] = utilsChartSvc.arrayGroupBy(arrayRoutes,property)[0]
+        $scope.route[property] = utilsChartSvc.arrayGroupBy(filteredArrayRoutes,property)[0]
       }
     }
   }
@@ -83,7 +84,7 @@ utilsRouteSvc, $rootScope, $log) {
     route.$date = new Date()
     route.status = 'Attempt'
 
-    var arrayRoutes    = _.toArray(data)
+    arrayRoutes    = _.toArray(data)
     $scope.locations = utilsChartSvc.arrayGroupBy(arrayRoutes,"location")
     $scope.sectors = utilsChartSvc.arrayGroupBy(arrayRoutes,"sector")
 
