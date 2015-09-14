@@ -1,6 +1,6 @@
 'use strict'
 
-fdescribe('Controller: ModaladdrouteCtrl', function() {
+describe('Controller: ModaladdrouteCtrl', function() {
 
   // load the controller's module
   beforeEach(module('climbingMemo'))
