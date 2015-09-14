@@ -10,8 +10,8 @@
 angular.module('climbingMemo')
 .controller('ModaladdrouteCtrl', function($modalInstance, $scope,
 routeNoteFormattingFilter, utilsChartSvc, utilsRouteSvc, $rootScope, $log) {
-  // Private buffer for all routes
-  var arrayRoutes = []
+  // Buffer for all routes
+  $scope.arrayRoutes = []
 
   // Get Data
   utilsRouteSvc.getRoutes().then(function(data) {
@@ -50,7 +50,7 @@ routeNoteFormattingFilter, utilsChartSvc, utilsRouteSvc, $rootScope, $log) {
   */
   $scope.sectorPopulatePlaceholder = function() {
 
-    var filteredArrayRoutes = arrayRoutes.filter(function(n) {
+    var filteredArrayRoutes = $scope.arrayRoutes.filter(function(n) {
       return n.sector === $scope.route.sector
     })
 
@@ -84,9 +84,9 @@ routeNoteFormattingFilter, utilsChartSvc, utilsRouteSvc, $rootScope, $log) {
     route.$date = new Date()
     route.status = 'Attempt'
 
-    arrayRoutes    = _.toArray(data)
-    $scope.locations = utilsChartSvc.arrayGroupBy(arrayRoutes,"location")
-    $scope.sectors = utilsChartSvc.arrayGroupBy(arrayRoutes,"sector")
+    $scope.arrayRoutes    = _.toArray(data)
+    $scope.locations = utilsChartSvc.arrayGroupBy($scope.arrayRoutes,"location")
+    $scope.sectors = utilsChartSvc.arrayGroupBy($scope.arrayRoutes,"sector")
 
     $scope.route = route
   }
