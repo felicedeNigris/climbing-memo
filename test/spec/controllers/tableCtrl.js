@@ -1,6 +1,6 @@
 'use strict'
 
-fdescribe('Controller: tableCtrl', function() {
+describe('Controller: tableCtrl', function() {
 
   // load the controller's module
   beforeEach(module('climbingMemo'))
