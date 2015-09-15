@@ -8,8 +8,8 @@ describe('Controller: TimelineCtrl', function() {
   /**
   * Initialize local variables for unit-test
   */
-  var TimelineCtrl, scope, routesSvc, deferred, utilsChartSvc,
-  notificationService, rootScope, modal, timelineSvc
+  var TimelineCtrl, scope, deferred, utilsChartSvc,
+  rootScope, modal, timelineSvc, utilsRouteSvc
   // jscs:disable
   var dataStub = {
     1: {
@@ -33,22 +33,22 @@ describe('Controller: TimelineCtrl', function() {
     scope = $rootScope.$new()
     rootScope = $rootScope
 
-    // routesSvc stub
-    routesSvc = {
-      updateRoute:  function() {},
-      addRoute:     function() {},
-      deleteRoute:  function() {},
-      getRoutes:    function() {}
-    }
-    deferred = $q.defer()
-    spyOn(routesSvc, 'getRoutes').and.returnValue(deferred.promise)
-
     // utilsChartSvc stub
     utilsChartSvc = {
       arrayGroupBy:  function() {},
       typeColor:     function() {}
     }
     spyOn(utilsChartSvc, 'typeColor').and.returnValue('green')
+
+    // utilsRouteSvc Stub
+    utilsRouteSvc = {
+      getRoutes:       function() {},
+      getTypeColor:    function() {}
+    }
+    deferred = $q.defer()
+    deferred.resolve({})
+    spyOn(utilsRouteSvc, 'getRoutes').and.returnValue(deferred.promise)
+    spyOn(utilsRouteSvc, 'getTypeColor')
 
     // modal stub
     modal = { open:     function() {} }
@@ -61,33 +61,36 @@ describe('Controller: TimelineCtrl', function() {
     spyOn(timelineSvc, 'processData').and.returnValue([1,2,3])
 
     TimelineCtrl = $controller('TimelineCtrl', {
-      $scope: scope,
-      timelineSvc: timelineSvc,
-      routesSvc: routesSvc,
-      $localStorage: $localStorage,
-      $log: $log,
-      $rootScope: rootScope,
-      utilsChartSvc: utilsChartSvc,
-      $modal: modal
+      $scope:         scope,
+      timelineSvc:    timelineSvc,
+      $rootScope:     rootScope,
+      utilsChartSvc:  utilsChartSvc,
+      utilsRouteSvc:  utilsRouteSvc,
+      $modal:         modal
     })
   }))
 
-  // TODO review tests
-  // it('should listen on event #routesUpdated', function() {
-  //   spyOn(scope, 'initController')
-  //   rootScope.$emit('routesUpdated')
-  //
-  //   expect(scope.initController).toHaveBeenCalled()
-  // })
+  it('should listen on event #routesUpdated', function() {
+    utilsRouteSvc.getRoutes.calls.reset()
+    rootScope.$emit('routesUpdated')
+    rootScope.$digest()
 
-  // FIXME
-  // it('should #getTypeColor', function() {
-  //   utilsChartSvc.typeColor.calls.reset()
-  //   var result = scope.getTypeColor({mainType: 'green'})
-  //
-  //   expect(utilsChartSvc.typeColor).toHaveBeenCalledWith('green')
-  //   expect(result).toBe('green')
-  // })
+    expect(utilsRouteSvc.getRoutes).toHaveBeenCalled()
+  })
+
+  it('should #getTypeColor', function() {
+    utilsRouteSvc.getTypeColor.calls.reset()
+    scope.getTypeColor({mainType: 'test'})
+
+    expect(utilsRouteSvc.getTypeColor).toHaveBeenCalled()
+  })
+
+  it('should open modal on #addRoute', function() {
+    modal.open.calls.reset()
+
+    scope.addRoute()
+    expect(modal.open).toHaveBeenCalled()
+  })
 
   it('should #getBadgeTooltip', function() {
     var event = {
