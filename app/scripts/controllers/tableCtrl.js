@@ -51,11 +51,10 @@ utilsRouteSvc, DTOptionsBuilder) {
       route.$id      = key
       count++
     })
-    $scope.routes = data
+    $scope.routes = _.toArray(data)
 
-    var arrayRoutes    = _.toArray($scope.routes)
-    var arrayLocations = utilsChartSvc.arrayGroupBy(arrayRoutes,"location")
-    var arraySectors   = utilsChartSvc.arrayGroupBy(arrayRoutes,"sector")
+    var arrayLocations = utilsChartSvc.arrayGroupBy($scope.routes,"location")
+    var arraySectors   = utilsChartSvc.arrayGroupBy($scope.routes,"sector")
 
     $scope.locations = arrayLocations
     $scope.sectors   = arraySectors
@@ -70,7 +69,7 @@ utilsRouteSvc, DTOptionsBuilder) {
    * @return {String} Css color
    */
   $scope.getTypeColor = function(route) {
-    return utilsChartSvc.typeColor(route.type)
+    return utilsRouteSvc.getTypeColor(route)
   }
 
   /**

@@ -4,6 +4,7 @@
     "d3":    false,
     "_": false,
     /* JASMINE */
+    "jasmine":     false,
     "inspect":     false,
     "inject":      false,
     "expect":      false,
