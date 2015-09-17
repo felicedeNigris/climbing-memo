@@ -9,9 +9,43 @@
 */
 angular.module('climbingMemo')
 .service('utilsRouteSvc', function($filter, notificationService, $rootScope,
-routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
+routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
 
   var cachedRoutes = null
+  var intervalDelay = 60000 // 1 minute
+  var canCreateTimeout = true
+
+  /**
+  * Sync routes to database if needed
+  *
+  * @method syncRoutes
+  */
+  this.syncRoutes = function() {
+    if ($rootScope.online) { // Try to sync
+      _.each($localStorage.routes, function(route){
+        switch (route.$sync) {
+          case 'create':
+          case 'update':
+            this.saveRoute(route)
+            break
+          case 'delete':
+            this.deleteRoute(route)
+            break
+        }
+      })
+      canCreateTimeout = true
+    } else {
+      this.createTimeout()
+    }
+  }
+
+  this.createTimeout = function () {
+    if (canCreateTimeout) {
+      canCreateTimeout = false
+      $timeout(syncRoutes, myIntervalDelay)
+      myIntervalDelay *= 2
+    }
+  }
 
   /**
   * Get routes - from firebase or localStorage
@@ -31,11 +65,25 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
         $localStorage.routes = data
         cachedRoutes = data
         deferred.resolve(data)
+        // TODO Check if "sync" field exist and sync if needed
+        if (_.filter(cachedRoutes, function(cachedRoute) {
+          return cachedRoute.$sync
+        }).length > 0) {
+          this.syncRoutes()
+        }
       })
       .catch(function() { // Use LocalStorage
         $log.log('Local Storage used - routes')
         cachedRoutes = $localStorage.routes
+        deferred.resolve(data)
         deferred.resolve($localStorage.routes || [])
+
+        // TODO Check if "sync" field exist create sync timer every X minutes
+        if (_.filter(cachedRoutes, function(cachedRoute) {
+          return cachedRoute.$sync
+        }).length > 0) {
+          this.createTimeout()
+        }
       })
     }
 
@@ -76,6 +124,15 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
         .catch(function() {
           deferred.reject(false)
           notificationService.error('Error while saving ' + route.name)
+          // TODO save localStorage and add "need sync" field
+          // TODO create unique timer to sync every X minutes
+          var localStorageRoute = _.filter($localStorage.routes, function(localRoute) {
+            return route.id === localRoute
+          })
+          if (localStorageRoute) {
+            localStorageRoute.$sync = 'update'
+            this.createTimeout()
+          }
         })
       } else { // Create new route
         routesSvc.addRoute(route)
@@ -96,11 +153,31 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
         .catch(function() {
           deferred.reject(false)
           notificationService.error('Error while saving ' + route.name)
+          // TODO save localStorage and add "need sync" field
+          // TODO create unique timer to sync every X minutes
+          route.$sync = 'create'
+          $localStorage.routes.push(route)
+          this.createTimeout()
         })
       }
     })
     .catch(function() {
       deferred.reject(false)
+      // TODO save localStorage and add "need sync" field
+      // TODO create unique timer to sync every X minutes
+      if (route.id) { // Update route
+        var localStorageRoute = _.filter($localStorage.routes, function(localRoute) {
+          return route.id === localRoute
+        })
+        if (localStorageRoute) {
+          localStorageRoute.$sync = 'update'
+          this.createTimeout()
+        }
+      } else { // Create new route
+        route.$sync = 'create'
+        $localStorage.routes.push(route)
+        this.createTimeout()
+      }
     })
 
     return deferred.promise
@@ -126,6 +203,16 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log) {
     .catch(function() {
       deferred.reject(false)
       notificationService.error('Error while deleting ' + route.name)
+
+      // TODO save localStorage and add "need sync" field
+      var localStorageRoute = _.filter($localStorage.routes, function(localRoute) {
+        return route.id === localRoute
+      })
+      if (localStorageRoute) {
+        localStorageRoute.$sync = 'delete'
+        this.createTimeout()
+      }
+
     })
 
     return deferred.promise
