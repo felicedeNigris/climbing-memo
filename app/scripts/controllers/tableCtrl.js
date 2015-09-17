@@ -30,6 +30,8 @@ utilsRouteSvc, DTOptionsBuilder) {
         'sPrevious': '<i class="fa fa-angle-left"></i>'
       }
     })
+    .withOption('pageLength', 6)
+    .withOption('lengthMenu', [6, 10, 25, 50, 100])
 
   // Watch Update event
   $rootScope.$on('routesUpdated', function() {
