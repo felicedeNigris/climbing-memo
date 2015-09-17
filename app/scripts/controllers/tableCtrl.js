@@ -10,6 +10,7 @@ utilsRouteSvc, DTOptionsBuilder) {
     $scope.initController(data)
   })
 
+  $scope.dtInstance = {}
   $scope.dtOptions = DTOptionsBuilder
     .newOptions()
     .withBootstrap()
@@ -39,6 +40,27 @@ utilsRouteSvc, DTOptionsBuilder) {
       $scope.initController(data)
     })
   })
+
+  /**
+  * Render next page of datatable
+  *
+  * @method nextPage
+  */
+  $scope.nextPage = function() {
+    var dtApi = $($scope.dtInstance.dataTable[0]).dataTable().api() // jshint ignore:line
+    dtApi.page('next').draw('page')
+  }
+
+  /**
+  * Render previous page of datatable
+  *
+  * @method previousPage
+  */
+  $scope.previousPage = function() {
+    var dtApi = $($scope.dtInstance.dataTable[0]).dataTable().api() // jshint ignore:line
+    dtApi.page('next').draw('page')
+  }
+
 
   /**
   * Initialize controller with data

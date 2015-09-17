@@ -10,55 +10,57 @@
       <button tooltip="Add route" class="btn btn-fab btn-raised btn-success" ng-click="addRoute()"><i class="fa fa-plus"></i></button>
     </p>
 
-		<table data-datatable="ng" data-dt-options="dtOptions" class="table table-condensed table-hover">
-			<thead>
-				<tr>
-          <th class="">Name</th>
-          <th class="">Grade</th>
-          <th class="hidden-xs hidden-sm">Rating</th>
-          <th class="">Status</th>
-          <th class="hidden-xs">Date</th>
-          <th class="hidden-xs">Sector</th>
-          <th class="hidden-xs">Type</th>
-          <th class="hidden-xs">Rock</th>
-          <th class="hidden-xs">Location</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="route in routes" >
-					<td>
-            <i ng-class="{'fa fa-eye': route.watch}"></i>
-            <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">
-              {{route.name}}
-            </a>
-					</td>
-					<td>
-						<span>{{route.grade}}</span>
-					</td>
-					<td class="hidden-xs hidden-sm">
-						<rating readonly="true" ng-model="route.rating"></rating>
-					</td>
-					<td class="">
-						<span>{{route.status}}</span>
-					</td>
-					<td  class="hidden-xs">
-						<span>{{route.date}}</span>
-					</td>
-					<td  class="hidden-xs">
-						<span>{{route.sector}}</span>
-					</td>
-					<td  class="hidden-xs">
-            <span class="label label-success" style="background-color:{{getTypeColor(route)}}"> {{route.type}} </span>
-					</td>
-					<td  class="hidden-xs">
-						<span>{{route.rock}}</span>
-					</td>
-					<td  class="hidden-xs">
-						<span>{{route.location}}</span>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+    <div ng-swipe-left="nextPage()" ng-swipe-right="previousPage()">
+      <table data-datatable="ng" data-dt-options="dtOptions" dt-instance="dtInstance" class="table table-condensed table-hover">
+        <thead>
+          <tr>
+            <th class="">Name</th>
+            <th class="">Grade</th>
+            <th class="hidden-xs hidden-sm">Rating</th>
+            <th class="">Status</th>
+            <th class="hidden-xs">Date</th>
+            <th class="hidden-xs">Sector</th>
+            <th class="hidden-xs">Type</th>
+            <th class="hidden-xs">Rock</th>
+            <th class="hidden-xs">Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="route in routes" >
+            <td>
+              <i ng-class="{'fa fa-eye': route.watch}"></i>
+              <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">
+                {{route.name}}
+              </a>
+            </td>
+            <td>
+              <span>{{route.grade}}</span>
+            </td>
+            <td class="hidden-xs hidden-sm">
+              <rating readonly="true" ng-model="route.rating"></rating>
+            </td>
+            <td class="">
+              <span>{{route.status}}</span>
+            </td>
+            <td  class="hidden-xs">
+              <span>{{route.date}}</span>
+            </td>
+            <td  class="hidden-xs">
+              <span>{{route.sector}}</span>
+            </td>
+            <td  class="hidden-xs">
+              <span class="label label-success" style="background-color:{{getTypeColor(route)}}"> {{route.type}} </span>
+            </td>
+            <td  class="hidden-xs">
+              <span>{{route.rock}}</span>
+            </td>
+            <td  class="hidden-xs">
+              <span>{{route.location}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
 	</div>
 </div>
