@@ -24,7 +24,8 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * @param {String} event
   * @param {Object} route
   */
-  utilsRouteSvc.createRouteSync = function (event, route) {
+  utilsRouteSvc.createRouteSync = function(event, route) {
+    // TODO watch for $rootScope event
     var localRouteFound = false
 
     $localStorage.routes = _.map($localStorage.routes, function(localRoute) {
@@ -51,7 +52,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   utilsRouteSvc.syncRoutes = function() {
     if ($rootScope.online) { // Try to sync
       canCreateTimeout = true
-      _.each($localStorage.routes, function(route){
+      _.each($localStorage.routes, function(route) {
         switch (route.$sync) {
           case 'create':
           case 'update':
@@ -73,7 +74,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
     }
   }
 
-  utilsRouteSvc.createTimeout = function () {
+  utilsRouteSvc.createTimeout = function() {
     if (canCreateTimeout) {
       canCreateTimeout = false
       $timeout(utilsRouteSvc.syncRoutes, intervalDelay)
@@ -155,6 +156,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
         })
         .catch(function() {
           deferred.reject(false)
+          // TODO change error message to warning
           notificationService.error('Error while saving ' + route.name)
           utilsRouteSvc.createRouteSync('update', route)
         })
@@ -176,6 +178,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
         })
         .catch(function() {
           deferred.reject(false)
+          // TODO change error message to warning
           notificationService.error('Error while saving ' + route.name)
           utilsRouteSvc.createRouteSync('update', route)
         })
@@ -208,6 +211,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
     })
     .catch(function() {
       deferred.reject(false)
+      // TODO change error message to warning
       notificationService.error('Error while deleting ' + route.name)
       utilsRouteSvc.createRouteSync('delete', route)
     })
