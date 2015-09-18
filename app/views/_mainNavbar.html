@@ -11,16 +11,24 @@
     <div class="navbar-collapse collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav">
         <li ng-class="{ active: isActive('/timeline')}">
-        <a href="#/timeline"><i class="fa fa fa-clock-o"></i> Timeline</a>
+        <a href="#/timeline" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
+          <i class="fa fa fa-clock-o"></i> Timeline
+        </a>
         </li>
         <li ng-class="{ active: isActive('/table')}">
-        <a href="#/table"><i class="fa fa-table"></i> Table</a>
+        <a href="#/table" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
+          <i class="fa fa-table"></i> Table
+        </a>
         </li>
         <li ng-class="{ active: isActive('/map')}">
-        <a href="#/map"><i class="fa fa-globe"></i> Map</a>
+        <a href="#/map" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
+          <i class="fa fa-globe"></i> Map
+        </a>
         </li>
         <li ng-class="{ active: isActive('/charts')}">
-        <a href="#/charts"><i class="fa fa-bar-chart"></i> Charts</a>
+        <a href="#/charts" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
+          <i class="fa fa-bar-chart"></i> Charts
+        </a>
         </li>
       </ul>
 

@@ -17,14 +17,14 @@ utilsRouteSvc, DTOptionsBuilder) {
     .withOption('sDom', "<'no-row'" +
       "<'col-xs-4 hidden-xs'l><'col-xs-8'f>r>" + // Header
       "t" + // Table
-      "<'no-row'<'col-xs-4 hidden-xs'i><'col-xs-8'p>>" // Footer
+      "<'no-row'<'col-xs-4 hidden-xs'i><'pull-righ'p>>" // Footer
     )
     .withOption('oLanguage', {
       'sLengthMenu': '<i class="fa hidden-xs fa-eye"></i> _MENU_',
       'sSearch': '<i class="fa hidden-xs fa-search"></i>',
       'sSearchPlaceholder': 'Filter routes',
-      // 'sInfo': 'Total <b>_TOTAL_</b>',
-      // 'sInfoEmpty': 'Total <b>_TOTAL_</b></span>',
+      // 'sInfo': 'Total <b>_TOTAL_</b> routes',
+      // 'sInfoEmpty': 'Total <b>_TOTAL_</b> routes',
       'sEmptyTable': 'No climbing routes found',
       'oPaginate': {
         'sNext': '<i class="fa fa-angle-right"></i>',
@@ -58,7 +58,7 @@ utilsRouteSvc, DTOptionsBuilder) {
   */
   $scope.previousPage = function() {
     var dtApi = $($scope.dtInstance.dataTable[0]).dataTable().api() // jshint ignore:line
-    dtApi.page('next').draw('page')
+    dtApi.page('previous').draw('page')
   }
 
 
