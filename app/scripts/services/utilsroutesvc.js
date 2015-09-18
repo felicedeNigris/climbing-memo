@@ -11,39 +11,73 @@ angular.module('climbingMemo')
 .service('utilsRouteSvc', function($filter, notificationService, $rootScope,
 routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
 
+  var utilsRouteSvc = this
+
   var cachedRoutes = null
   var intervalDelay = 60000 // 1 minute
   var canCreateTimeout = true
+
+  /**
+  * Create route sync property in localStorage
+  *
+  * @method createRouteSync
+  * @param {String} event
+  * @param {Object} route
+  */
+  utilsRouteSvc.createRouteSync = function (event, route) {
+    var localRouteFound = false
+
+    $localStorage.routes = _.map($localStorage.routes, function(localRoute) {
+      if (route.id === localRoute.id) { // Update route
+        localRouteFound = true
+        localRoute.$sync = event
+        utilsRouteSvc.createTimeout()
+      }
+      return localRoute
+    })
+    if (!localRouteFound && event != 'delete') { // Create route
+      route.$sync = event
+      var objectKey = _.random(10000, 99999)
+      $localStorage.routes[objectKey] = route
+      utilsRouteSvc.createTimeout()
+    }
+  }
 
   /**
   * Sync routes to database if needed
   *
   * @method syncRoutes
   */
-  this.syncRoutes = function() {
+  utilsRouteSvc.syncRoutes = function() {
     if ($rootScope.online) { // Try to sync
+      canCreateTimeout = true
       _.each($localStorage.routes, function(route){
         switch (route.$sync) {
           case 'create':
           case 'update':
-            this.saveRoute(route)
+            utilsRouteSvc.saveRoute(route).then(function(routeId) {
+              delete route.$sync
+              $rootScope.$broadcast('routesUpdated', routeId)
+            })
             break
           case 'delete':
-            this.deleteRoute(route)
+            utilsRouteSvc.deleteRoute(route).then(function(routeId) {
+              delete route.$sync
+              $rootScope.$broadcast('routesUpdated', routeId)
+            })
             break
         }
       })
-      canCreateTimeout = true
     } else {
-      this.createTimeout()
+      utilsRouteSvc.createTimeout()
     }
   }
 
-  this.createTimeout = function () {
+  utilsRouteSvc.createTimeout = function () {
     if (canCreateTimeout) {
       canCreateTimeout = false
-      $timeout(syncRoutes, myIntervalDelay)
-      myIntervalDelay *= 2
+      $timeout(utilsRouteSvc.syncRoutes, intervalDelay)
+      intervalDelay *= 2
     }
   }
 
@@ -53,7 +87,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * @method getRoutes
   * @return {Object} - Promise
   */
-  this.getRoutes = function() {
+  utilsRouteSvc.getRoutes = function() {
     var deferred = $q.defer()
 
     if (cachedRoutes) { // Use Cache
@@ -65,24 +99,22 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
         $localStorage.routes = data
         cachedRoutes = data
         deferred.resolve(data)
-        // TODO Check if "sync" field exist and sync if needed
-        if (_.filter(cachedRoutes, function(cachedRoute) {
-          return cachedRoute.$sync
-        }).length > 0) {
-          this.syncRoutes()
+
+        if (_.find(cachedRoutes, function(cachedRoute) {
+          return angular.isDefined(cachedRoute.$sync)
+        })) {
+          utilsRouteSvc.syncRoutes()
         }
       })
       .catch(function() { // Use LocalStorage
         $log.log('Local Storage used - routes')
         cachedRoutes = $localStorage.routes
-        deferred.resolve(data)
         deferred.resolve($localStorage.routes || [])
 
-        // TODO Check if "sync" field exist create sync timer every X minutes
-        if (_.filter(cachedRoutes, function(cachedRoute) {
-          return cachedRoute.$sync
-        }).length > 0) {
-          this.createTimeout()
+        if (_.find(cachedRoutes, function(cachedRoute) {
+          return angular.isDefined(cachedRoute.$sync)
+        })) {
+          utilsRouteSvc.createTimeout()
         }
       })
     }
@@ -97,7 +129,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * @param {Object} route
   * @return {Object} promise - resolve as id or false
   */
-  this.saveRoute = function(sourceRoute) {
+  utilsRouteSvc.saveRoute = function(sourceRoute) {
     var deferred = $q.defer()
 
     var route = JSON.parse(JSON.stringify(sourceRoute)) // Clone
@@ -124,15 +156,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
         .catch(function() {
           deferred.reject(false)
           notificationService.error('Error while saving ' + route.name)
-          // TODO save localStorage and add "need sync" field
-          // TODO create unique timer to sync every X minutes
-          var localStorageRoute = _.filter($localStorage.routes, function(localRoute) {
-            return route.id === localRoute
-          })
-          if (localStorageRoute) {
-            localStorageRoute.$sync = 'update'
-            this.createTimeout()
-          }
+          utilsRouteSvc.createRouteSync('update', route)
         })
       } else { // Create new route
         routesSvc.addRoute(route)
@@ -153,31 +177,13 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
         .catch(function() {
           deferred.reject(false)
           notificationService.error('Error while saving ' + route.name)
-          // TODO save localStorage and add "need sync" field
-          // TODO create unique timer to sync every X minutes
-          route.$sync = 'create'
-          $localStorage.routes.push(route)
-          this.createTimeout()
+          utilsRouteSvc.createRouteSync('update', route)
         })
       }
     })
     .catch(function() {
       deferred.reject(false)
-      // TODO save localStorage and add "need sync" field
-      // TODO create unique timer to sync every X minutes
-      if (route.id) { // Update route
-        var localStorageRoute = _.filter($localStorage.routes, function(localRoute) {
-          return route.id === localRoute
-        })
-        if (localStorageRoute) {
-          localStorageRoute.$sync = 'update'
-          this.createTimeout()
-        }
-      } else { // Create new route
-        route.$sync = 'create'
-        $localStorage.routes.push(route)
-        this.createTimeout()
-      }
+      utilsRouteSvc.createRouteSync(route.id ? 'update' : 'create', route)
     })
 
     return deferred.promise
@@ -189,7 +195,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * @param {Object} route
   * @return {Object} promise - route id or false
   */
-  this.deleteRoute = function(route) {
+  utilsRouteSvc.deleteRoute = function(route) {
     var deferred = $q.defer()
 
     routesSvc.deleteRoute(route.id)
@@ -203,16 +209,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
     .catch(function() {
       deferred.reject(false)
       notificationService.error('Error while deleting ' + route.name)
-
-      // TODO save localStorage and add "need sync" field
-      var localStorageRoute = _.filter($localStorage.routes, function(localRoute) {
-        return route.id === localRoute
-      })
-      if (localStorageRoute) {
-        localStorageRoute.$sync = 'delete'
-        this.createTimeout()
-      }
-
+      utilsRouteSvc.createRouteSync('delete', route)
     })
 
     return deferred.promise
@@ -231,7 +228,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * @param {Object} route
   * @return {String}
   */
-  this.getIconStatus = function(route) {
+  utilsRouteSvc.getIconStatus = function(route) {
     if (!(route && route.status)) {
       return 'fa-connectdevelop'
     }
@@ -245,7 +242,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * @param {Object} route
   * @return {String}
   */
-  this.getIconRock = function(route) {
+  utilsRouteSvc.getIconRock = function(route) {
     if (!(route && route.rock)) {
       return 'fa-connectdevelop'
     }
@@ -259,7 +256,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * @param {Object} route
   * @return {String}
   */
-  this.getIndoorLabel = function(route) {
+  utilsRouteSvc.getIndoorLabel = function(route) {
     return route.rock === 'Indoor' ? 'Indoor' : 'Outdoor'
   }
 
@@ -271,7 +268,9 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   *
   * @return {String} Css color
   */
-  this.getTypeColor = function(route) {
+  utilsRouteSvc.getTypeColor = function(route) {
     return utilsChartSvc.typeColor(route ? route.type : '')
   }
+
+  return utilsRouteSvc
 })
