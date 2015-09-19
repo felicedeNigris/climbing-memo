@@ -52,11 +52,11 @@ angular.module('climbingMemo')
         $compile(element.find(type))(scope)
       }
 
-      scope.$watch(function () {
-        return _.find(scope.slides, function(slide){
+      scope.$watch(function() {
+        return _.find(scope.slides, function(slide) {
           return slide.active
         })
-      }, function (currentSlide, previousSlide) {
+      }, function(currentSlide, previousSlide) {
         if (currentSlide !== previousSlide) {
           scope.renderChart(currentSlide.type)
         }

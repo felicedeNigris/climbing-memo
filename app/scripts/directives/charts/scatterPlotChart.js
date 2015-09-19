@@ -110,7 +110,8 @@ $modal, $window) {
           .offset([-10, 0])
           .html(function(d) {
             var html = ''
-            html += '<span class="hidden-xs" style="color:' + utilsChartSvc.typeColor(d.dominantType) + '">'
+            html += '<span class="hidden-xs" style="color:'
+            html += utilsChartSvc.typeColor(d.dominantType) + '">'
             html += d.dominantType + "</span> "
             html += d.sector + ' ' + d.avgRating.toFixed(1) + ' <i class="fa fa-star-o"></i>'
             html += " : <span style='color:red'>" + d.totalRoutes + "</span>"

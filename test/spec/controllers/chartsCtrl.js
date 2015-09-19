@@ -6,7 +6,7 @@ describe('Controller: chartsCtrl', function() {
   beforeEach(module('climbingMemo'))
 
   var chartsCtrl, scope, rootScope, utilsRouteSvc,
-  deferred, utilsChartSvc
+  deferred
 
   beforeEach(inject(function($controller, $rootScope, $q) {
     scope = $rootScope.$new()
@@ -20,14 +20,9 @@ describe('Controller: chartsCtrl', function() {
     deferred.resolve({})
     spyOn(utilsRouteSvc, 'getRoutes').and.returnValue(deferred.promise)
 
-    // utilsChartSvc stub
-    utilsChartSvc = { arrayGroupBy: function() {} }
-    spyOn(utilsChartSvc, 'arrayGroupBy').and.returnValue(['test1', 'test2'])
-
     chartsCtrl = $controller('chartsCtrl', {
       $scope:          scope,
-      utilsRouteSvc:   utilsRouteSvc,
-      utilsChartSvc:   utilsChartSvc
+      utilsRouteSvc:   utilsRouteSvc
     })
   }))
 
@@ -45,7 +40,5 @@ describe('Controller: chartsCtrl', function() {
 
     expect(scope.routes).toEqual(jasmine.any(Array))
     expect(scope.routes.length).toBe(1)
-
-    expect(scope.horizontalBarType).toMatch('test1')
   })
 })
