@@ -24,6 +24,10 @@ $modal) {
         scope.renderChart(scope.routes)
       }
 
+      angular.element($window).bind('resize', function() {
+        initDirective()
+      })
+
       scope.$watch('routes', function(rawData) {
         scope.renderChart(rawData)
       })

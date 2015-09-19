@@ -1,7 +1,8 @@
 'user strict'
 
 angular.module('climbingMemo')
-.directive('scatterPlotChart', function(scatterPlotChartSvc, utilsChartSvc, $modal) {
+.directive('scatterPlotChart', function(scatterPlotChartSvc, utilsChartSvc,
+$modal, $window) {
   // Private 5 digit chart ID
   var ID = _.random(10000, 99999)
 
@@ -17,6 +18,10 @@ angular.module('climbingMemo')
       function initDirective() {
         scope.renderChart(scope.routes)
       }
+
+      angular.element($window).bind('resize', function() {
+        initDirective()
+      })
 
       // Draw chart when routes change
       scope.$watch('routes', function(rawData) {

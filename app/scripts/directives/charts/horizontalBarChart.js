@@ -2,7 +2,7 @@
 
 angular.module('climbingMemo')
 .directive('horizontalBarChart', function(horizontalBarChartSvc, utilsChartSvc,
-$modal) {
+$modal, $window) {
   // Private 5 digit chart ID
   var ID = _.random(10000, 99999)
 
@@ -19,6 +19,10 @@ $modal) {
       function initDirective() {
         scope.renderChart(scope.routes)
       }
+
+      angular.element($window).bind('resize', function() {
+        initDirective()
+      })
 
       // Draw chart when routes change
       scope.$watch('routes', function(rawData) {
