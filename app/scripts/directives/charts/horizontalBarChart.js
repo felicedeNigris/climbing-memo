@@ -9,8 +9,7 @@ $modal, $window) {
   return {
     scope: {
       routes: '=',
-      width: '=',
-      type: '='
+      width: '='
     },
     restrict: 'E',
     template: '<div id="chart-' + ID + '"></div>',
@@ -55,7 +54,8 @@ $modal, $window) {
       */
       scope.renderChart = function(rawData) {
         rawData = rawData || []
-        var type = scope.type || 'Sport Lead'
+        var arrayTypes = utilsChartSvc.arrayGroupBy(rawData,"type")
+        var type = arrayTypes.length > 0 ? arrayTypes[0] : 'Sport Lead'
 
         var chart = scope.getHorizontalBar()
         .data(horizontalBarChartSvc.processData(rawData, type))

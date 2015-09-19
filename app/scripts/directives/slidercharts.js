@@ -27,12 +27,11 @@ angular.module('climbingMemo')
           type: 'vertical-bar-chart',
           icon: 'fa-bar-chart'
         },
-        // FIXME doesn't render with data
-        // {
-        //   title: 'Favorite climb type difficulty',
-        //   type: 'horizontal-bar-chart',
-        //   icon: 'fa-bar-chart'
-        // },
+        {
+          title: 'Favorite climb type difficulty',
+          type: 'horizontal-bar-chart',
+          icon: 'fa-bar-chart'
+        },
         {
           title: 'Climb diversity',
           type: 'treemap-chart',

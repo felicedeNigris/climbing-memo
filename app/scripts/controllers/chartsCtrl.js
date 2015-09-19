@@ -18,10 +18,6 @@ utilsRouteSvc) {
 
   // Init Controller
   $scope.initController = function(data) {
-    var arrayRoutes = _.toArray(data)
-    var arrayTypes = utilsChartSvc.arrayGroupBy(arrayRoutes,"type")
-
-    $scope.routes = arrayRoutes
-    $scope.horizontalBarType = arrayTypes[0]
+    $scope.routes = _.toArray(data)
   }
 })
