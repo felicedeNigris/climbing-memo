@@ -117,14 +117,14 @@ $modal) {
             .attr("transform", "translate(.5,.5)")
 
             tip = d3.tip()
-            .attr('class', 'd3-tip')
+            .attr('class', 'd3-tip hidden-xs')
             .offset([-10, 0])
             .html(function(d) {
               var html = ''
               var parentName = d.parent ? d.parent.name : ''
               html += '<span style="color:' + utilsChartSvc.typeColor(parentName) + '">'
               html += parentName + "</span> "
-              html += d.name + " : <span style='color:red'>" + d.count + "</span>"
+              html += d.name + ": <span style='color:red'>" + d.count + "</span>"
               return html
             })
 
@@ -133,7 +133,7 @@ $modal) {
             .offset([-10, 0])
             .html(function(d) {
               var html = ''
-              html += d.name + ' - Zoom '
+              html += d.name + ": <span style='color:red'>" + d.count + "</span>"
               return html
             })
 
