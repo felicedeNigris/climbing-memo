@@ -250,7 +250,7 @@ $modal) {
           if (!arguments.length) {
             return width
           }
-          width = value || width
+          width = value <= 0 ? width : value
           return my
         }
 
@@ -258,7 +258,7 @@ $modal) {
           if (!arguments.length) {
             return height
           }
-          height = value || height
+          height = value <= 0 ? height : value
           return my
         }
         return my
