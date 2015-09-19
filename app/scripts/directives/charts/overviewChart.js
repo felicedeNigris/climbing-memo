@@ -234,7 +234,7 @@ angular.module('climbingMemo')
           if (!arguments.length) {
             return cellSize
           }
-          cellSize = value
+          cellSize = value || cellSize
           return my
         }
 

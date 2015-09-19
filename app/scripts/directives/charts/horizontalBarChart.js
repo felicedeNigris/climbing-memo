@@ -9,6 +9,7 @@ $modal) {
   return {
     scope: {
       routes: '=',
+      width: '=',
       type: '='
     },
     restrict: 'E',
@@ -54,7 +55,7 @@ $modal) {
 
         var chart = scope.getHorizontalBar()
         .data(horizontalBarChartSvc.processData(rawData, type))
-        .width(element.parent().width())
+        .width(scope.width || element.parent().width())
         .height(300)
 
         d3.select(element.find('#chart-' + ID)[0]).call(chart)
@@ -201,7 +202,7 @@ $modal) {
           if (!arguments.length) {
             return width
           }
-          width = value
+          width = value || width
           return my
         }
 
@@ -209,7 +210,7 @@ $modal) {
           if (!arguments.length) {
             return height
           }
-          height = value
+          height = value || height
           return my
         }
         return my

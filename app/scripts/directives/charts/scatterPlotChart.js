@@ -7,7 +7,8 @@ angular.module('climbingMemo')
 
   return {
     scope: {
-      routes: '='
+      routes: '=',
+      width: '='
     },
     restrict: 'E',
     template: '<div id="chart-' + ID + '"></div>',
@@ -51,7 +52,7 @@ angular.module('climbingMemo')
 
         var chart = scope.getScatterPlot()
         .data(scatterPlotChartSvc.processData(rawData))
-        .width(element.parent().width())
+        .width(scope.width || element.parent().width())
         .height(300)
 
         d3.select(element.find('#chart-' + ID)[0]).call(chart)
@@ -119,7 +120,7 @@ angular.module('climbingMemo')
           .enter()
           .append("circle")
           .attr("class", "dot-usage")
-          .attr("r", 8)
+          .attr("r", 10)
           .attr("cx", function(d) { return xFocus(d.totalRoutes) })
           .attr("cy", function(d) { return yFocus(d.avgRating) })
           .style("fill", function(d) { return utilsChartSvc.typeColor(d.dominantType); })
@@ -179,7 +180,7 @@ angular.module('climbingMemo')
           if (!arguments.length) {
             return width
           }
-          width = value
+          width = value || width
           return my
         }
 
@@ -187,7 +188,7 @@ angular.module('climbingMemo')
           if (!arguments.length) {
             return height
           }
-          height = value
+          height = value || height
           return my
         }
         return my

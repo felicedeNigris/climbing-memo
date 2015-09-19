@@ -72,7 +72,7 @@ h2 {
 //  ___) | | | (_| |  __/ |
 // |____/|_|_|\__,_|\___|_|
 
-.slider-modal {
+.slider-unstyled {
   .carousel-control{
     background-image: none;
     cursor: pointer;
@@ -86,12 +86,18 @@ h2 {
   }
 }
 
-.route-modal {
+.modal-unstyled {
   .modal-content .modal-body {
     padding-right: 0px;
     padding-left: 0px;
   }
   .modal-body {
+    padding: 0px;
+  }
+}
+
+.panel-unstyled {
+  .panel-body {
     padding: 0px;
   }
 }

@@ -17,11 +17,11 @@
             <th class="">Name</th>
             <th class="">Grade</th>
             <th class="hidden-xs hidden-sm">Rating</th>
-            <th class="">Status</th>
+            <th class="hidden-xs">Status</th>
             <th class="hidden-xs">Date</th>
-            <th class="hidden-xs">Sector</th>
+            <th class="">Sector</th>
             <th class="hidden-xs">Type</th>
-            <th class="hidden-xs">Rock</th>
+            <th class="hidden-xs hidden-sm">Rock</th>
             <th class="hidden-xs">Location</th>
           </tr>
         </thead>
@@ -33,25 +33,25 @@
                 {{route.name}}
               </a>
             </td>
-            <td>
+            <td class="">
               <span>{{route.grade}}</span>
             </td>
             <td class="hidden-xs hidden-sm">
               <rating readonly="true" ng-model="route.rating"></rating>
             </td>
-            <td class="">
+            <td class="hidden-xs">
               <span>{{route.status}}</span>
             </td>
             <td  class="hidden-xs">
               <span>{{route.date}}</span>
             </td>
-            <td  class="hidden-xs">
+            <td  class="">
               <span>{{route.sector}}</span>
             </td>
             <td  class="hidden-xs">
               <span class="label label-success" style="background-color:{{getTypeColor(route)}}"> {{route.type}} </span>
             </td>
-            <td  class="hidden-xs">
+            <td  class="hidden-xs hidden-sm">
               <span>{{route.rock}}</span>
             </td>
             <td  class="hidden-xs">

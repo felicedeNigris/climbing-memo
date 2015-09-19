@@ -8,7 +8,8 @@ $modal) {
 
   return {
     scope: {
-      routes: '='
+      routes: '=',
+      width: '='
     },
     restrict: 'E',
     template: '<div id="chart-' + ID + '"></div>',
@@ -52,7 +53,7 @@ $modal) {
 
         var chart = scope.getVerticalBar()
         .data(verticalBarChartSvc.processData(rawData))
-        .width(element.parent().width())
+        .width(scope.width || element.parent().width())
         .height(300)
 
         d3.select(element.find('#chart-' + ID)[0]).call(chart)
@@ -232,7 +233,7 @@ $modal) {
           if (!arguments.length) {
             return width
           }
-          width = value
+          width = value || width
           return my
         }
 
@@ -240,7 +241,7 @@ $modal) {
           if (!arguments.length) {
             return height
           }
-          height = value
+          height = value || height
           return my
         }
         return my

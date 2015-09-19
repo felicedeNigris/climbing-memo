@@ -1,0 +1,14 @@
+<div class="slider-unstyled">
+  <carousel>
+  <slide ng-repeat="slide in slides" active="slide.active">
+  <div class="panel panel-success panel-unstyled">
+    <div class="panel-heading">
+      <h3 class="panel-title"><span class="fa {{slide.icon}}"></span> {{slide.title}}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="chart-{{slide.type}}"></div>
+    </div>
+  </div>
+  </slide>
+  </carousel>
+</div>
