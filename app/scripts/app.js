@@ -45,6 +45,7 @@ angular.module('climbingMemo')
 angular.module('climbingMemo')
 .run(function($window, $rootScope) {
   $rootScope.online = navigator.onLine // jshint ignore:line
+  // FIXME
   $window.addEventListener("offline", function() {
     $rootScope.$apply(function() {
       $rootScope.online = false

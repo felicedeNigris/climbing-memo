@@ -25,7 +25,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * @param {Object} route
   */
   utilsRouteSvc.createRouteSync = function(event, route) {
-    // TODO watch for $rootScope event
+    // TODO watch for $rootScope event (online)
     var localRouteFound = false
 
     $localStorage.routes = _.map($localStorage.routes, function(localRoute) {
@@ -38,8 +38,9 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
     })
     if (!localRouteFound && event != 'delete') { // Create route
       route.$sync = event
-      var objectKey = _.random(10000, 99999)
-      $localStorage.routes[objectKey] = route
+      // var objectKey = "tmp_" + _.random(10000, 99999)
+      // $localStorage.routes[objectKey] = route
+      $localStorage.routes.push(route)
       utilsRouteSvc.createTimeout()
     }
   }
@@ -56,13 +57,15 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
         switch (route.$sync) {
           case 'create':
           case 'update':
-            utilsRouteSvc.saveRoute(route).then(function(routeId) {
+            utilsRouteSvc.saveRoute(route, true).then(function(routeId) {
+              intervalDelay = 60000 // 1 minute
               delete route.$sync
               $rootScope.$broadcast('routesUpdated', routeId)
             })
             break
           case 'delete':
-            utilsRouteSvc.deleteRoute(route).then(function(routeId) {
+            utilsRouteSvc.deleteRoute(route, true).then(function(routeId) {
+              intervalDelay = 60000 // 1 minute
               delete route.$sync
               $rootScope.$broadcast('routesUpdated', routeId)
             })
@@ -128,9 +131,10 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   *
   * @method saveRoute
   * @param {Object} route
+  * @param {Boolean} silentWhenError
   * @return {Object} promise - resolve as id or false
   */
-  utilsRouteSvc.saveRoute = function(sourceRoute) {
+  utilsRouteSvc.saveRoute = function(sourceRoute, silentWhenError) {
     var deferred = $q.defer()
 
     var route = JSON.parse(JSON.stringify(sourceRoute)) // Clone
@@ -156,8 +160,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
         })
         .catch(function() {
           deferred.reject(false)
-          // TODO change error message to warning
-          notificationService.error('Error while saving ' + route.name)
+          silentWhenError || notificationService.info('Offline mode: "update" event saved')
           utilsRouteSvc.createRouteSync('update', route)
         })
       } else { // Create new route
@@ -178,15 +181,16 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
         })
         .catch(function() {
           deferred.reject(false)
-          // TODO change error message to warning
-          notificationService.error('Error while saving ' + route.name)
-          utilsRouteSvc.createRouteSync('update', route)
+          silentWhenError || notificationService.info('Offline mode: "create" event saved')
+          utilsRouteSvc.createRouteSync('create', route)
         })
       }
     })
     .catch(function() {
       deferred.reject(false)
-      utilsRouteSvc.createRouteSync(route.id ? 'update' : 'create', route)
+      var routeEvent = route.id ? 'update' : 'create'
+      silentWhenError || notificationService.info('Offline mode: "' + routeEvent + '" event saved')
+      utilsRouteSvc.createRouteSync(routeEvent, route)
     })
 
     return deferred.promise
@@ -196,9 +200,10 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * Delete a route
   * @method deleteRoute
   * @param {Object} route
+  * @param {Boolean} silentWhenError
   * @return {Object} promise - route id or false
   */
-  utilsRouteSvc.deleteRoute = function(route) {
+  utilsRouteSvc.deleteRoute = function(route, silentWhenError) {
     var deferred = $q.defer()
 
     routesSvc.deleteRoute(route.id)
@@ -211,8 +216,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
     })
     .catch(function() {
       deferred.reject(false)
-      // TODO change error message to warning
-      notificationService.error('Error while deleting ' + route.name)
+      silentWhenError || notificationService.info('Offline mode: "delete" event saved')
       utilsRouteSvc.createRouteSync('delete', route)
     })
 
