@@ -64,7 +64,7 @@ angular.module('climbingMemo')
     if (appCache.status == $window.applicationCache.UPDATEREADY) {
       appCache.swapCache()  // The fetch was successful, swap in the new cache.
     }
-  } catch(error) {
+  } catch (error) {
     $log.info("Error updating cache (manifest)")
   }
 })
