@@ -11,11 +11,6 @@ h2 {
   margin-top:     10px;
 }
 
-/* Material design edit in ng-table */
-.form-control {
-  height:28px;
-}
-
 .btn {
   padding: 6px 12px;
   margin:0;
@@ -23,6 +18,19 @@ h2 {
 
 .pagination {
   margin: 0px
+}
+
+//  __  __
+// |  \/  | __ _ _ __
+// | |\/| |/ _` | '_ \
+// | |  | | (_| | |_) |
+// |_|  |_|\__,_| .__/
+//              |_|
+
+.sectors-map {
+  .panel-body {
+    padding:0px;
+  }
 }
 
 @media screen and (min-width: 769px) {
@@ -165,6 +173,12 @@ h2 {
   -o-transform: rotateY( 180deg );
   transform: rotateY( 180deg );
   z-index: 3;
+
+  .tab-content {
+    .panel-body {
+      padding:5px;
+    }
+  }
 }
 
 .card{

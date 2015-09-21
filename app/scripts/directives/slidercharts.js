@@ -7,7 +7,7 @@
 * # sliderCharts
 */
 angular.module('climbingMemo')
-.directive('sliderCharts', function($compile, $rootScope) {
+.directive('sliderCharts', function($compile, $rootScope, $timeout) {
   return {
     templateUrl: 'views/_sliderCharts.html',
     restrict: 'E',
@@ -58,7 +58,9 @@ angular.module('climbingMemo')
         })
       }, function(currentSlide, previousSlide) {
         if (currentSlide !== previousSlide) {
-          scope.renderChart(currentSlide.type)
+          $timeout(function() { // Wait slider switch rendered
+            scope.renderChart(currentSlide.type)
+          }, 10)
         }
       })
     }

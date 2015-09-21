@@ -115,12 +115,18 @@
         <tabset type="pills">
         <tab>
         <tab-heading>
-        <span style="cursor:pointer"><i class="fa fa-pencil"></i> <span class="hidden-xs">Markdown</span></span>
+        <span style="cursor:pointer"><i class="fa fa-pencil"></i> <span class="hidden-xs">Notes</span></span>
         </tab-heading>
 
         <div class="panel panel-default">
           <div class="panel-body">
-            <textarea rows="13" class="form-control" ng-model="route.notes"></textarea>
+            <textarea rows="13" ng-trim="false" maxlength="2000" class="form-control" ng-model="route.notes"></textarea>
+
+            <span class="text-muted" ng-show="route.notes.length > 1000">
+              <i class="fa fa-pencil"></i>
+              {{2001 - route.notes.length - route.notes.split("\n").length}}
+              characters left
+            </span>
           </div>
         </div>
         </tab>

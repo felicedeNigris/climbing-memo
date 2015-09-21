@@ -24,7 +24,12 @@
           <h4><i class="fa fa-map-marker"></i> {{event.content.areaLocation}}</h4>
           <p>
           <small class="text-muted">
-            <i class="fa fa-calendar"></i> From {{event.content.start }} to {{event.content.end}}
+            <span class="hidden-xs">
+              <i class="fa fa-calendar"></i>
+              From {{event.content.start }} to {{event.content.end}}</span>
+            <span class="visible-xs">
+              {{event.content.start | date:'shortdate' }} to {{event.content.end | date:'shortdate'}}
+            </span>
           </small>
           </p>
           </timeline-heading>
