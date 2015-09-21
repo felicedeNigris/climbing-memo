@@ -444,7 +444,7 @@ module.exports = function(grunt) {
     manifest: {
       generate: {
         options: {
-          basePath: '.',
+          basePath: '<%= yeoman.dist %>',
           cache: [
             'index.html',
             'fonts/glyphicons-halflings-regular.woff2',
