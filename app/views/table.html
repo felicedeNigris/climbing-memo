@@ -26,12 +26,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="route in routes" >
+          <tr ng-repeat="route in routes" ng-click="openRouteModal(route)" style="cursor:pointer">
             <td>
               <i ng-class="{'fa fa-eye': route.watch}"></i>
-              <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route)">
+              <a title="Route Details">
                 {{route.name}}
               </a>
+                <i ng-if="route.$sync" class="fa fa-refresh text-info" tooltip="Offline update"></i>
             </td>
             <td class="">
               <span>{{route.grade}}</span>

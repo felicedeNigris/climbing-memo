@@ -44,7 +44,9 @@
               <i ng-class="{'fa fa-eye': route.watch}"></i>
               <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route, routes)">
                 {{route.name}}
-              </a><br>
+              </a>
+              <i ng-if="route.$sync" class="fa fa-refresh text-info" tooltip="Offline update"></i>
+              <br>
             </span>
           </div>
         </timeline-panel>
