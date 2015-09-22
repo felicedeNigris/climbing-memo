@@ -89,12 +89,13 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * Get routes - from firebase or localStorage
   *
   * @method getRoutes
+  * @param {Boolean} forceRefresh
   * @return {Object} - Promise
   */
-  utilsRouteSvc.getRoutes = function() {
+  utilsRouteSvc.getRoutes = function(forceRefresh) {
     var deferred = $q.defer()
 
-    if (cachedRoutes) { // Use Cache
+    if (cachedRoutes && !forceRefresh) { // Use Cache
       deferred.resolve(cachedRoutes)
     } else { // Query network
       routesSvc.getRoutes().then(function(result) {
@@ -110,15 +111,21 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
           utilsRouteSvc.syncRoutes()
         }
       })
-      .catch(function() { // Use LocalStorage
-        $log.log('Local Storage used - routes')
-        cachedRoutes = $localStorage.routes
-        deferred.resolve($localStorage.routes || [])
+      .catch(function() {
 
-        if (_.find(cachedRoutes, function(cachedRoute) {
-          return angular.isDefined(cachedRoute.$sync)
-        })) {
-          utilsRouteSvc.createTimeout()
+        if (forceRefresh) { // Should come from the network
+          deferred.reject(false)
+          notificationService.info('Offline mode: can\'t refresh routes')
+        } else { // Use LocalStorage
+          $log.log('Local Storage used - routes')
+          cachedRoutes = $localStorage.routes
+          deferred.resolve($localStorage.routes || [])
+
+          if (_.find(cachedRoutes, function(cachedRoute) {
+            return angular.isDefined(cachedRoute.$sync)
+          })) {
+            utilsRouteSvc.createTimeout()
+          }
         }
       })
     }

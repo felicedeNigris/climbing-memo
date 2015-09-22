@@ -1,9 +1,19 @@
 'use strict'
 
 angular.module('climbingMemo')
-.factory('routesSvc', function routeSvc($http, DATABASE_URL) {
-  var urlBase = DATABASE_URL + 'routes'
+.factory('routesSvc', function routeSvc($http, DATABASE_URL, $rootScope,
+$localStorage) {
   var routeFactory = {}
+
+  /**
+  * Dynamically generate database URL and save bucket name
+  *
+  * @return {String}
+  */
+  routeFactory.getBaseUrl = function() {
+    var bucket = $rootScope.bucket || $localStorage.bucket || 'demo'
+    return DATABASE_URL + bucket + '/routes'
+  }
 
   /**
   * Remove properties starting with "$" sign
@@ -21,28 +31,56 @@ angular.module('climbingMemo')
     return cleanedObject
   }
 
+  /**
+   * Request a route from database
+   *
+   * @param {String} id
+   * @return {Object} promise
+   */
   routeFactory.getRoute = function(id) {
-    return $http.get(urlBase + '/' + id + '.json')
+    return $http.get(routeFactory.getBaseUrl() + '/' + id + '.json')
   }
 
+  /**
+  * Request all routes from database
+  *
+  * @return {Object} promise
+  */
   routeFactory.getRoutes = function() {
-    return $http.get(urlBase + '.json')
+    return $http.get(routeFactory.getBaseUrl() + '.json')
   }
 
+  /**
+  * Add a route to the database
+  *
+  * @param {Object} route
+  * @return {Object} promise
+  */
   routeFactory.addRoute = function(route) {
     var cleanedRoute = routeFactory.cleanObjectProperties(route)
 
-    return $http.post(urlBase + '/.json', cleanedRoute)
+    return $http.post(routeFactory.getBaseUrl() + '/.json', cleanedRoute)
   }
 
+  /**
+  * Delete a route from database
+  *
+  * @param {Object} route
+  * @return {Object} promise
+  */
   routeFactory.deleteRoute = function(id) {
-    return $http.delete(urlBase + '/' + id + '.json')
+    return $http.delete(routeFactory.getBaseUrl() + '/' + id + '.json')
   }
 
+  /**
+  * Request all routes from database
+  *
+  * @return {Object} promise
+  */
   routeFactory.updateRoute = function(route, id) {
     var cleanedRoute = routeFactory.cleanObjectProperties(route)
 
-    return $http.patch(urlBase + '/' +  id + '.json', cleanedRoute)
+    return $http.patch(routeFactory.getBaseUrl() + '/' +  id + '.json', cleanedRoute)
   }
 
 	return routeFactory

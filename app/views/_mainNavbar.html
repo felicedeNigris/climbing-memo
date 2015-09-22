@@ -1,49 +1,53 @@
-<div class="navbar navbar-default navbar-fixed-top" ng-controller="navbarCtrl">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#/"><i class="fa fa-book"></i> Memo App</a>
-    </div>
-    <div class="navbar-collapse collapse navbar-responsive-collapse">
-      <ul class="nav navbar-nav">
-        <li ng-class="{ active: isActive('/timeline')}">
-        <a href="#/timeline" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
-          <i class="fa fa fa-clock-o"></i> Timeline
-        </a>
-        </li>
-        <li ng-class="{ active: isActive('/table')}">
-        <a href="#/table" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
-          <i class="fa fa-table"></i> Table
-        </a>
-        </li>
-        <li ng-class="{ active: isActive('/map')}">
-        <a href="#/map" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
-          <i class="fa fa-globe"></i> Map
-        </a>
-        </li>
-        <li ng-class="{ active: isActive('/charts')}">
-        <a href="#/charts" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
-          <i class="fa fa-bar-chart"></i> Charts
-        </a>
-        </li>
-      </ul>
+<div class="main-navbar">
+  <div class="navbar navbar-default navbar-fixed-top" ng-controller="navbarCtrl">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#/"><i class="fa fa-book"></i> Memo App</a>
+      </div>
+      <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <ul class="nav navbar-nav">
+          <li ng-class="{ active: isActive('/timeline')}">
+          <a href="#/timeline" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
+            <i class="fa fa fa-clock-o"></i> Timeline
+          </a>
+          </li>
+          <li ng-class="{ active: isActive('/table')}">
+          <a href="#/table" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
+            <i class="fa fa-table"></i> Table
+          </a>
+          </li>
+          <li ng-class="{ active: isActive('/map')}">
+          <a href="#/map" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
+            <i class="fa fa-globe"></i> Map
+          </a>
+          </li>
+          <li ng-class="{ active: isActive('/charts')}">
+          <a href="#/charts" data-toggle="collapse" data-target=".navbar-responsive-collapse.in">
+            <i class="fa fa-bar-chart"></i> Charts
+          </a>
+          </li>
+        </ul>
 
-      <!-- <form class="navbar&#45;form navbar&#45;right" role="search"> -->
-      <!--   <div class="input&#45;group"> -->
-      <!--     <div class="input&#45;group&#45;addon"> -->
-      <!--       <i class="fa fa&#45;connectdevelop"></i> -->
-      <!--     </div> -->
-      <!--     <input type="text" name="bucket" class="form&#45;control" placeholder="Bucket"> -->
-      <!--   </div> -->
-      <!--   <button class="btn btn&#45;success hidden&#45;xs" title="Add Bucket"> -->
-      <!--     <i class="fa fa&#45;plus"></i> -->
-      <!--   </button> -->
-      <!-- </form> -->
+        <form class="navbar-form navbar-right form-inline" role="search">
+          <div class="input-group">
+            <div class="input-group-addon hidden-xs">
+              <i class="fa fa-connectdevelop"></i>
+            </div>
+            <input type="text" name="bucket" class="form-control" ng-model="bucketName">
+            <div class="input-group-addon">
+              <button class="btn btn-success" ng-click="getBucket()" tooltip="Get Bucket" tooltip-placement="left">
+                <i class="fa fa-sign-in"></i>
+              </button>
+            </div>
+          </div>
+        </form>
 
+      </div>
     </div>
   </div>
 </div>
