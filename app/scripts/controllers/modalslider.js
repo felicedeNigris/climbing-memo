@@ -76,6 +76,8 @@ $filter, $rootScope) {
     utilsRouteSvc.saveRoute(route)
     .then(function(routeId) {
       $rootScope.$broadcast('routesUpdated', routeId)
+    }).catch(function(routeId) {
+      $rootScope.$broadcast('routesUpdated', routeId)
     })
 
     $scope.closeModal()

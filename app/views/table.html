@@ -32,7 +32,7 @@
               <a title="Route Details">
                 {{route.name}}
               </a>
-                <i ng-if="route.$sync" class="fa fa-refresh text-info" tooltip="Offline update"></i>
+                <i ng-if="route.$sync" class="fa fa-refresh text-info" tooltip="Offline {{route.$sync}}"></i>
             </td>
             <td class="">
               <span>{{route.grade}}</span>

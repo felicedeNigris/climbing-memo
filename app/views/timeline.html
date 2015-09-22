@@ -45,7 +45,7 @@
               <a style="cursor:pointer" title="Route Details" ng-click="openRouteModal(route, routes)">
                 {{route.name}}
               </a>
-              <i ng-if="route.$sync" class="fa fa-refresh text-info" tooltip="Offline update"></i>
+              <i ng-if="route.$sync" class="fa fa-refresh text-info" tooltip="Offline {{route.$sync}}"></i>
               <br>
             </span>
           </div>

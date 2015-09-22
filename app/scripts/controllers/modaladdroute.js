@@ -73,6 +73,8 @@ routeNoteFormattingFilter, utilsChartSvc, utilsRouteSvc, $rootScope, $log) {
     utilsRouteSvc.saveRoute($scope.route)
     .then(function(routeId) {
       $rootScope.$broadcast('routesUpdated', routeId)
+    }).catch(function(routeId) {
+      $rootScope.$broadcast('routesUpdated', routeId)
     })
 
     $scope.cancelEdit()

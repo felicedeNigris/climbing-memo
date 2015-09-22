@@ -38,9 +38,9 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
     })
     if (!localRouteFound && event != 'delete') { // Create route
       route.$sync = event
-      // var objectKey = "tmp_" + _.random(10000, 99999)
-      // $localStorage.routes[objectKey] = route
+      route.id = "tmp_" + _.random(10000, 99999)
       $localStorage.routes.push(route)
+      cachedRoutes[route.id] = route
       utilsRouteSvc.createTimeout()
     }
   }
@@ -57,11 +57,19 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
         switch (route.$sync) {
           case 'create':
           case 'update':
+            var savedRouteId = route.id
+            if (route.id && route.id.match(/^tmp/g)) {
+              route.id = false
+            }
+
             utilsRouteSvc.saveRoute(route, true).then(function(routeId) {
               intervalDelay = 60000 // 1 minute
               delete route.$sync
               $rootScope.$broadcast('routesUpdated', routeId)
+            }).catch(function() {
+              route.id = savedRouteId
             })
+
             break
           case 'delete':
             utilsRouteSvc.deleteRoute(route, true).then(function(routeId) {
@@ -72,8 +80,9 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
             break
         }
       })
-    } else {
-      utilsRouteSvc.createTimeout()
+    } else if (_.find($localStorage.routes, function(localRoute) {
+        return angular.isDefined(localRoute.$sync) })) {
+        utilsRouteSvc.createTimeout()
     }
   }
 
@@ -99,23 +108,18 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
       deferred.resolve(cachedRoutes)
     } else { // Query network
       routesSvc.getRoutes().then(function(result) {
-        var data = result.data
-        data = data || {}
+        utilsRouteSvc.syncRoutes()
+
+        var data = result.data || {}
         $localStorage.routes = data
         cachedRoutes = data
         deferred.resolve(data)
-
-        if (_.find(cachedRoutes, function(cachedRoute) {
-          return angular.isDefined(cachedRoute.$sync)
-        })) {
-          utilsRouteSvc.syncRoutes()
-        }
       })
       .catch(function() {
 
         if (forceRefresh) { // Should come from the network
-          deferred.reject(false)
           notificationService.info('Offline mode: can\'t refresh routes')
+          deferred.reject(false)
         } else { // Use LocalStorage
           $log.log('Local Storage used - routes')
           cachedRoutes = $localStorage.routes
@@ -166,9 +170,9 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
           deferred.resolve(route.id)
         })
         .catch(function() {
-          deferred.reject(false)
           silentWhenError || notificationService.info('Offline mode: "update" event saved')
           utilsRouteSvc.createRouteSync('update', route)
+          deferred.reject(false)
         })
       } else { // Create new route
         routesSvc.addRoute(route)
@@ -187,17 +191,17 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
           deferred.resolve(route.id)
         })
         .catch(function() {
-          deferred.reject(false)
           silentWhenError || notificationService.info('Offline mode: "create" event saved')
           utilsRouteSvc.createRouteSync('create', route)
+          deferred.reject(route.id)
         })
       }
     })
     .catch(function() {
-      deferred.reject(false)
       var routeEvent = route.id ? 'update' : 'create'
       silentWhenError || notificationService.info('Offline mode: "' + routeEvent + '" event saved')
       utilsRouteSvc.createRouteSync(routeEvent, route)
+      deferred.reject(route.id)
     })
 
     return deferred.promise
@@ -222,9 +226,9 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
       deferred.resolve(route.id)
     })
     .catch(function() {
-      deferred.reject(false)
       silentWhenError || notificationService.info('Offline mode: "delete" event saved')
       utilsRouteSvc.createRouteSync('delete', route)
+      deferred.reject(false)
     })
 
     return deferred.promise

@@ -2,7 +2,7 @@
 
 angular.module('climbingMemo')
 .controller('navbarCtrl', function($scope, $location, $rootScope,
-utilsRouteSvc, $localStorage) {
+utilsRouteSvc, $localStorage, notificationService) {
   $scope.isActive = function(viewLocation) {
     return viewLocation === $location.path()
   }
@@ -15,18 +15,26 @@ utilsRouteSvc, $localStorage) {
    * @method getBucket
    */
   $scope.getBucket = function() {
-    var previousBucket = $rootScope.bucket || false
-    $rootScope.bucket = $scope.bucketName
+    var previousBucket = $rootScope.bucket || $localStorage.bucket || 'demo'
 
-    // Force refresh cache routes
-    utilsRouteSvc.getRoutes(true).then(function() {
-      $localStorage.bucket = $rootScope.bucket
-      $rootScope.$broadcast('routesUpdated')
-    })
-    .catch(function() {
-      if (previousBucket) {
+    // 1. Check if offline routes unsync
+    if (_.find($localStorage.routes, function(localRoute) {
+      return angular.isDefined(localRoute.$sync)
+    })) {
+      notificationService.notice('Event(s) unsync: Please sync them first')
+    } else {
+      // 2. Change bucket
+      $rootScope.bucket = $scope.bucketName
+
+      // 3. Force refresh cache routes & render
+      utilsRouteSvc.getRoutes(true).then(function() {
+        $localStorage.bucket = $rootScope.bucket
+        $rootScope.$broadcast('routesUpdated')
+      })
+      .catch(function() {
         $rootScope.bucket = previousBucket
-      }
-    })
+        $scope.bucketName = previousBucket
+      })
+    }
   }
 })
