@@ -13,7 +13,15 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
 
   var utilsRouteSvc = this
 
-  var cachedRoutes = null
+  //  ____             _                 ____
+  // |  _ \ ___  _   _| |_ ___          / ___| _   _ _ __   ___
+  // | |_) / _ \| | | | __/ _ \  _____  \___ \| | | | '_ \ / __|
+  // |  _ < (_) | |_| | ||  __/ |_____|  ___) | |_| | | | | (__
+  // |_| \_\___/ \__,_|\__\___|         |____/ \__, |_| |_|\___|
+  //                                           |___/
+  //
+  // TODO Abstract in a separate service "syncRouteSvc"
+
   var intervalDelay = 60000 // 1 minute
   var canCreateTimeout = true
 
@@ -25,7 +33,6 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
   * @param {Object} route
   */
   utilsRouteSvc.createRouteSync = function(event, route) {
-    // TODO watch for $rootScope event (online)
     var localRouteFound = false
 
     $localStorage.routes = _.map($localStorage.routes, function(localRoute) {
@@ -86,6 +93,11 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
     }
   }
 
+  /**
+  * Create route timeout at incremental interval delay
+  *
+  * @method createTimeout
+  */
   utilsRouteSvc.createTimeout = function() {
     if (canCreateTimeout) {
       canCreateTimeout = false
@@ -93,6 +105,16 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
       intervalDelay *= 2
     }
   }
+
+  //  ____             _                  ____ ____  _   _ ____
+  // |  _ \ ___  _   _| |_ ___           / ___|  _ \| | | |  _ \
+  // | |_) / _ \| | | | __/ _ \  _____  | |   | |_) | | | | | | |
+  // |  _ < (_) | |_| | ||  __/ |_____| | |___|  _ <| |_| | |_| |
+  // |_| \_\___/ \__,_|\__\___|          \____|_| \_\\___/|____/
+  //
+  // TODO use angular $cacheFactory
+
+  var cachedRoutes = null
 
   /**
   * Get routes - from firebase or localStorage
@@ -209,6 +231,7 @@ routesSvc, $http, $q, utilsChartSvc, $localStorage, $log, $timeout) {
 
   /**
   * Delete a route
+  *
   * @method deleteRoute
   * @param {Object} route
   * @param {Boolean} silentWhenError
