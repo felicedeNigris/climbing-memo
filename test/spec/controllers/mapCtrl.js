@@ -51,4 +51,15 @@ describe('Controller: mapCtrl', function() {
       {"metrics":[{"type":"Sport Lead"}],"options":{"icon":"images/climbing_gray.png"}}
     ])).toBe(true)
   })
+
+  it('should #getMarkerIcon', function() {
+    var types = ['Sport lead', 'Boulder', 'Traditional', 'Multi-pitch', 'Top rope']
+
+    expect(scope.getMarkerIcon(types[0])).toMatch(/yellow/)
+    expect(scope.getMarkerIcon(types[1])).toMatch(/blue/)
+    expect(scope.getMarkerIcon(types[2])).toMatch(/green/)
+    expect(scope.getMarkerIcon(types[3])).toMatch(/orange/)
+    expect(scope.getMarkerIcon(types[4])).toMatch(/gray/)
+    expect(scope.getMarkerIcon('undefined')).toMatch(/gray/)
+  })
 })
