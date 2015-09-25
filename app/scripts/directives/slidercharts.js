@@ -44,7 +44,8 @@ angular.module('climbingMemo')
       *
       * @param {String} type
       */
-      scope.renderChart = function(type) {
+      scope.renderChart = function() {
+        var type = scope.currentSlideType
         scope.width = element.parent().width()
         var directive = '<' + type + ' routes="routes" width="width"></' + type + '>'
         element.find('.chart-' + type).empty().append(directive)
@@ -52,15 +53,15 @@ angular.module('climbingMemo')
         $compile(element.find(type))(scope)
       }
 
+      scope.currentSlideType = ''
       scope.$watch(function() {
         return _.find(scope.slides, function(slide) {
           return slide.active
         })
       }, function(currentSlide, previousSlide) {
         if (currentSlide !== previousSlide) {
-          $timeout(function() { // Wait slider switch rendered
-            scope.renderChart(currentSlide.type)
-          }, 10)
+          scope.currentSlideType = currentSlide.type
+          $timeout(scope.renderChart, 10)
         }
       })
     }
