@@ -4,6 +4,17 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/54e567e1d1ec573c990006aa/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54e567e1d1ec573c990006aa)
 [![Dependency Status](https://www.versioneye.com/user/projects/54f3a16f4f31083e1b000826/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54f3a16f4f31083e1b000826)
 
+---
+---
+
+# Warning!
+
+**The repository has been moved within it's own organization to [github.com/10alab/Siurana](https://github.com/10alab/Siurana)**
+
+No further updates will be made on *cmizony/climbing-memo*
+
+---
+---
 
 # Climbing Memo
 
